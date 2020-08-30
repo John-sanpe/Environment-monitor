@@ -1,0 +1,231 @@
+{
+  "uuid": "3ebec026676bb2946a1edb7fd539eafc",
+  "path": "Offline/thermal",
+  "name": "thermal",
+  "content": "",
+  "created_at": "2020-07-28 18:27:49",
+  "updated_at": "2020-08-02 23:16:06",
+  "stick": "",
+  "documents": [
+    {
+      "uuid": "8e7d18301288dbce97afa325c8393a12",
+      "title": "Sheet_1",
+      "description": "",
+      "docType": "1",
+      "master": "",
+      "thumb": "/images/thumb-default.png",
+      "components": {
+        "93550193a7f67900f32a85bad256d13c": 1,
+        "8a18c9812e8f3cb94c5c3af605806854": 1,
+        "253ff9e37bbb4c3081915352d3b6344b": 2,
+        "07ea20e565344b0ebd723b3f6fdccdf9": 1,
+        "b06efe48dcd24de0b7b1b72790830443": 1,
+        "0b20493762aa46eaab9651966a080c6c": 1,
+        "eaa76950fd7343a1953943ee7b9978d3": 1,
+        "daa3cf3493c84fa3b0b6a6d427d23f0b": 1,
+        "e832aa5c1eca40fcab732527c005dbc7": 1,
+        "b82150387a2041b4afd55b90c79c5923": 3,
+        "146e75363251e035203be60c60650418": 1
+      },
+      "BOM": [
+        [
+          "Value",
+          "Quantity",
+          "Package",
+          "Components",
+          "CustomPara"
+        ],
+        [
+          "DHT11",
+          1,
+          "DHT11",
+          "U2",
+          {
+            "BOM_Supplier": "LCSC",
+            "BOM_Supplier Part": "C117051",
+            "BOM_Manufacturer": "Aosong (Guangzhou) Elec",
+            "BOM_Manufacturer Part": "DHT11",
+            "puuid": "0faf7edf6cb44e2eb6a41d3b1ab59417",
+            "uuid": "0b20493762aa46eaab9651966a080c6c"
+          }
+        ],
+        [
+          "HDR-M-2.54_2x7",
+          1,
+          "HDR-M-2.54_2X7",
+          "J1",
+          {
+            "BOM_Supplier Part": "C71397",
+            "BOM_Supplier": "LCSC",
+            "BOM_Manufacturer Part": "",
+            "puuid": "88125412522445d289ef1b966f9a4af5",
+            "uuid": "07ea20e565344b0ebd723b3f6fdccdf9"
+          }
+        ],
+        [
+          "12MHz",
+          1,
+          "OSC-49U-1",
+          "X1",
+          {
+            "BOM_Supplier": "LCSC",
+            "BOM_Manufacturer": "YXC",
+            "BOM_Manufacturer Part": "X49UD12MSD2SC",
+            "BOM_Supplier Part": "C2188",
+            "puuid": "f289f546a5a34723984f73ddcd1c391e",
+            "uuid": "8a18c9812e8f3cb94c5c3af605806854"
+          }
+        ],
+        [
+          "micro USBFemale",
+          1,
+          "MICRO-USB-SMD_5P-P0.65-H-F_C10418",
+          "USB1",
+          {
+            "BOM_Supplier": "LCSC",
+            "BOM_Manufacturer": "ValuePro",
+            "BOM_Manufacturer Part": "micro USBFemale",
+            "BOM_Supplier Part": "C10418",
+            "puuid": "0213856b1ac9498c9a987141e7914387",
+            "uuid": "146e75363251e035203be60c60650418"
+          }
+        ],
+        [
+          "0.1u",
+          2,
+          "C0201",
+          "C1,C2",
+          {
+            "BOM_Supplier Part": "",
+            "BOM_Supplier": "",
+            "BOM_Manufacturer Part": "",
+            "puuid": "094dad0477404885907461571bab0a7b",
+            "uuid": "253ff9e37bbb4c3081915352d3b6344b"
+          }
+        ],
+        [
+          "STC89C52RC-40I",
+          1,
+          "DIP-40_L52.0-W13.7-P2.54-LS15.2-BL",
+          "U1",
+          {
+            "BOM_Supplier": "LCSC",
+            "BOM_Manufacturer": "STC",
+            "BOM_Manufacturer Part": "STC89C52RC-40I",
+            "BOM_Supplier Part": "C14022",
+            "puuid": "ffc99a9154af47da9e011f86dc970875",
+            "uuid": "93550193a7f67900f32a85bad256d13c"
+          }
+        ],
+        [
+          "5K",
+          1,
+          "RES-ADJ-TH_3P-L9.5-W9.5-P2.50-L_3386P",
+          "R1",
+          {
+            "BOM_Supplier": "LCSC",
+            "BOM_Supplier Part": "C118906",
+            "BOM_Manufacturer": "Chengdu Guosheng Tech",
+            "BOM_Manufacturer Part": "3386P-1-502",
+            "puuid": "569ca0250aca49ba8eced2d5a147a418",
+            "uuid": "b06efe48dcd24de0b7b1b72790830443"
+          }
+        ],
+        [
+          "0.1u",
+          3,
+          "C0805",
+          "C3,C4,C5",
+          {
+            "BOM_Supplier Part": "",
+            "BOM_Supplier": "",
+            "BOM_Manufacturer Part": "",
+            "puuid": "bbc61cb2bd3840b290cf4f8db68b3c00",
+            "uuid": "b82150387a2041b4afd55b90c79c5923"
+          }
+        ],
+        [
+          "DC005-2.0MM",
+          1,
+          "DC-IN-TH_DC005",
+          "DC1",
+          {
+            "BOM_Supplier": "LCSC",
+            "BOM_Manufacturer": "SOFNG",
+            "BOM_Manufacturer Part": "DC005-2.0MM",
+            "BOM_Supplier Part": "C111567",
+            "puuid": "1337670005c6484c999f9b4c272ee9fe",
+            "uuid": "daa3cf3493c84fa3b0b6a6d427d23f0b"
+          }
+        ],
+        [
+          "AMS1117-5.0_C473812",
+          1,
+          "SOT-223-3_L6.5-W3.4-P2.30-LS7.0-BR",
+          "U3",
+          {
+            "BOM_Supplier": "LCSC",
+            "BOM_Supplier Part": "C473812",
+            "BOM_Manufacturer": "Slkor(SLKORMICRO Elec.)",
+            "BOM_Manufacturer Part": "AMS1117-5.0",
+            "puuid": "9082a541b5494ed9bac7de7d69bd2f2d",
+            "uuid": "e832aa5c1eca40fcab732527c005dbc7"
+          }
+        ],
+        [
+          "HDR-F-2.54_1x4",
+          1,
+          "HDR-F-2.54_1X4",
+          "COM",
+          {
+            "BOM_Supplier Part": "C225501",
+            "BOM_Supplier": "LCSC",
+            "BOM_Manufacturer": "",
+            "BOM_Manufacturer Part": "",
+            "puuid": "21473b495b6340c992965357d5701779",
+            "uuid": "eaa76950fd7343a1953943ee7b9978d3"
+          }
+        ]
+      ],
+      "updateTime": 1596381366,
+      "createTime": 1595934142,
+      "histories": [],
+      "created_at": "2020-07-28 19:02:22",
+      "updated_at": "2020-08-02 23:16:06"
+    },
+    {
+      "uuid": "dea9bd9fc669e47ce4da845ace9d744d",
+      "puuid": "3ebec026676bb2946a1edb7fd539eafc",
+      "title": "PCB_2020-07-28_19-24-02",
+      "filename": "PCB_2020-07-28_19-24-02.json",
+      "description": "",
+      "docType": "3",
+      "master": "",
+      "thumb": "/images/thumb-default.png",
+      "components": {
+        "0213856b1ac9498c9a987141e7914387": 1,
+        "0faf7edf6cb44e2eb6a41d3b1ab59417": 1,
+        "88125412522445d289ef1b966f9a4af5": 1,
+        "f289f546a5a34723984f73ddcd1c391e": 1,
+        "094dad0477404885907461571bab0a7b": 2,
+        "ffc99a9154af47da9e011f86dc970875": 1,
+        "569ca0250aca49ba8eced2d5a147a418": 1,
+        "bbc61cb2bd3840b290cf4f8db68b3c00": 3,
+        "9082a541b5494ed9bac7de7d69bd2f2d": 1,
+        "21473b495b6340c992965357d5701779": 1,
+        "1337670005c6484c999f9b4c272ee9fe": 1
+      },
+      "BOM": [],
+      "updateTime": 1595939260,
+      "createTime": 1595935442,
+      "histories": [],
+      "created_at": "2020-07-28 19:24:02",
+      "updated_at": "2020-07-28 20:27:40"
+    }
+  ],
+  "sort": [],
+  "title": "thermal",
+  "foldername": "thermal",
+  "schfilename": "thermal.json",
+  "schfilemtime": 1596381366479
+}
