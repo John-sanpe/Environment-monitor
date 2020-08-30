@@ -26,22 +26,28 @@ void print_boot()
 		delayms(150);
 	}
 }
-
-void show_data()
+void show_base()
 {
 	Lcd1602_Print(0,0,"Tem:");
 	Lcd1602_Print(7,0,".");
+
 	Lcd1602_Print(1,1,"HR:");
 	Lcd1602_Print(9,1,"%");
-    
+
 	Lcd1602_PrintCust(9,0,temperature);
-    
+
+}
+void show_data()
+{   
 	Lcd1602_PrintNumber(6,0,the);
 	Lcd1602_PrintNumber(8,0,thef);
 	Lcd1602_PrintNumber(8,1,hum);
     
 	if(subzero)
 		Lcd1602_Print(4,0,"-");
+}
+void show_info()
+{
 }
 void show_time()
 {
@@ -74,7 +80,9 @@ void main ()
 		{	
 			Lcd1602_Init();
 			Lcd1602_Clean();	
+			show_base();
 			show_data();
+			show_info();
 		}
 		show_time();
 		debug();

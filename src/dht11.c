@@ -41,6 +41,7 @@ void DHT11_Data()
 			check<<=1;
 			if(TL0>dht11_threshold)check|=1;
 		}
+	while(DHT11);
 }
 
 char DHT11_Read(void)
