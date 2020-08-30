@@ -2,17 +2,17 @@
 uint time;
 static uchar load[8]={0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff};
 static uchar temperature[8]={0x16,0x09,0x08,0x08,0x08,0x09,0x06,0x00};
+void show_error()
+{
+	Lcd1602_Clean();
+	Lcd1602_Print(0,1,"dht11 error ->");
+	delayms(2000);
+}
 void Boot_Test()
 {
 	printf("welcome to use\r\n");
 	if(Wdt_Runsign())printf("boot: Start self test[pass]\r\n");
-	else 
-	{
-		printf("boot: Start self test[WDT Operation sign NG ]\r\n");
-		Lcd1602_Clean();
-		Lcd1602_Print(0,1,"dht11 error ->");
-		delayms(2000);
-	}
+	else show_error();
 	printf("#####################\r\n");
 	printf("DHT11[ok]\r\n");
 }
@@ -70,12 +70,13 @@ void main ()
 	Boot_Test();		//开机自检
 	while(1){
 		Wdt_Clean();
-		DHT11_Read();
-		Lcd1602_Init();
-		Lcd1602_Clean();
-		show_data();
+		if(0==DHT11_Read())
+		{	
+			Lcd1602_Init();
+			Lcd1602_Clean();	
+			show_data();
+		}
 		show_time();
-		time++;
 		debug();
 		delayms(1500);
 	}

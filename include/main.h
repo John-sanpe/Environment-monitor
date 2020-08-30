@@ -15,9 +15,12 @@
 #define   Lcd1602E      P2_7
 #define   DHT11         P2_4
 #define   Lcd1602Port   P1
+//自定义参数补偿
+#define   humcompensate 0
+#define   thecompensate 0
 
 //阈值设置
-#define dht11_threshold 50
+#define dht11_threshold 60
 
 //公用变量声明
 extern int hum,the,thef,subzero,check;

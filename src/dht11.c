@@ -58,6 +58,9 @@ char DHT11_Read(void)
 	
 	subzero=(mixdata>>7)&0x1;
 	
-	if(check!=hum+the+thef)return -1;
+	hum+=humcompensate;
+	the+=thecompensate;
+
+	if(check!=((mixdata>>24)&0xff)+((mixdata>>16)&0xff)+((mixdata>>8)&0xff)+((mixdata>>0)&0xf))return -1;
 	return 0;
 }
