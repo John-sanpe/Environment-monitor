@@ -48,18 +48,20 @@ void Lcd1602_Clean()
   com(0x01);
 }
 
-void Lcd1602_PrintNumber(unsigned char ex,unsigned char ey,char ei)
+void Lcd1602_PrintNumber(unsigned char ex,unsigned char ey,int ei)
 {	
 	uchar point=0x80;
+	if(ey==1)point|=1<<6;
+	if(ei>=10)ex--;
+		com(point+ex);
+
+	if(ei>=100)return;
 	if(ei>=10)
 	{
-		ex--;
-		Lcd1602_PrintNumber(ex,ey,ei/10);
-		Lcd1602_PrintNumber(ex+1,ey,ei%10);
+		datax(0x30+ei/10);
+		datax(0x30+ei%10);
 		return;
 	}
-	if(ey==1)point|=1<<6;
-		com(point+ex);
 		datax(0x30+ei);
 }
 

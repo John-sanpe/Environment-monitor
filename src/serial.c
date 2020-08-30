@@ -15,8 +15,8 @@ void Serial_Init()
 }
 int putchar(int string)
 {
-		SBUF=string;
-		idle();
+	SBUF=string;
+	idle();
     return string;
 }
 
@@ -29,7 +29,6 @@ void Serial_Handel() __interrupt 4
 	}
 	if(RI==1)
 	{
-		
 		RI=0;
 	}
 	EA=1;

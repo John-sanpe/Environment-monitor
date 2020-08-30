@@ -36,14 +36,12 @@ void show_data()
     
 	Lcd1602_PrintCust(9,0,temperature);
     
-	Lcd1602_PrintNumber(5,0,the);
+	Lcd1602_PrintNumber(6,0,the);
 	Lcd1602_PrintNumber(8,0,thef);
-	Lcd1602_PrintNumber(7,1,hum);
+	Lcd1602_PrintNumber(8,1,hum);
     
 	if(subzero)
 		Lcd1602_Print(4,0,"-");
-	else 
-		Lcd1602_Print(4,0," ");
 }
 void show_time()
 {
@@ -79,6 +77,6 @@ void main ()
 		show_time();
 		time++;
 		debug();
-		delayms(1300);
+		delayms(1500);
 	}
 } 

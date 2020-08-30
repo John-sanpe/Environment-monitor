@@ -1,7 +1,7 @@
 #include "../include/main.h"
 
 unsigned long mixdata;
-uint hum,the,thef,subzero,check;
+int hum,the,thef,subzero,check;
 void DHTStartDelay()
 {
 	unsigned char i;

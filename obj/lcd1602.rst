@@ -1,0 +1,762 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.0.0 #11528 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module lcd1602
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _datax
+                                     12 	.globl _com
+                                     13 	.globl _WaitBusy
+                                     14 	.globl _PX3
+                                     15 	.globl _EX3
+                                     16 	.globl _IE3
+                                     17 	.globl _IT3
+                                     18 	.globl _PX2
+                                     19 	.globl _EX2
+                                     20 	.globl _IE2
+                                     21 	.globl _IT2
+                                     22 	.globl _TF2
+                                     23 	.globl _EXF2
+                                     24 	.globl _RCLK
+                                     25 	.globl _TCLK
+                                     26 	.globl _EXEN2
+                                     27 	.globl _TR2
+                                     28 	.globl _T2_CT
+                                     29 	.globl _CPRL2
+                                     30 	.globl _INT2
+                                     31 	.globl _INT3
+                                     32 	.globl _P4_3
+                                     33 	.globl _P4_2
+                                     34 	.globl _P4_1
+                                     35 	.globl _P4_0
+                                     36 	.globl _T2EX
+                                     37 	.globl _T2
+                                     38 	.globl _PT2
+                                     39 	.globl _ET2
+                                     40 	.globl _CY
+                                     41 	.globl _AC
+                                     42 	.globl _F0
+                                     43 	.globl _RS1
+                                     44 	.globl _RS0
+                                     45 	.globl _OV
+                                     46 	.globl _F1
+                                     47 	.globl _P
+                                     48 	.globl _PS
+                                     49 	.globl _PT1
+                                     50 	.globl _PX1
+                                     51 	.globl _PT0
+                                     52 	.globl _PX0
+                                     53 	.globl _RD
+                                     54 	.globl _WR
+                                     55 	.globl _T1
+                                     56 	.globl _T0
+                                     57 	.globl _INT1
+                                     58 	.globl _INT0
+                                     59 	.globl _TXD
+                                     60 	.globl _RXD
+                                     61 	.globl _P3_7
+                                     62 	.globl _P3_6
+                                     63 	.globl _P3_5
+                                     64 	.globl _P3_4
+                                     65 	.globl _P3_3
+                                     66 	.globl _P3_2
+                                     67 	.globl _P3_1
+                                     68 	.globl _P3_0
+                                     69 	.globl _EA
+                                     70 	.globl _ES
+                                     71 	.globl _ET1
+                                     72 	.globl _EX1
+                                     73 	.globl _ET0
+                                     74 	.globl _EX0
+                                     75 	.globl _P2_7
+                                     76 	.globl _P2_6
+                                     77 	.globl _P2_5
+                                     78 	.globl _P2_4
+                                     79 	.globl _P2_3
+                                     80 	.globl _P2_2
+                                     81 	.globl _P2_1
+                                     82 	.globl _P2_0
+                                     83 	.globl _SM0
+                                     84 	.globl _SM1
+                                     85 	.globl _SM2
+                                     86 	.globl _REN
+                                     87 	.globl _TB8
+                                     88 	.globl _RB8
+                                     89 	.globl _TI
+                                     90 	.globl _RI
+                                     91 	.globl _P1_7
+                                     92 	.globl _P1_6
+                                     93 	.globl _P1_5
+                                     94 	.globl _P1_4
+                                     95 	.globl _P1_3
+                                     96 	.globl _P1_2
+                                     97 	.globl _P1_1
+                                     98 	.globl _P1_0
+                                     99 	.globl _TF1
+                                    100 	.globl _TR1
+                                    101 	.globl _TF0
+                                    102 	.globl _TR0
+                                    103 	.globl _IE1
+                                    104 	.globl _IT1
+                                    105 	.globl _IE0
+                                    106 	.globl _IT0
+                                    107 	.globl _P0_7
+                                    108 	.globl _P0_6
+                                    109 	.globl _P0_5
+                                    110 	.globl _P0_4
+                                    111 	.globl _P0_3
+                                    112 	.globl _P0_2
+                                    113 	.globl _P0_1
+                                    114 	.globl _P0_0
+                                    115 	.globl _P4
+                                    116 	.globl _ISP_CONTR
+                                    117 	.globl _ISP_TRIG
+                                    118 	.globl _ISP_CMD
+                                    119 	.globl _ISP_ADDRL
+                                    120 	.globl _ISP_ADDRH
+                                    121 	.globl _ISP_DATA
+                                    122 	.globl _WDT_CONTR
+                                    123 	.globl _TH2
+                                    124 	.globl _TL2
+                                    125 	.globl _RCAP2H
+                                    126 	.globl _RCAP2L
+                                    127 	.globl _T2MOD
+                                    128 	.globl _T2CON
+                                    129 	.globl _XICON
+                                    130 	.globl _IPH
+                                    131 	.globl _SADDR1
+                                    132 	.globl _AUXR1
+                                    133 	.globl _AUXR
+                                    134 	.globl _B
+                                    135 	.globl _ACC
+                                    136 	.globl _PSW
+                                    137 	.globl _IP
+                                    138 	.globl _P3
+                                    139 	.globl _IE
+                                    140 	.globl _P2
+                                    141 	.globl _SBUF
+                                    142 	.globl _SCON
+                                    143 	.globl _P1
+                                    144 	.globl _TH1
+                                    145 	.globl _TH0
+                                    146 	.globl _TL1
+                                    147 	.globl _TL0
+                                    148 	.globl _TMOD
+                                    149 	.globl _TCON
+                                    150 	.globl _PCON
+                                    151 	.globl _DPH
+                                    152 	.globl _DPL
+                                    153 	.globl _SP
+                                    154 	.globl _P0
+                                    155 	.globl _Lcd1602_Print_PARM_3
+                                    156 	.globl _Lcd1602_Print_PARM_2
+                                    157 	.globl _Lcd1602_PrintCust_PARM_3
+                                    158 	.globl _Lcd1602_PrintCust_PARM_2
+                                    159 	.globl _Lcd1602_PrintNumber_PARM_3
+                                    160 	.globl _Lcd1602_PrintNumber_PARM_2
+                                    161 	.globl _Lcd1602_Init
+                                    162 	.globl _Lcd1602_Clean
+                                    163 	.globl _Lcd1602_PrintNumber
+                                    164 	.globl _Lcd1602_PrintCust
+                                    165 	.globl _Lcd1602_Print
+                                    166 ;--------------------------------------------------------
+                                    167 ; special function registers
+                                    168 ;--------------------------------------------------------
+                                    169 	.area RSEG    (ABS,DATA)
+      000000                        170 	.org 0x0000
+                           000080   171 _P0	=	0x0080
+                           000081   172 _SP	=	0x0081
+                           000082   173 _DPL	=	0x0082
+                           000083   174 _DPH	=	0x0083
+                           000087   175 _PCON	=	0x0087
+                           000088   176 _TCON	=	0x0088
+                           000089   177 _TMOD	=	0x0089
+                           00008A   178 _TL0	=	0x008a
+                           00008B   179 _TL1	=	0x008b
+                           00008C   180 _TH0	=	0x008c
+                           00008D   181 _TH1	=	0x008d
+                           000090   182 _P1	=	0x0090
+                           000098   183 _SCON	=	0x0098
+                           000099   184 _SBUF	=	0x0099
+                           0000A0   185 _P2	=	0x00a0
+                           0000A8   186 _IE	=	0x00a8
+                           0000B0   187 _P3	=	0x00b0
+                           0000B8   188 _IP	=	0x00b8
+                           0000D0   189 _PSW	=	0x00d0
+                           0000E0   190 _ACC	=	0x00e0
+                           0000F0   191 _B	=	0x00f0
+                           00008E   192 _AUXR	=	0x008e
+                           0000A2   193 _AUXR1	=	0x00a2
+                           0000A9   194 _SADDR1	=	0x00a9
+                           0000B7   195 _IPH	=	0x00b7
+                           0000C0   196 _XICON	=	0x00c0
+                           0000C8   197 _T2CON	=	0x00c8
+                           0000C9   198 _T2MOD	=	0x00c9
+                           0000CA   199 _RCAP2L	=	0x00ca
+                           0000CB   200 _RCAP2H	=	0x00cb
+                           0000CC   201 _TL2	=	0x00cc
+                           0000CD   202 _TH2	=	0x00cd
+                           0000E1   203 _WDT_CONTR	=	0x00e1
+                           0000E2   204 _ISP_DATA	=	0x00e2
+                           0000E3   205 _ISP_ADDRH	=	0x00e3
+                           0000E4   206 _ISP_ADDRL	=	0x00e4
+                           0000E5   207 _ISP_CMD	=	0x00e5
+                           0000E6   208 _ISP_TRIG	=	0x00e6
+                           0000E7   209 _ISP_CONTR	=	0x00e7
+                           0000E8   210 _P4	=	0x00e8
+                                    211 ;--------------------------------------------------------
+                                    212 ; special function bits
+                                    213 ;--------------------------------------------------------
+                                    214 	.area RSEG    (ABS,DATA)
+      000000                        215 	.org 0x0000
+                           000080   216 _P0_0	=	0x0080
+                           000081   217 _P0_1	=	0x0081
+                           000082   218 _P0_2	=	0x0082
+                           000083   219 _P0_3	=	0x0083
+                           000084   220 _P0_4	=	0x0084
+                           000085   221 _P0_5	=	0x0085
+                           000086   222 _P0_6	=	0x0086
+                           000087   223 _P0_7	=	0x0087
+                           000088   224 _IT0	=	0x0088
+                           000089   225 _IE0	=	0x0089
+                           00008A   226 _IT1	=	0x008a
+                           00008B   227 _IE1	=	0x008b
+                           00008C   228 _TR0	=	0x008c
+                           00008D   229 _TF0	=	0x008d
+                           00008E   230 _TR1	=	0x008e
+                           00008F   231 _TF1	=	0x008f
+                           000090   232 _P1_0	=	0x0090
+                           000091   233 _P1_1	=	0x0091
+                           000092   234 _P1_2	=	0x0092
+                           000093   235 _P1_3	=	0x0093
+                           000094   236 _P1_4	=	0x0094
+                           000095   237 _P1_5	=	0x0095
+                           000096   238 _P1_6	=	0x0096
+                           000097   239 _P1_7	=	0x0097
+                           000098   240 _RI	=	0x0098
+                           000099   241 _TI	=	0x0099
+                           00009A   242 _RB8	=	0x009a
+                           00009B   243 _TB8	=	0x009b
+                           00009C   244 _REN	=	0x009c
+                           00009D   245 _SM2	=	0x009d
+                           00009E   246 _SM1	=	0x009e
+                           00009F   247 _SM0	=	0x009f
+                           0000A0   248 _P2_0	=	0x00a0
+                           0000A1   249 _P2_1	=	0x00a1
+                           0000A2   250 _P2_2	=	0x00a2
+                           0000A3   251 _P2_3	=	0x00a3
+                           0000A4   252 _P2_4	=	0x00a4
+                           0000A5   253 _P2_5	=	0x00a5
+                           0000A6   254 _P2_6	=	0x00a6
+                           0000A7   255 _P2_7	=	0x00a7
+                           0000A8   256 _EX0	=	0x00a8
+                           0000A9   257 _ET0	=	0x00a9
+                           0000AA   258 _EX1	=	0x00aa
+                           0000AB   259 _ET1	=	0x00ab
+                           0000AC   260 _ES	=	0x00ac
+                           0000AF   261 _EA	=	0x00af
+                           0000B0   262 _P3_0	=	0x00b0
+                           0000B1   263 _P3_1	=	0x00b1
+                           0000B2   264 _P3_2	=	0x00b2
+                           0000B3   265 _P3_3	=	0x00b3
+                           0000B4   266 _P3_4	=	0x00b4
+                           0000B5   267 _P3_5	=	0x00b5
+                           0000B6   268 _P3_6	=	0x00b6
+                           0000B7   269 _P3_7	=	0x00b7
+                           0000B0   270 _RXD	=	0x00b0
+                           0000B1   271 _TXD	=	0x00b1
+                           0000B2   272 _INT0	=	0x00b2
+                           0000B3   273 _INT1	=	0x00b3
+                           0000B4   274 _T0	=	0x00b4
+                           0000B5   275 _T1	=	0x00b5
+                           0000B6   276 _WR	=	0x00b6
+                           0000B7   277 _RD	=	0x00b7
+                           0000B8   278 _PX0	=	0x00b8
+                           0000B9   279 _PT0	=	0x00b9
+                           0000BA   280 _PX1	=	0x00ba
+                           0000BB   281 _PT1	=	0x00bb
+                           0000BC   282 _PS	=	0x00bc
+                           0000D0   283 _P	=	0x00d0
+                           0000D1   284 _F1	=	0x00d1
+                           0000D2   285 _OV	=	0x00d2
+                           0000D3   286 _RS0	=	0x00d3
+                           0000D4   287 _RS1	=	0x00d4
+                           0000D5   288 _F0	=	0x00d5
+                           0000D6   289 _AC	=	0x00d6
+                           0000D7   290 _CY	=	0x00d7
+                           0000AD   291 _ET2	=	0x00ad
+                           0000BD   292 _PT2	=	0x00bd
+                           000090   293 _T2	=	0x0090
+                           000091   294 _T2EX	=	0x0091
+                           0000E8   295 _P4_0	=	0x00e8
+                           0000E9   296 _P4_1	=	0x00e9
+                           0000EA   297 _P4_2	=	0x00ea
+                           0000EB   298 _P4_3	=	0x00eb
+                           0000EA   299 _INT3	=	0x00ea
+                           0000EB   300 _INT2	=	0x00eb
+                           0000C8   301 _CPRL2	=	0x00c8
+                           0000C9   302 _T2_CT	=	0x00c9
+                           0000CA   303 _TR2	=	0x00ca
+                           0000CB   304 _EXEN2	=	0x00cb
+                           0000CC   305 _TCLK	=	0x00cc
+                           0000CD   306 _RCLK	=	0x00cd
+                           0000CE   307 _EXF2	=	0x00ce
+                           0000CF   308 _TF2	=	0x00cf
+                           0000C0   309 _IT2	=	0x00c0
+                           0000C1   310 _IE2	=	0x00c1
+                           0000C2   311 _EX2	=	0x00c2
+                           0000C3   312 _PX2	=	0x00c3
+                           0000C4   313 _IT3	=	0x00c4
+                           0000C5   314 _IE3	=	0x00c5
+                           0000C6   315 _EX3	=	0x00c6
+                           0000C7   316 _PX3	=	0x00c7
+                                    317 ;--------------------------------------------------------
+                                    318 ; overlayable register banks
+                                    319 ;--------------------------------------------------------
+                                    320 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        321 	.ds 8
+                                    322 ;--------------------------------------------------------
+                                    323 ; internal ram data
+                                    324 ;--------------------------------------------------------
+                                    325 	.area DSEG    (DATA)
+      00002A                        326 _Lcd1602_PrintNumber_PARM_2:
+      00002A                        327 	.ds 1
+      00002B                        328 _Lcd1602_PrintNumber_PARM_3:
+      00002B                        329 	.ds 2
+      00002D                        330 _Lcd1602_PrintCust_PARM_2:
+      00002D                        331 	.ds 1
+      00002E                        332 _Lcd1602_PrintCust_PARM_3:
+      00002E                        333 	.ds 3
+      000031                        334 _Lcd1602_Print_PARM_2:
+      000031                        335 	.ds 1
+      000032                        336 _Lcd1602_Print_PARM_3:
+      000032                        337 	.ds 3
+                                    338 ;--------------------------------------------------------
+                                    339 ; overlayable items in internal ram 
+                                    340 ;--------------------------------------------------------
+                                    341 	.area	OSEG    (OVR,DATA)
+                                    342 ;--------------------------------------------------------
+                                    343 ; indirectly addressable internal ram data
+                                    344 ;--------------------------------------------------------
+                                    345 	.area ISEG    (DATA)
+                                    346 ;--------------------------------------------------------
+                                    347 ; absolute internal ram data
+                                    348 ;--------------------------------------------------------
+                                    349 	.area IABS    (ABS,DATA)
+                                    350 	.area IABS    (ABS,DATA)
+                                    351 ;--------------------------------------------------------
+                                    352 ; bit data
+                                    353 ;--------------------------------------------------------
+                                    354 	.area BSEG    (BIT)
+                                    355 ;--------------------------------------------------------
+                                    356 ; paged external ram data
+                                    357 ;--------------------------------------------------------
+                                    358 	.area PSEG    (PAG,XDATA)
+                                    359 ;--------------------------------------------------------
+                                    360 ; external ram data
+                                    361 ;--------------------------------------------------------
+                                    362 	.area XSEG    (XDATA)
+                                    363 ;--------------------------------------------------------
+                                    364 ; absolute external ram data
+                                    365 ;--------------------------------------------------------
+                                    366 	.area XABS    (ABS,XDATA)
+                                    367 ;--------------------------------------------------------
+                                    368 ; external initialized ram data
+                                    369 ;--------------------------------------------------------
+                                    370 	.area XISEG   (XDATA)
+                                    371 	.area HOME    (CODE)
+                                    372 	.area GSINIT0 (CODE)
+                                    373 	.area GSINIT1 (CODE)
+                                    374 	.area GSINIT2 (CODE)
+                                    375 	.area GSINIT3 (CODE)
+                                    376 	.area GSINIT4 (CODE)
+                                    377 	.area GSINIT5 (CODE)
+                                    378 	.area GSINIT  (CODE)
+                                    379 	.area GSFINAL (CODE)
+                                    380 	.area CSEG    (CODE)
+                                    381 ;--------------------------------------------------------
+                                    382 ; global & static initialisations
+                                    383 ;--------------------------------------------------------
+                                    384 	.area HOME    (CODE)
+                                    385 	.area GSINIT  (CODE)
+                                    386 	.area GSFINAL (CODE)
+                                    387 	.area GSINIT  (CODE)
+                                    388 ;--------------------------------------------------------
+                                    389 ; Home
+                                    390 ;--------------------------------------------------------
+                                    391 	.area HOME    (CODE)
+                                    392 	.area HOME    (CODE)
+                                    393 ;--------------------------------------------------------
+                                    394 ; code
+                                    395 ;--------------------------------------------------------
+                                    396 	.area CSEG    (CODE)
+                                    397 ;------------------------------------------------------------
+                                    398 ;Allocation info for local variables in function 'WaitBusy'
+                                    399 ;------------------------------------------------------------
+                                    400 ;temp                      Allocated to registers r7 
+                                    401 ;null                      Allocated to registers r5 r6 
+                                    402 ;------------------------------------------------------------
+                                    403 ;	./src/lcd1602.c:2: uchar WaitBusy()
+                                    404 ;	-----------------------------------------
+                                    405 ;	 function WaitBusy
+                                    406 ;	-----------------------------------------
+      00042E                        407 _WaitBusy:
+                           000007   408 	ar7 = 0x07
+                           000006   409 	ar6 = 0x06
+                           000005   410 	ar5 = 0x05
+                           000004   411 	ar4 = 0x04
+                           000003   412 	ar3 = 0x03
+                           000002   413 	ar2 = 0x02
+                           000001   414 	ar1 = 0x01
+                           000000   415 	ar0 = 0x00
+                                    416 ;	./src/lcd1602.c:4: uchar temp=1;
+      00042E 7F 01            [12]  417 	mov	r7,#0x01
+                                    418 ;	./src/lcd1602.c:6: Lcd1602Port=0xff;
+      000430 75 90 FF         [24]  419 	mov	_P1,#0xff
+                                    420 ;	./src/lcd1602.c:7: Lcd1602Rw=1;
+                                    421 ;	assignBit
+      000433 D2 A6            [12]  422 	setb	_P2_6
+                                    423 ;	./src/lcd1602.c:8: Lcd1602Rs=0;
+                                    424 ;	assignBit
+      000435 C2 A5            [12]  425 	clr	_P2_5
+                                    426 ;	./src/lcd1602.c:9: while(temp==1)
+      000437 7D 00            [12]  427 	mov	r5,#0x00
+      000439 7E 00            [12]  428 	mov	r6,#0x00
+      00043B                        429 00103$:
+      00043B BF 01 19         [24]  430 	cjne	r7,#0x01,00105$
+                                    431 ;	./src/lcd1602.c:11: Lcd1602E=1;
+                                    432 ;	assignBit
+      00043E D2 A7            [12]  433 	setb	_P2_7
+                                    434 ;	./src/lcd1602.c:12: temp = (Lcd1602Port>>7)&0x01;
+      000440 E5 90            [12]  435 	mov	a,_P1
+      000442 23               [12]  436 	rl	a
+      000443 54 01            [12]  437 	anl	a,#0x01
+      000445 FF               [12]  438 	mov	r7,a
+                                    439 ;	./src/lcd1602.c:13: Lcd1602E=0;
+                                    440 ;	assignBit
+      000446 C2 A7            [12]  441 	clr	_P2_7
+                                    442 ;	./src/lcd1602.c:14: null++;
+      000448 0D               [12]  443 	inc	r5
+      000449 BD 00 01         [24]  444 	cjne	r5,#0x00,00122$
+      00044C 0E               [12]  445 	inc	r6
+      00044D                        446 00122$:
+                                    447 ;	./src/lcd1602.c:15: if(null==0xfffe)return 1;
+      00044D BD FE EB         [24]  448 	cjne	r5,#0xfe,00103$
+      000450 BE FF E8         [24]  449 	cjne	r6,#0xff,00103$
+      000453 75 82 01         [24]  450 	mov	dpl,#0x01
+      000456 22               [24]  451 	ret
+      000457                        452 00105$:
+                                    453 ;	./src/lcd1602.c:17: return 0;
+      000457 75 82 00         [24]  454 	mov	dpl,#0x00
+                                    455 ;	./src/lcd1602.c:18: }
+      00045A 22               [24]  456 	ret
+                                    457 ;------------------------------------------------------------
+                                    458 ;Allocation info for local variables in function 'com'
+                                    459 ;------------------------------------------------------------
+                                    460 ;com                       Allocated to registers r7 
+                                    461 ;------------------------------------------------------------
+                                    462 ;	./src/lcd1602.c:19: void com(unsigned char com)
+                                    463 ;	-----------------------------------------
+                                    464 ;	 function com
+                                    465 ;	-----------------------------------------
+      00045B                        466 _com:
+      00045B AF 82            [24]  467 	mov	r7,dpl
+                                    468 ;	./src/lcd1602.c:21: WaitBusy();
+      00045D C0 07            [24]  469 	push	ar7
+      00045F 12 04 2E         [24]  470 	lcall	_WaitBusy
+      000462 D0 07            [24]  471 	pop	ar7
+                                    472 ;	./src/lcd1602.c:22: Lcd1602Rw=0;
+                                    473 ;	assignBit
+      000464 C2 A6            [12]  474 	clr	_P2_6
+                                    475 ;	./src/lcd1602.c:23: Lcd1602Rs=0;
+                                    476 ;	assignBit
+      000466 C2 A5            [12]  477 	clr	_P2_5
+                                    478 ;	./src/lcd1602.c:24: Lcd1602E=1;
+                                    479 ;	assignBit
+      000468 D2 A7            [12]  480 	setb	_P2_7
+                                    481 ;	./src/lcd1602.c:25: Lcd1602Port=com;
+      00046A 8F 90            [24]  482 	mov	_P1,r7
+                                    483 ;	./src/lcd1602.c:26: Lcd1602E=0;
+                                    484 ;	assignBit
+      00046C C2 A7            [12]  485 	clr	_P2_7
+                                    486 ;	./src/lcd1602.c:27: }
+      00046E 22               [24]  487 	ret
+                                    488 ;------------------------------------------------------------
+                                    489 ;Allocation info for local variables in function 'datax'
+                                    490 ;------------------------------------------------------------
+                                    491 ;datx                      Allocated to registers r7 
+                                    492 ;------------------------------------------------------------
+                                    493 ;	./src/lcd1602.c:28: void datax(unsigned char datx)
+                                    494 ;	-----------------------------------------
+                                    495 ;	 function datax
+                                    496 ;	-----------------------------------------
+      00046F                        497 _datax:
+      00046F AF 82            [24]  498 	mov	r7,dpl
+                                    499 ;	./src/lcd1602.c:30: WaitBusy();
+      000471 C0 07            [24]  500 	push	ar7
+      000473 12 04 2E         [24]  501 	lcall	_WaitBusy
+      000476 D0 07            [24]  502 	pop	ar7
+                                    503 ;	./src/lcd1602.c:31: Lcd1602Rw=0;
+                                    504 ;	assignBit
+      000478 C2 A6            [12]  505 	clr	_P2_6
+                                    506 ;	./src/lcd1602.c:32: Lcd1602Rs=1;
+                                    507 ;	assignBit
+      00047A D2 A5            [12]  508 	setb	_P2_5
+                                    509 ;	./src/lcd1602.c:33: Lcd1602E=1;
+                                    510 ;	assignBit
+      00047C D2 A7            [12]  511 	setb	_P2_7
+                                    512 ;	./src/lcd1602.c:34: Lcd1602Port=datx;
+      00047E 8F 90            [24]  513 	mov	_P1,r7
+                                    514 ;	./src/lcd1602.c:35: Lcd1602E=0;
+                                    515 ;	assignBit
+      000480 C2 A7            [12]  516 	clr	_P2_7
+                                    517 ;	./src/lcd1602.c:36: }
+      000482 22               [24]  518 	ret
+                                    519 ;------------------------------------------------------------
+                                    520 ;Allocation info for local variables in function 'Lcd1602_Init'
+                                    521 ;------------------------------------------------------------
+                                    522 ;	./src/lcd1602.c:38: void Lcd1602_Init()
+                                    523 ;	-----------------------------------------
+                                    524 ;	 function Lcd1602_Init
+                                    525 ;	-----------------------------------------
+      000483                        526 _Lcd1602_Init:
+                                    527 ;	./src/lcd1602.c:40: com(0x38);
+      000483 75 82 38         [24]  528 	mov	dpl,#0x38
+      000486 12 04 5B         [24]  529 	lcall	_com
+                                    530 ;	./src/lcd1602.c:41: com(0x0c);
+      000489 75 82 0C         [24]  531 	mov	dpl,#0x0c
+      00048C 12 04 5B         [24]  532 	lcall	_com
+                                    533 ;	./src/lcd1602.c:42: com(0x01);
+      00048F 75 82 01         [24]  534 	mov	dpl,#0x01
+      000492 12 04 5B         [24]  535 	lcall	_com
+                                    536 ;	./src/lcd1602.c:43: com(0x06);
+      000495 75 82 06         [24]  537 	mov	dpl,#0x06
+                                    538 ;	./src/lcd1602.c:44: }
+      000498 02 04 5B         [24]  539 	ljmp	_com
+                                    540 ;------------------------------------------------------------
+                                    541 ;Allocation info for local variables in function 'Lcd1602_Clean'
+                                    542 ;------------------------------------------------------------
+                                    543 ;	./src/lcd1602.c:46: void Lcd1602_Clean()
+                                    544 ;	-----------------------------------------
+                                    545 ;	 function Lcd1602_Clean
+                                    546 ;	-----------------------------------------
+      00049B                        547 _Lcd1602_Clean:
+                                    548 ;	./src/lcd1602.c:48: com(0x01);
+      00049B 75 82 01         [24]  549 	mov	dpl,#0x01
+                                    550 ;	./src/lcd1602.c:49: }
+      00049E 02 04 5B         [24]  551 	ljmp	_com
+                                    552 ;------------------------------------------------------------
+                                    553 ;Allocation info for local variables in function 'Lcd1602_PrintNumber'
+                                    554 ;------------------------------------------------------------
+                                    555 ;ey                        Allocated with name '_Lcd1602_PrintNumber_PARM_2'
+                                    556 ;ei                        Allocated with name '_Lcd1602_PrintNumber_PARM_3'
+                                    557 ;ex                        Allocated to registers r7 
+                                    558 ;point                     Allocated to registers r6 
+                                    559 ;------------------------------------------------------------
+                                    560 ;	./src/lcd1602.c:51: void Lcd1602_PrintNumber(unsigned char ex,unsigned char ey,int ei)
+                                    561 ;	-----------------------------------------
+                                    562 ;	 function Lcd1602_PrintNumber
+                                    563 ;	-----------------------------------------
+      0004A1                        564 _Lcd1602_PrintNumber:
+      0004A1 AF 82            [24]  565 	mov	r7,dpl
+                                    566 ;	./src/lcd1602.c:53: uchar point=0x80;
+      0004A3 7E 80            [12]  567 	mov	r6,#0x80
+                                    568 ;	./src/lcd1602.c:54: if(ey==1)point|=1<<6;
+      0004A5 74 01            [12]  569 	mov	a,#0x01
+      0004A7 B5 2A 02         [24]  570 	cjne	a,_Lcd1602_PrintNumber_PARM_2,00102$
+      0004AA 7E C0            [12]  571 	mov	r6,#0xc0
+      0004AC                        572 00102$:
+                                    573 ;	./src/lcd1602.c:55: if(ei>=10)ex--;
+      0004AC C3               [12]  574 	clr	c
+      0004AD E5 2B            [12]  575 	mov	a,_Lcd1602_PrintNumber_PARM_3
+      0004AF 94 0A            [12]  576 	subb	a,#0x0a
+      0004B1 E5 2C            [12]  577 	mov	a,(_Lcd1602_PrintNumber_PARM_3 + 1)
+      0004B3 64 80            [12]  578 	xrl	a,#0x80
+      0004B5 94 80            [12]  579 	subb	a,#0x80
+      0004B7 E4               [12]  580 	clr	a
+      0004B8 33               [12]  581 	rlc	a
+      0004B9 FD               [12]  582 	mov	r5,a
+      0004BA 70 01            [24]  583 	jnz	00104$
+      0004BC 1F               [12]  584 	dec	r7
+      0004BD                        585 00104$:
+                                    586 ;	./src/lcd1602.c:56: com(point+ex);
+      0004BD EF               [12]  587 	mov	a,r7
+      0004BE 2E               [12]  588 	add	a,r6
+      0004BF F5 82            [12]  589 	mov	dpl,a
+      0004C1 C0 05            [24]  590 	push	ar5
+      0004C3 12 04 5B         [24]  591 	lcall	_com
+      0004C6 D0 05            [24]  592 	pop	ar5
+                                    593 ;	./src/lcd1602.c:58: if(ei>=100)return;
+      0004C8 C3               [12]  594 	clr	c
+      0004C9 E5 2B            [12]  595 	mov	a,_Lcd1602_PrintNumber_PARM_3
+      0004CB 94 64            [12]  596 	subb	a,#0x64
+      0004CD E5 2C            [12]  597 	mov	a,(_Lcd1602_PrintNumber_PARM_3 + 1)
+      0004CF 64 80            [12]  598 	xrl	a,#0x80
+      0004D1 94 80            [12]  599 	subb	a,#0x80
+      0004D3 40 01            [24]  600 	jc	00106$
+      0004D5 22               [24]  601 	ret
+      0004D6                        602 00106$:
+                                    603 ;	./src/lcd1602.c:59: if(ei>=10)
+      0004D6 ED               [12]  604 	mov	a,r5
+                                    605 ;	./src/lcd1602.c:61: datax(0x30+ei/10);
+      0004D7 70 31            [24]  606 	jnz	00108$
+      0004D9 75 64 0A         [24]  607 	mov	__divsint_PARM_2,#0x0a
+      0004DC F5 65            [12]  608 	mov	(__divsint_PARM_2 + 1),a
+      0004DE 85 2B 82         [24]  609 	mov	dpl,_Lcd1602_PrintNumber_PARM_3
+      0004E1 85 2C 83         [24]  610 	mov	dph,(_Lcd1602_PrintNumber_PARM_3 + 1)
+      0004E4 12 0F C9         [24]  611 	lcall	__divsint
+      0004E7 AE 82            [24]  612 	mov	r6,dpl
+      0004E9 74 30            [12]  613 	mov	a,#0x30
+      0004EB 2E               [12]  614 	add	a,r6
+      0004EC F5 82            [12]  615 	mov	dpl,a
+      0004EE 12 04 6F         [24]  616 	lcall	_datax
+                                    617 ;	./src/lcd1602.c:62: datax(0x30+ei%10);
+      0004F1 75 64 0A         [24]  618 	mov	__modsint_PARM_2,#0x0a
+      0004F4 75 65 00         [24]  619 	mov	(__modsint_PARM_2 + 1),#0x00
+      0004F7 85 2B 82         [24]  620 	mov	dpl,_Lcd1602_PrintNumber_PARM_3
+      0004FA 85 2C 83         [24]  621 	mov	dph,(_Lcd1602_PrintNumber_PARM_3 + 1)
+      0004FD 12 0F 93         [24]  622 	lcall	__modsint
+      000500 AE 82            [24]  623 	mov	r6,dpl
+      000502 74 30            [12]  624 	mov	a,#0x30
+      000504 2E               [12]  625 	add	a,r6
+      000505 F5 82            [12]  626 	mov	dpl,a
+                                    627 ;	./src/lcd1602.c:63: return;
+      000507 02 04 6F         [24]  628 	ljmp	_datax
+      00050A                        629 00108$:
+                                    630 ;	./src/lcd1602.c:65: datax(0x30+ei);
+      00050A AF 2B            [24]  631 	mov	r7,_Lcd1602_PrintNumber_PARM_3
+      00050C 74 30            [12]  632 	mov	a,#0x30
+      00050E 2F               [12]  633 	add	a,r7
+      00050F F5 82            [12]  634 	mov	dpl,a
+                                    635 ;	./src/lcd1602.c:66: }
+      000511 02 04 6F         [24]  636 	ljmp	_datax
+                                    637 ;------------------------------------------------------------
+                                    638 ;Allocation info for local variables in function 'Lcd1602_PrintCust'
+                                    639 ;------------------------------------------------------------
+                                    640 ;ey                        Allocated with name '_Lcd1602_PrintCust_PARM_2'
+                                    641 ;ei                        Allocated with name '_Lcd1602_PrintCust_PARM_3'
+                                    642 ;ex                        Allocated to registers r7 
+                                    643 ;point                     Allocated to registers r6 
+                                    644 ;temp                      Allocated to registers r5 
+                                    645 ;------------------------------------------------------------
+                                    646 ;	./src/lcd1602.c:68: void Lcd1602_PrintCust(unsigned char ex,unsigned char ey,char *ei)
+                                    647 ;	-----------------------------------------
+                                    648 ;	 function Lcd1602_PrintCust
+                                    649 ;	-----------------------------------------
+      000514                        650 _Lcd1602_PrintCust:
+      000514 AF 82            [24]  651 	mov	r7,dpl
+                                    652 ;	./src/lcd1602.c:70: uchar point=0x80;
+      000516 7E 80            [12]  653 	mov	r6,#0x80
+                                    654 ;	./src/lcd1602.c:71: com(0x40);
+      000518 75 82 40         [24]  655 	mov	dpl,#0x40
+      00051B C0 07            [24]  656 	push	ar7
+      00051D C0 06            [24]  657 	push	ar6
+      00051F 12 04 5B         [24]  658 	lcall	_com
+      000522 D0 06            [24]  659 	pop	ar6
+      000524 D0 07            [24]  660 	pop	ar7
+                                    661 ;	./src/lcd1602.c:72: for(uchar temp=0;temp<8;temp++)
+      000526 7D 00            [12]  662 	mov	r5,#0x00
+      000528                        663 00105$:
+      000528 BD 08 00         [24]  664 	cjne	r5,#0x08,00122$
+      00052B                        665 00122$:
+      00052B 50 27            [24]  666 	jnc	00101$
+                                    667 ;	./src/lcd1602.c:74: datax(*(ei+temp));
+      00052D ED               [12]  668 	mov	a,r5
+      00052E 25 2E            [12]  669 	add	a,_Lcd1602_PrintCust_PARM_3
+      000530 FA               [12]  670 	mov	r2,a
+      000531 E4               [12]  671 	clr	a
+      000532 35 2F            [12]  672 	addc	a,(_Lcd1602_PrintCust_PARM_3 + 1)
+      000534 FB               [12]  673 	mov	r3,a
+      000535 AC 30            [24]  674 	mov	r4,(_Lcd1602_PrintCust_PARM_3 + 2)
+      000537 8A 82            [24]  675 	mov	dpl,r2
+      000539 8B 83            [24]  676 	mov	dph,r3
+      00053B 8C F0            [24]  677 	mov	b,r4
+      00053D 12 0F 77         [24]  678 	lcall	__gptrget
+      000540 F5 82            [12]  679 	mov	dpl,a
+      000542 C0 07            [24]  680 	push	ar7
+      000544 C0 06            [24]  681 	push	ar6
+      000546 C0 05            [24]  682 	push	ar5
+      000548 12 04 6F         [24]  683 	lcall	_datax
+      00054B D0 05            [24]  684 	pop	ar5
+      00054D D0 06            [24]  685 	pop	ar6
+      00054F D0 07            [24]  686 	pop	ar7
+                                    687 ;	./src/lcd1602.c:72: for(uchar temp=0;temp<8;temp++)
+      000551 0D               [12]  688 	inc	r5
+      000552 80 D4            [24]  689 	sjmp	00105$
+      000554                        690 00101$:
+                                    691 ;	./src/lcd1602.c:76: if(ey==1)point|=1<<6;
+      000554 74 01            [12]  692 	mov	a,#0x01
+      000556 B5 2D 02         [24]  693 	cjne	a,_Lcd1602_PrintCust_PARM_2,00103$
+      000559 7E C0            [12]  694 	mov	r6,#0xc0
+      00055B                        695 00103$:
+                                    696 ;	./src/lcd1602.c:77: com(point+ex);
+      00055B EF               [12]  697 	mov	a,r7
+      00055C 2E               [12]  698 	add	a,r6
+      00055D F5 82            [12]  699 	mov	dpl,a
+      00055F 12 04 5B         [24]  700 	lcall	_com
+                                    701 ;	./src/lcd1602.c:78: datax(0x00);
+      000562 75 82 00         [24]  702 	mov	dpl,#0x00
+                                    703 ;	./src/lcd1602.c:79: }
+      000565 02 04 6F         [24]  704 	ljmp	_datax
+                                    705 ;------------------------------------------------------------
+                                    706 ;Allocation info for local variables in function 'Lcd1602_Print'
+                                    707 ;------------------------------------------------------------
+                                    708 ;ey                        Allocated with name '_Lcd1602_Print_PARM_2'
+                                    709 ;ei                        Allocated with name '_Lcd1602_Print_PARM_3'
+                                    710 ;ex                        Allocated to registers r7 
+                                    711 ;point                     Allocated to registers r6 
+                                    712 ;------------------------------------------------------------
+                                    713 ;	./src/lcd1602.c:80: void Lcd1602_Print(unsigned char ex,unsigned char ey,char *ei)
+                                    714 ;	-----------------------------------------
+                                    715 ;	 function Lcd1602_Print
+                                    716 ;	-----------------------------------------
+      000568                        717 _Lcd1602_Print:
+      000568 AF 82            [24]  718 	mov	r7,dpl
+                                    719 ;	./src/lcd1602.c:82: uchar point=0x80;
+      00056A 7E 80            [12]  720 	mov	r6,#0x80
+                                    721 ;	./src/lcd1602.c:83: if(ey==1)point|=1<<6;
+      00056C 74 01            [12]  722 	mov	a,#0x01
+      00056E B5 31 02         [24]  723 	cjne	a,_Lcd1602_Print_PARM_2,00102$
+      000571 7E C0            [12]  724 	mov	r6,#0xc0
+      000573                        725 00102$:
+                                    726 ;	./src/lcd1602.c:84: com(point+ex);
+      000573 EF               [12]  727 	mov	a,r7
+      000574 2E               [12]  728 	add	a,r6
+      000575 F5 82            [12]  729 	mov	dpl,a
+      000577 12 04 5B         [24]  730 	lcall	_com
+                                    731 ;	./src/lcd1602.c:85: while(*ei)	
+      00057A AD 32            [24]  732 	mov	r5,_Lcd1602_Print_PARM_3
+      00057C AE 33            [24]  733 	mov	r6,(_Lcd1602_Print_PARM_3 + 1)
+      00057E AF 34            [24]  734 	mov	r7,(_Lcd1602_Print_PARM_3 + 2)
+      000580                        735 00103$:
+      000580 8D 82            [24]  736 	mov	dpl,r5
+      000582 8E 83            [24]  737 	mov	dph,r6
+      000584 8F F0            [24]  738 	mov	b,r7
+      000586 12 0F 77         [24]  739 	lcall	__gptrget
+      000589 FC               [12]  740 	mov	r4,a
+      00058A 60 18            [24]  741 	jz	00106$
+                                    742 ;	./src/lcd1602.c:87: datax(*ei);
+      00058C 8C 82            [24]  743 	mov	dpl,r4
+      00058E C0 07            [24]  744 	push	ar7
+      000590 C0 06            [24]  745 	push	ar6
+      000592 C0 05            [24]  746 	push	ar5
+      000594 12 04 6F         [24]  747 	lcall	_datax
+      000597 D0 05            [24]  748 	pop	ar5
+      000599 D0 06            [24]  749 	pop	ar6
+      00059B D0 07            [24]  750 	pop	ar7
+                                    751 ;	./src/lcd1602.c:88: ei++;
+      00059D 0D               [12]  752 	inc	r5
+      00059E BD 00 DF         [24]  753 	cjne	r5,#0x00,00103$
+      0005A1 0E               [12]  754 	inc	r6
+      0005A2 80 DC            [24]  755 	sjmp	00103$
+      0005A4                        756 00106$:
+                                    757 ;	./src/lcd1602.c:91: }
+      0005A4 22               [24]  758 	ret
+                                    759 	.area CSEG    (CODE)
+                                    760 	.area CONST   (CODE)
+                                    761 	.area XINIT   (CODE)
+                                    762 	.area CABS    (ABS,CODE)

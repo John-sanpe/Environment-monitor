@@ -30,5 +30,5 @@ clean:
 	rm $(obj)*
 
 distclean:
-	rm $(obj)*
 	rm $(output)*
+	rm $(obj)*

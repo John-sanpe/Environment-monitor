@@ -1,0 +1,947 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.0.0 #11528 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module main
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _main
+                                     12 	.globl _debug
+                                     13 	.globl _show_time
+                                     14 	.globl _show_data
+                                     15 	.globl _print_boot
+                                     16 	.globl _Boot_Test
+                                     17 	.globl _Lcd1602_Init
+                                     18 	.globl _Lcd1602_Clean
+                                     19 	.globl _Lcd1602_PrintCust
+                                     20 	.globl _Lcd1602_Print
+                                     21 	.globl _Lcd1602_PrintNumber
+                                     22 	.globl _Wdt_Runsign
+                                     23 	.globl _Wdt_Clean
+                                     24 	.globl _Wdt_Init
+                                     25 	.globl _Time1_Init
+                                     26 	.globl _Serial_Init
+                                     27 	.globl _DHT11_Read
+                                     28 	.globl _Time2_Init
+                                     29 	.globl _Time0_Init
+                                     30 	.globl _Int_Init
+                                     31 	.globl _delayms
+                                     32 	.globl _printf
+                                     33 	.globl _PX3
+                                     34 	.globl _EX3
+                                     35 	.globl _IE3
+                                     36 	.globl _IT3
+                                     37 	.globl _PX2
+                                     38 	.globl _EX2
+                                     39 	.globl _IE2
+                                     40 	.globl _IT2
+                                     41 	.globl _TF2
+                                     42 	.globl _EXF2
+                                     43 	.globl _RCLK
+                                     44 	.globl _TCLK
+                                     45 	.globl _EXEN2
+                                     46 	.globl _TR2
+                                     47 	.globl _T2_CT
+                                     48 	.globl _CPRL2
+                                     49 	.globl _INT2
+                                     50 	.globl _INT3
+                                     51 	.globl _P4_3
+                                     52 	.globl _P4_2
+                                     53 	.globl _P4_1
+                                     54 	.globl _P4_0
+                                     55 	.globl _T2EX
+                                     56 	.globl _T2
+                                     57 	.globl _PT2
+                                     58 	.globl _ET2
+                                     59 	.globl _CY
+                                     60 	.globl _AC
+                                     61 	.globl _F0
+                                     62 	.globl _RS1
+                                     63 	.globl _RS0
+                                     64 	.globl _OV
+                                     65 	.globl _F1
+                                     66 	.globl _P
+                                     67 	.globl _PS
+                                     68 	.globl _PT1
+                                     69 	.globl _PX1
+                                     70 	.globl _PT0
+                                     71 	.globl _PX0
+                                     72 	.globl _RD
+                                     73 	.globl _WR
+                                     74 	.globl _T1
+                                     75 	.globl _T0
+                                     76 	.globl _INT1
+                                     77 	.globl _INT0
+                                     78 	.globl _TXD
+                                     79 	.globl _RXD
+                                     80 	.globl _P3_7
+                                     81 	.globl _P3_6
+                                     82 	.globl _P3_5
+                                     83 	.globl _P3_4
+                                     84 	.globl _P3_3
+                                     85 	.globl _P3_2
+                                     86 	.globl _P3_1
+                                     87 	.globl _P3_0
+                                     88 	.globl _EA
+                                     89 	.globl _ES
+                                     90 	.globl _ET1
+                                     91 	.globl _EX1
+                                     92 	.globl _ET0
+                                     93 	.globl _EX0
+                                     94 	.globl _P2_7
+                                     95 	.globl _P2_6
+                                     96 	.globl _P2_5
+                                     97 	.globl _P2_4
+                                     98 	.globl _P2_3
+                                     99 	.globl _P2_2
+                                    100 	.globl _P2_1
+                                    101 	.globl _P2_0
+                                    102 	.globl _SM0
+                                    103 	.globl _SM1
+                                    104 	.globl _SM2
+                                    105 	.globl _REN
+                                    106 	.globl _TB8
+                                    107 	.globl _RB8
+                                    108 	.globl _TI
+                                    109 	.globl _RI
+                                    110 	.globl _P1_7
+                                    111 	.globl _P1_6
+                                    112 	.globl _P1_5
+                                    113 	.globl _P1_4
+                                    114 	.globl _P1_3
+                                    115 	.globl _P1_2
+                                    116 	.globl _P1_1
+                                    117 	.globl _P1_0
+                                    118 	.globl _TF1
+                                    119 	.globl _TR1
+                                    120 	.globl _TF0
+                                    121 	.globl _TR0
+                                    122 	.globl _IE1
+                                    123 	.globl _IT1
+                                    124 	.globl _IE0
+                                    125 	.globl _IT0
+                                    126 	.globl _P0_7
+                                    127 	.globl _P0_6
+                                    128 	.globl _P0_5
+                                    129 	.globl _P0_4
+                                    130 	.globl _P0_3
+                                    131 	.globl _P0_2
+                                    132 	.globl _P0_1
+                                    133 	.globl _P0_0
+                                    134 	.globl _P4
+                                    135 	.globl _ISP_CONTR
+                                    136 	.globl _ISP_TRIG
+                                    137 	.globl _ISP_CMD
+                                    138 	.globl _ISP_ADDRL
+                                    139 	.globl _ISP_ADDRH
+                                    140 	.globl _ISP_DATA
+                                    141 	.globl _WDT_CONTR
+                                    142 	.globl _TH2
+                                    143 	.globl _TL2
+                                    144 	.globl _RCAP2H
+                                    145 	.globl _RCAP2L
+                                    146 	.globl _T2MOD
+                                    147 	.globl _T2CON
+                                    148 	.globl _XICON
+                                    149 	.globl _IPH
+                                    150 	.globl _SADDR1
+                                    151 	.globl _AUXR1
+                                    152 	.globl _AUXR
+                                    153 	.globl _B
+                                    154 	.globl _ACC
+                                    155 	.globl _PSW
+                                    156 	.globl _IP
+                                    157 	.globl _P3
+                                    158 	.globl _IE
+                                    159 	.globl _P2
+                                    160 	.globl _SBUF
+                                    161 	.globl _SCON
+                                    162 	.globl _P1
+                                    163 	.globl _TH1
+                                    164 	.globl _TH0
+                                    165 	.globl _TL1
+                                    166 	.globl _TL0
+                                    167 	.globl _TMOD
+                                    168 	.globl _TCON
+                                    169 	.globl _PCON
+                                    170 	.globl _DPH
+                                    171 	.globl _DPL
+                                    172 	.globl _SP
+                                    173 	.globl _P0
+                                    174 	.globl _time
+                                    175 ;--------------------------------------------------------
+                                    176 ; special function registers
+                                    177 ;--------------------------------------------------------
+                                    178 	.area RSEG    (ABS,DATA)
+      000000                        179 	.org 0x0000
+                           000080   180 _P0	=	0x0080
+                           000081   181 _SP	=	0x0081
+                           000082   182 _DPL	=	0x0082
+                           000083   183 _DPH	=	0x0083
+                           000087   184 _PCON	=	0x0087
+                           000088   185 _TCON	=	0x0088
+                           000089   186 _TMOD	=	0x0089
+                           00008A   187 _TL0	=	0x008a
+                           00008B   188 _TL1	=	0x008b
+                           00008C   189 _TH0	=	0x008c
+                           00008D   190 _TH1	=	0x008d
+                           000090   191 _P1	=	0x0090
+                           000098   192 _SCON	=	0x0098
+                           000099   193 _SBUF	=	0x0099
+                           0000A0   194 _P2	=	0x00a0
+                           0000A8   195 _IE	=	0x00a8
+                           0000B0   196 _P3	=	0x00b0
+                           0000B8   197 _IP	=	0x00b8
+                           0000D0   198 _PSW	=	0x00d0
+                           0000E0   199 _ACC	=	0x00e0
+                           0000F0   200 _B	=	0x00f0
+                           00008E   201 _AUXR	=	0x008e
+                           0000A2   202 _AUXR1	=	0x00a2
+                           0000A9   203 _SADDR1	=	0x00a9
+                           0000B7   204 _IPH	=	0x00b7
+                           0000C0   205 _XICON	=	0x00c0
+                           0000C8   206 _T2CON	=	0x00c8
+                           0000C9   207 _T2MOD	=	0x00c9
+                           0000CA   208 _RCAP2L	=	0x00ca
+                           0000CB   209 _RCAP2H	=	0x00cb
+                           0000CC   210 _TL2	=	0x00cc
+                           0000CD   211 _TH2	=	0x00cd
+                           0000E1   212 _WDT_CONTR	=	0x00e1
+                           0000E2   213 _ISP_DATA	=	0x00e2
+                           0000E3   214 _ISP_ADDRH	=	0x00e3
+                           0000E4   215 _ISP_ADDRL	=	0x00e4
+                           0000E5   216 _ISP_CMD	=	0x00e5
+                           0000E6   217 _ISP_TRIG	=	0x00e6
+                           0000E7   218 _ISP_CONTR	=	0x00e7
+                           0000E8   219 _P4	=	0x00e8
+                                    220 ;--------------------------------------------------------
+                                    221 ; special function bits
+                                    222 ;--------------------------------------------------------
+                                    223 	.area RSEG    (ABS,DATA)
+      000000                        224 	.org 0x0000
+                           000080   225 _P0_0	=	0x0080
+                           000081   226 _P0_1	=	0x0081
+                           000082   227 _P0_2	=	0x0082
+                           000083   228 _P0_3	=	0x0083
+                           000084   229 _P0_4	=	0x0084
+                           000085   230 _P0_5	=	0x0085
+                           000086   231 _P0_6	=	0x0086
+                           000087   232 _P0_7	=	0x0087
+                           000088   233 _IT0	=	0x0088
+                           000089   234 _IE0	=	0x0089
+                           00008A   235 _IT1	=	0x008a
+                           00008B   236 _IE1	=	0x008b
+                           00008C   237 _TR0	=	0x008c
+                           00008D   238 _TF0	=	0x008d
+                           00008E   239 _TR1	=	0x008e
+                           00008F   240 _TF1	=	0x008f
+                           000090   241 _P1_0	=	0x0090
+                           000091   242 _P1_1	=	0x0091
+                           000092   243 _P1_2	=	0x0092
+                           000093   244 _P1_3	=	0x0093
+                           000094   245 _P1_4	=	0x0094
+                           000095   246 _P1_5	=	0x0095
+                           000096   247 _P1_6	=	0x0096
+                           000097   248 _P1_7	=	0x0097
+                           000098   249 _RI	=	0x0098
+                           000099   250 _TI	=	0x0099
+                           00009A   251 _RB8	=	0x009a
+                           00009B   252 _TB8	=	0x009b
+                           00009C   253 _REN	=	0x009c
+                           00009D   254 _SM2	=	0x009d
+                           00009E   255 _SM1	=	0x009e
+                           00009F   256 _SM0	=	0x009f
+                           0000A0   257 _P2_0	=	0x00a0
+                           0000A1   258 _P2_1	=	0x00a1
+                           0000A2   259 _P2_2	=	0x00a2
+                           0000A3   260 _P2_3	=	0x00a3
+                           0000A4   261 _P2_4	=	0x00a4
+                           0000A5   262 _P2_5	=	0x00a5
+                           0000A6   263 _P2_6	=	0x00a6
+                           0000A7   264 _P2_7	=	0x00a7
+                           0000A8   265 _EX0	=	0x00a8
+                           0000A9   266 _ET0	=	0x00a9
+                           0000AA   267 _EX1	=	0x00aa
+                           0000AB   268 _ET1	=	0x00ab
+                           0000AC   269 _ES	=	0x00ac
+                           0000AF   270 _EA	=	0x00af
+                           0000B0   271 _P3_0	=	0x00b0
+                           0000B1   272 _P3_1	=	0x00b1
+                           0000B2   273 _P3_2	=	0x00b2
+                           0000B3   274 _P3_3	=	0x00b3
+                           0000B4   275 _P3_4	=	0x00b4
+                           0000B5   276 _P3_5	=	0x00b5
+                           0000B6   277 _P3_6	=	0x00b6
+                           0000B7   278 _P3_7	=	0x00b7
+                           0000B0   279 _RXD	=	0x00b0
+                           0000B1   280 _TXD	=	0x00b1
+                           0000B2   281 _INT0	=	0x00b2
+                           0000B3   282 _INT1	=	0x00b3
+                           0000B4   283 _T0	=	0x00b4
+                           0000B5   284 _T1	=	0x00b5
+                           0000B6   285 _WR	=	0x00b6
+                           0000B7   286 _RD	=	0x00b7
+                           0000B8   287 _PX0	=	0x00b8
+                           0000B9   288 _PT0	=	0x00b9
+                           0000BA   289 _PX1	=	0x00ba
+                           0000BB   290 _PT1	=	0x00bb
+                           0000BC   291 _PS	=	0x00bc
+                           0000D0   292 _P	=	0x00d0
+                           0000D1   293 _F1	=	0x00d1
+                           0000D2   294 _OV	=	0x00d2
+                           0000D3   295 _RS0	=	0x00d3
+                           0000D4   296 _RS1	=	0x00d4
+                           0000D5   297 _F0	=	0x00d5
+                           0000D6   298 _AC	=	0x00d6
+                           0000D7   299 _CY	=	0x00d7
+                           0000AD   300 _ET2	=	0x00ad
+                           0000BD   301 _PT2	=	0x00bd
+                           000090   302 _T2	=	0x0090
+                           000091   303 _T2EX	=	0x0091
+                           0000E8   304 _P4_0	=	0x00e8
+                           0000E9   305 _P4_1	=	0x00e9
+                           0000EA   306 _P4_2	=	0x00ea
+                           0000EB   307 _P4_3	=	0x00eb
+                           0000EA   308 _INT3	=	0x00ea
+                           0000EB   309 _INT2	=	0x00eb
+                           0000C8   310 _CPRL2	=	0x00c8
+                           0000C9   311 _T2_CT	=	0x00c9
+                           0000CA   312 _TR2	=	0x00ca
+                           0000CB   313 _EXEN2	=	0x00cb
+                           0000CC   314 _TCLK	=	0x00cc
+                           0000CD   315 _RCLK	=	0x00cd
+                           0000CE   316 _EXF2	=	0x00ce
+                           0000CF   317 _TF2	=	0x00cf
+                           0000C0   318 _IT2	=	0x00c0
+                           0000C1   319 _IE2	=	0x00c1
+                           0000C2   320 _EX2	=	0x00c2
+                           0000C3   321 _PX2	=	0x00c3
+                           0000C4   322 _IT3	=	0x00c4
+                           0000C5   323 _IE3	=	0x00c5
+                           0000C6   324 _EX3	=	0x00c6
+                           0000C7   325 _PX3	=	0x00c7
+                                    326 ;--------------------------------------------------------
+                                    327 ; overlayable register banks
+                                    328 ;--------------------------------------------------------
+                                    329 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        330 	.ds 8
+                                    331 ;--------------------------------------------------------
+                                    332 ; internal ram data
+                                    333 ;--------------------------------------------------------
+                                    334 	.area DSEG    (DATA)
+      000008                        335 _time::
+      000008                        336 	.ds 2
+      00000A                        337 _load:
+      00000A                        338 	.ds 8
+      000012                        339 _temperature:
+      000012                        340 	.ds 8
+                                    341 ;--------------------------------------------------------
+                                    342 ; overlayable items in internal ram 
+                                    343 ;--------------------------------------------------------
+                                    344 ;--------------------------------------------------------
+                                    345 ; Stack segment in internal ram 
+                                    346 ;--------------------------------------------------------
+                                    347 	.area	SSEG
+      00006D                        348 __start__stack:
+      00006D                        349 	.ds	1
+                                    350 
+                                    351 ;--------------------------------------------------------
+                                    352 ; indirectly addressable internal ram data
+                                    353 ;--------------------------------------------------------
+                                    354 	.area ISEG    (DATA)
+                                    355 ;--------------------------------------------------------
+                                    356 ; absolute internal ram data
+                                    357 ;--------------------------------------------------------
+                                    358 	.area IABS    (ABS,DATA)
+                                    359 	.area IABS    (ABS,DATA)
+                                    360 ;--------------------------------------------------------
+                                    361 ; bit data
+                                    362 ;--------------------------------------------------------
+                                    363 	.area BSEG    (BIT)
+                                    364 ;--------------------------------------------------------
+                                    365 ; paged external ram data
+                                    366 ;--------------------------------------------------------
+                                    367 	.area PSEG    (PAG,XDATA)
+                                    368 ;--------------------------------------------------------
+                                    369 ; external ram data
+                                    370 ;--------------------------------------------------------
+                                    371 	.area XSEG    (XDATA)
+                                    372 ;--------------------------------------------------------
+                                    373 ; absolute external ram data
+                                    374 ;--------------------------------------------------------
+                                    375 	.area XABS    (ABS,XDATA)
+                                    376 ;--------------------------------------------------------
+                                    377 ; external initialized ram data
+                                    378 ;--------------------------------------------------------
+                                    379 	.area XISEG   (XDATA)
+                                    380 	.area HOME    (CODE)
+                                    381 	.area GSINIT0 (CODE)
+                                    382 	.area GSINIT1 (CODE)
+                                    383 	.area GSINIT2 (CODE)
+                                    384 	.area GSINIT3 (CODE)
+                                    385 	.area GSINIT4 (CODE)
+                                    386 	.area GSINIT5 (CODE)
+                                    387 	.area GSINIT  (CODE)
+                                    388 	.area GSFINAL (CODE)
+                                    389 	.area CSEG    (CODE)
+                                    390 ;--------------------------------------------------------
+                                    391 ; interrupt vector 
+                                    392 ;--------------------------------------------------------
+                                    393 	.area HOME    (CODE)
+      000000                        394 __interrupt_vect:
+      000000 02 00 31         [24]  395 	ljmp	__sdcc_gsinit_startup
+      000003 32               [24]  396 	reti
+      000004                        397 	.ds	7
+      00000B 32               [24]  398 	reti
+      00000C                        399 	.ds	7
+      000013 32               [24]  400 	reti
+      000014                        401 	.ds	7
+      00001B 32               [24]  402 	reti
+      00001C                        403 	.ds	7
+      000023 02 05 D1         [24]  404 	ljmp	_Serial_Handel
+      000026                        405 	.ds	5
+      00002B 02 03 38         [24]  406 	ljmp	_delayserver
+                                    407 ;--------------------------------------------------------
+                                    408 ; global & static initialisations
+                                    409 ;--------------------------------------------------------
+                                    410 	.area HOME    (CODE)
+                                    411 	.area GSINIT  (CODE)
+                                    412 	.area GSFINAL (CODE)
+                                    413 	.area GSINIT  (CODE)
+                                    414 	.globl __sdcc_gsinit_startup
+                                    415 	.globl __sdcc_program_startup
+                                    416 	.globl __start__stack
+                                    417 	.globl __mcs51_genXINIT
+                                    418 	.globl __mcs51_genXRAMCLEAR
+                                    419 	.globl __mcs51_genRAMCLEAR
+                                    420 ;	./src/main.c:3: static uchar load[8]={0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff};
+      00008A 75 0A FF         [24]  421 	mov	_load,#0xff
+      00008D 75 0B FF         [24]  422 	mov	(_load + 0x0001),#0xff
+      000090 75 0C FF         [24]  423 	mov	(_load + 0x0002),#0xff
+      000093 75 0D FF         [24]  424 	mov	(_load + 0x0003),#0xff
+      000096 75 0E FF         [24]  425 	mov	(_load + 0x0004),#0xff
+      000099 75 0F FF         [24]  426 	mov	(_load + 0x0005),#0xff
+      00009C 75 10 FF         [24]  427 	mov	(_load + 0x0006),#0xff
+      00009F 75 11 FF         [24]  428 	mov	(_load + 0x0007),#0xff
+                                    429 ;	./src/main.c:4: static uchar temperature[8]={0x16,0x09,0x08,0x08,0x08,0x09,0x06,0x00};
+      0000A2 75 12 16         [24]  430 	mov	_temperature,#0x16
+      0000A5 75 13 09         [24]  431 	mov	(_temperature + 0x0001),#0x09
+      0000A8 75 14 08         [24]  432 	mov	(_temperature + 0x0002),#0x08
+      0000AB 75 15 08         [24]  433 	mov	(_temperature + 0x0003),#0x08
+      0000AE 75 16 08         [24]  434 	mov	(_temperature + 0x0004),#0x08
+      0000B1 75 17 09         [24]  435 	mov	(_temperature + 0x0005),#0x09
+      0000B4 75 18 06         [24]  436 	mov	(_temperature + 0x0006),#0x06
+      0000B7 75 19 00         [24]  437 	mov	(_temperature + 0x0007),#0x00
+                                    438 	.area GSFINAL (CODE)
+      0000BA 02 00 2E         [24]  439 	ljmp	__sdcc_program_startup
+                                    440 ;--------------------------------------------------------
+                                    441 ; Home
+                                    442 ;--------------------------------------------------------
+                                    443 	.area HOME    (CODE)
+                                    444 	.area HOME    (CODE)
+      00002E                        445 __sdcc_program_startup:
+      00002E 02 02 BB         [24]  446 	ljmp	_main
+                                    447 ;	return from main will return to caller
+                                    448 ;--------------------------------------------------------
+                                    449 ; code
+                                    450 ;--------------------------------------------------------
+                                    451 	.area CSEG    (CODE)
+                                    452 ;------------------------------------------------------------
+                                    453 ;Allocation info for local variables in function 'Boot_Test'
+                                    454 ;------------------------------------------------------------
+                                    455 ;	./src/main.c:5: void Boot_Test()
+                                    456 ;	-----------------------------------------
+                                    457 ;	 function Boot_Test
+                                    458 ;	-----------------------------------------
+      0000BD                        459 _Boot_Test:
+                           000007   460 	ar7 = 0x07
+                           000006   461 	ar6 = 0x06
+                           000005   462 	ar5 = 0x05
+                           000004   463 	ar4 = 0x04
+                           000003   464 	ar3 = 0x03
+                           000002   465 	ar2 = 0x02
+                           000001   466 	ar1 = 0x01
+                           000000   467 	ar0 = 0x00
+                                    468 ;	./src/main.c:7: printf("welcome to use\r\n");
+      0000BD 74 05            [12]  469 	mov	a,#___str_0
+      0000BF C0 E0            [24]  470 	push	acc
+      0000C1 74 10            [12]  471 	mov	a,#(___str_0 >> 8)
+      0000C3 C0 E0            [24]  472 	push	acc
+      0000C5 74 80            [12]  473 	mov	a,#0x80
+      0000C7 C0 E0            [24]  474 	push	acc
+      0000C9 12 06 94         [24]  475 	lcall	_printf
+      0000CC 15 81            [12]  476 	dec	sp
+      0000CE 15 81            [12]  477 	dec	sp
+      0000D0 15 81            [12]  478 	dec	sp
+                                    479 ;	./src/main.c:8: if(Wdt_Runsign())printf("boot: Start self test[pass]\r\n");
+      0000D2 12 05 E7         [24]  480 	lcall	_Wdt_Runsign
+      0000D5 E5 82            [12]  481 	mov	a,dpl
+      0000D7 60 17            [24]  482 	jz	00102$
+      0000D9 74 16            [12]  483 	mov	a,#___str_1
+      0000DB C0 E0            [24]  484 	push	acc
+      0000DD 74 10            [12]  485 	mov	a,#(___str_1 >> 8)
+      0000DF C0 E0            [24]  486 	push	acc
+      0000E1 74 80            [12]  487 	mov	a,#0x80
+      0000E3 C0 E0            [24]  488 	push	acc
+      0000E5 12 06 94         [24]  489 	lcall	_printf
+      0000E8 15 81            [12]  490 	dec	sp
+      0000EA 15 81            [12]  491 	dec	sp
+      0000EC 15 81            [12]  492 	dec	sp
+      0000EE 80 30            [24]  493 	sjmp	00103$
+      0000F0                        494 00102$:
+                                    495 ;	./src/main.c:11: printf("boot: Start self test[WDT Operation sign NG ]\r\n");
+      0000F0 74 34            [12]  496 	mov	a,#___str_2
+      0000F2 C0 E0            [24]  497 	push	acc
+      0000F4 74 10            [12]  498 	mov	a,#(___str_2 >> 8)
+      0000F6 C0 E0            [24]  499 	push	acc
+      0000F8 74 80            [12]  500 	mov	a,#0x80
+      0000FA C0 E0            [24]  501 	push	acc
+      0000FC 12 06 94         [24]  502 	lcall	_printf
+      0000FF 15 81            [12]  503 	dec	sp
+      000101 15 81            [12]  504 	dec	sp
+      000103 15 81            [12]  505 	dec	sp
+                                    506 ;	./src/main.c:12: Lcd1602_Clean();
+      000105 12 04 9B         [24]  507 	lcall	_Lcd1602_Clean
+                                    508 ;	./src/main.c:13: Lcd1602_Print(0,1,"dht11 error ->");
+      000108 75 32 64         [24]  509 	mov	_Lcd1602_Print_PARM_3,#___str_3
+      00010B 75 33 10         [24]  510 	mov	(_Lcd1602_Print_PARM_3 + 1),#(___str_3 >> 8)
+      00010E 75 34 80         [24]  511 	mov	(_Lcd1602_Print_PARM_3 + 2),#0x80
+      000111 75 31 01         [24]  512 	mov	_Lcd1602_Print_PARM_2,#0x01
+      000114 75 82 00         [24]  513 	mov	dpl,#0x00
+      000117 12 05 68         [24]  514 	lcall	_Lcd1602_Print
+                                    515 ;	./src/main.c:14: delayms(2000);
+      00011A 90 07 D0         [24]  516 	mov	dptr,#0x07d0
+      00011D 12 02 FE         [24]  517 	lcall	_delayms
+      000120                        518 00103$:
+                                    519 ;	./src/main.c:16: printf("#####################\r\n");
+      000120 74 73            [12]  520 	mov	a,#___str_4
+      000122 C0 E0            [24]  521 	push	acc
+      000124 74 10            [12]  522 	mov	a,#(___str_4 >> 8)
+      000126 C0 E0            [24]  523 	push	acc
+      000128 74 80            [12]  524 	mov	a,#0x80
+      00012A C0 E0            [24]  525 	push	acc
+      00012C 12 06 94         [24]  526 	lcall	_printf
+      00012F 15 81            [12]  527 	dec	sp
+      000131 15 81            [12]  528 	dec	sp
+      000133 15 81            [12]  529 	dec	sp
+                                    530 ;	./src/main.c:17: printf("DHT11[ok]\r\n");
+      000135 74 8B            [12]  531 	mov	a,#___str_5
+      000137 C0 E0            [24]  532 	push	acc
+      000139 74 10            [12]  533 	mov	a,#(___str_5 >> 8)
+      00013B C0 E0            [24]  534 	push	acc
+      00013D 74 80            [12]  535 	mov	a,#0x80
+      00013F C0 E0            [24]  536 	push	acc
+      000141 12 06 94         [24]  537 	lcall	_printf
+      000144 15 81            [12]  538 	dec	sp
+      000146 15 81            [12]  539 	dec	sp
+      000148 15 81            [12]  540 	dec	sp
+                                    541 ;	./src/main.c:18: }
+      00014A 22               [24]  542 	ret
+                                    543 ;------------------------------------------------------------
+                                    544 ;Allocation info for local variables in function 'print_boot'
+                                    545 ;------------------------------------------------------------
+                                    546 ;i                         Allocated to registers r7 
+                                    547 ;------------------------------------------------------------
+                                    548 ;	./src/main.c:19: void print_boot()
+                                    549 ;	-----------------------------------------
+                                    550 ;	 function print_boot
+                                    551 ;	-----------------------------------------
+      00014B                        552 _print_boot:
+                                    553 ;	./src/main.c:22: Lcd1602_Print(i,0,"WelCome Pan");
+      00014B 75 32 97         [24]  554 	mov	_Lcd1602_Print_PARM_3,#___str_6
+      00014E 75 33 10         [24]  555 	mov	(_Lcd1602_Print_PARM_3 + 1),#(___str_6 >> 8)
+      000151 75 34 80         [24]  556 	mov	(_Lcd1602_Print_PARM_3 + 2),#0x80
+      000154 75 31 00         [24]  557 	mov	_Lcd1602_Print_PARM_2,#0x00
+      000157 75 82 00         [24]  558 	mov	dpl,#0x00
+      00015A 12 05 68         [24]  559 	lcall	_Lcd1602_Print
+      00015D 7F 00            [12]  560 	mov	r7,#0x00
+      00015F                        561 00103$:
+                                    562 ;	./src/main.c:23: for(;i<16;i++)
+      00015F BF 10 00         [24]  563 	cjne	r7,#0x10,00116$
+      000162                        564 00116$:
+      000162 50 1E            [24]  565 	jnc	00105$
+                                    566 ;	./src/main.c:25: Lcd1602_PrintCust(i,1,load);
+      000164 75 2E 0A         [24]  567 	mov	_Lcd1602_PrintCust_PARM_3,#_load
+      000167 75 2F 00         [24]  568 	mov	(_Lcd1602_PrintCust_PARM_3 + 1),#0x00
+      00016A 75 30 40         [24]  569 	mov	(_Lcd1602_PrintCust_PARM_3 + 2),#0x40
+      00016D 75 2D 01         [24]  570 	mov	_Lcd1602_PrintCust_PARM_2,#0x01
+      000170 8F 82            [24]  571 	mov	dpl,r7
+      000172 C0 07            [24]  572 	push	ar7
+      000174 12 05 14         [24]  573 	lcall	_Lcd1602_PrintCust
+                                    574 ;	./src/main.c:26: delayms(150);
+      000177 90 00 96         [24]  575 	mov	dptr,#0x0096
+      00017A 12 02 FE         [24]  576 	lcall	_delayms
+      00017D D0 07            [24]  577 	pop	ar7
+                                    578 ;	./src/main.c:23: for(;i<16;i++)
+      00017F 0F               [12]  579 	inc	r7
+      000180 80 DD            [24]  580 	sjmp	00103$
+      000182                        581 00105$:
+                                    582 ;	./src/main.c:28: }
+      000182 22               [24]  583 	ret
+                                    584 ;------------------------------------------------------------
+                                    585 ;Allocation info for local variables in function 'show_data'
+                                    586 ;------------------------------------------------------------
+                                    587 ;	./src/main.c:30: void show_data()
+                                    588 ;	-----------------------------------------
+                                    589 ;	 function show_data
+                                    590 ;	-----------------------------------------
+      000183                        591 _show_data:
+                                    592 ;	./src/main.c:32: Lcd1602_Print(0,0,"Tem:");
+      000183 75 32 A3         [24]  593 	mov	_Lcd1602_Print_PARM_3,#___str_7
+      000186 75 33 10         [24]  594 	mov	(_Lcd1602_Print_PARM_3 + 1),#(___str_7 >> 8)
+      000189 75 34 80         [24]  595 	mov	(_Lcd1602_Print_PARM_3 + 2),#0x80
+      00018C 75 31 00         [24]  596 	mov	_Lcd1602_Print_PARM_2,#0x00
+      00018F 75 82 00         [24]  597 	mov	dpl,#0x00
+      000192 12 05 68         [24]  598 	lcall	_Lcd1602_Print
+                                    599 ;	./src/main.c:33: Lcd1602_Print(7,0,".");
+      000195 75 32 A8         [24]  600 	mov	_Lcd1602_Print_PARM_3,#___str_8
+      000198 75 33 10         [24]  601 	mov	(_Lcd1602_Print_PARM_3 + 1),#(___str_8 >> 8)
+      00019B 75 34 80         [24]  602 	mov	(_Lcd1602_Print_PARM_3 + 2),#0x80
+      00019E 75 31 00         [24]  603 	mov	_Lcd1602_Print_PARM_2,#0x00
+      0001A1 75 82 07         [24]  604 	mov	dpl,#0x07
+      0001A4 12 05 68         [24]  605 	lcall	_Lcd1602_Print
+                                    606 ;	./src/main.c:34: Lcd1602_Print(1,1,"HR:");
+      0001A7 75 32 AA         [24]  607 	mov	_Lcd1602_Print_PARM_3,#___str_9
+      0001AA 75 33 10         [24]  608 	mov	(_Lcd1602_Print_PARM_3 + 1),#(___str_9 >> 8)
+      0001AD 75 34 80         [24]  609 	mov	(_Lcd1602_Print_PARM_3 + 2),#0x80
+      0001B0 75 31 01         [24]  610 	mov	_Lcd1602_Print_PARM_2,#0x01
+      0001B3 75 82 01         [24]  611 	mov	dpl,#0x01
+      0001B6 12 05 68         [24]  612 	lcall	_Lcd1602_Print
+                                    613 ;	./src/main.c:35: Lcd1602_Print(9,1,"%");
+      0001B9 75 32 AE         [24]  614 	mov	_Lcd1602_Print_PARM_3,#___str_10
+      0001BC 75 33 10         [24]  615 	mov	(_Lcd1602_Print_PARM_3 + 1),#(___str_10 >> 8)
+      0001BF 75 34 80         [24]  616 	mov	(_Lcd1602_Print_PARM_3 + 2),#0x80
+      0001C2 75 31 01         [24]  617 	mov	_Lcd1602_Print_PARM_2,#0x01
+      0001C5 75 82 09         [24]  618 	mov	dpl,#0x09
+      0001C8 12 05 68         [24]  619 	lcall	_Lcd1602_Print
+                                    620 ;	./src/main.c:37: Lcd1602_PrintCust(9,0,temperature);
+      0001CB 75 2E 12         [24]  621 	mov	_Lcd1602_PrintCust_PARM_3,#_temperature
+      0001CE 75 2F 00         [24]  622 	mov	(_Lcd1602_PrintCust_PARM_3 + 1),#0x00
+      0001D1 75 30 40         [24]  623 	mov	(_Lcd1602_PrintCust_PARM_3 + 2),#0x40
+      0001D4 75 2D 00         [24]  624 	mov	_Lcd1602_PrintCust_PARM_2,#0x00
+      0001D7 75 82 09         [24]  625 	mov	dpl,#0x09
+      0001DA 12 05 14         [24]  626 	lcall	_Lcd1602_PrintCust
+                                    627 ;	./src/main.c:39: Lcd1602_PrintNumber(6,0,the);
+      0001DD 75 2A 00         [24]  628 	mov	_Lcd1602_PrintNumber_PARM_2,#0x00
+      0001E0 85 22 2B         [24]  629 	mov	_Lcd1602_PrintNumber_PARM_3,_the
+      0001E3 85 23 2C         [24]  630 	mov	(_Lcd1602_PrintNumber_PARM_3 + 1),(_the + 1)
+      0001E6 75 82 06         [24]  631 	mov	dpl,#0x06
+      0001E9 12 04 A1         [24]  632 	lcall	_Lcd1602_PrintNumber
+                                    633 ;	./src/main.c:40: Lcd1602_PrintNumber(8,0,thef);
+      0001EC 75 2A 00         [24]  634 	mov	_Lcd1602_PrintNumber_PARM_2,#0x00
+      0001EF 85 24 2B         [24]  635 	mov	_Lcd1602_PrintNumber_PARM_3,_thef
+      0001F2 85 25 2C         [24]  636 	mov	(_Lcd1602_PrintNumber_PARM_3 + 1),(_thef + 1)
+      0001F5 75 82 08         [24]  637 	mov	dpl,#0x08
+      0001F8 12 04 A1         [24]  638 	lcall	_Lcd1602_PrintNumber
+                                    639 ;	./src/main.c:41: Lcd1602_PrintNumber(8,1,hum);
+      0001FB 75 2A 01         [24]  640 	mov	_Lcd1602_PrintNumber_PARM_2,#0x01
+      0001FE 85 20 2B         [24]  641 	mov	_Lcd1602_PrintNumber_PARM_3,_hum
+      000201 85 21 2C         [24]  642 	mov	(_Lcd1602_PrintNumber_PARM_3 + 1),(_hum + 1)
+      000204 75 82 08         [24]  643 	mov	dpl,#0x08
+      000207 12 04 A1         [24]  644 	lcall	_Lcd1602_PrintNumber
+                                    645 ;	./src/main.c:43: if(subzero)
+      00020A E5 26            [12]  646 	mov	a,_subzero
+      00020C 45 27            [12]  647 	orl	a,(_subzero + 1)
+      00020E 60 12            [24]  648 	jz	00103$
+                                    649 ;	./src/main.c:44: Lcd1602_Print(4,0,"-");
+      000210 75 32 B0         [24]  650 	mov	_Lcd1602_Print_PARM_3,#___str_11
+      000213 75 33 10         [24]  651 	mov	(_Lcd1602_Print_PARM_3 + 1),#(___str_11 >> 8)
+      000216 75 34 80         [24]  652 	mov	(_Lcd1602_Print_PARM_3 + 2),#0x80
+      000219 75 31 00         [24]  653 	mov	_Lcd1602_Print_PARM_2,#0x00
+      00021C 75 82 04         [24]  654 	mov	dpl,#0x04
+                                    655 ;	./src/main.c:45: }
+      00021F 02 05 68         [24]  656 	ljmp	_Lcd1602_Print
+      000222                        657 00103$:
+      000222 22               [24]  658 	ret
+                                    659 ;------------------------------------------------------------
+                                    660 ;Allocation info for local variables in function 'show_time'
+                                    661 ;------------------------------------------------------------
+                                    662 ;	./src/main.c:46: void show_time()
+                                    663 ;	-----------------------------------------
+                                    664 ;	 function show_time
+                                    665 ;	-----------------------------------------
+      000223                        666 _show_time:
+                                    667 ;	./src/main.c:49: }
+      000223 22               [24]  668 	ret
+                                    669 ;------------------------------------------------------------
+                                    670 ;Allocation info for local variables in function 'debug'
+                                    671 ;------------------------------------------------------------
+                                    672 ;	./src/main.c:50: void debug()
+                                    673 ;	-----------------------------------------
+                                    674 ;	 function debug
+                                    675 ;	-----------------------------------------
+      000224                        676 _debug:
+                                    677 ;	./src/main.c:52: printf("read back time %d\r\n",time);
+      000224 C0 08            [24]  678 	push	_time
+      000226 C0 09            [24]  679 	push	(_time + 1)
+      000228 74 B2            [12]  680 	mov	a,#___str_12
+      00022A C0 E0            [24]  681 	push	acc
+      00022C 74 10            [12]  682 	mov	a,#(___str_12 >> 8)
+      00022E C0 E0            [24]  683 	push	acc
+      000230 74 80            [12]  684 	mov	a,#0x80
+      000232 C0 E0            [24]  685 	push	acc
+      000234 12 06 94         [24]  686 	lcall	_printf
+      000237 E5 81            [12]  687 	mov	a,sp
+      000239 24 FB            [12]  688 	add	a,#0xfb
+      00023B F5 81            [12]  689 	mov	sp,a
+                                    690 ;	./src/main.c:53: printf("hum: %d\r\n",hum);
+      00023D C0 20            [24]  691 	push	_hum
+      00023F C0 21            [24]  692 	push	(_hum + 1)
+      000241 74 C6            [12]  693 	mov	a,#___str_13
+      000243 C0 E0            [24]  694 	push	acc
+      000245 74 10            [12]  695 	mov	a,#(___str_13 >> 8)
+      000247 C0 E0            [24]  696 	push	acc
+      000249 74 80            [12]  697 	mov	a,#0x80
+      00024B C0 E0            [24]  698 	push	acc
+      00024D 12 06 94         [24]  699 	lcall	_printf
+      000250 E5 81            [12]  700 	mov	a,sp
+      000252 24 FB            [12]  701 	add	a,#0xfb
+      000254 F5 81            [12]  702 	mov	sp,a
+                                    703 ;	./src/main.c:54: printf("the: %d\r\n",the);
+      000256 C0 22            [24]  704 	push	_the
+      000258 C0 23            [24]  705 	push	(_the + 1)
+      00025A 74 D0            [12]  706 	mov	a,#___str_14
+      00025C C0 E0            [24]  707 	push	acc
+      00025E 74 10            [12]  708 	mov	a,#(___str_14 >> 8)
+      000260 C0 E0            [24]  709 	push	acc
+      000262 74 80            [12]  710 	mov	a,#0x80
+      000264 C0 E0            [24]  711 	push	acc
+      000266 12 06 94         [24]  712 	lcall	_printf
+      000269 E5 81            [12]  713 	mov	a,sp
+      00026B 24 FB            [12]  714 	add	a,#0xfb
+      00026D F5 81            [12]  715 	mov	sp,a
+                                    716 ;	./src/main.c:55: printf("thef: %d\r\n",thef);
+      00026F C0 24            [24]  717 	push	_thef
+      000271 C0 25            [24]  718 	push	(_thef + 1)
+      000273 74 DA            [12]  719 	mov	a,#___str_15
+      000275 C0 E0            [24]  720 	push	acc
+      000277 74 10            [12]  721 	mov	a,#(___str_15 >> 8)
+      000279 C0 E0            [24]  722 	push	acc
+      00027B 74 80            [12]  723 	mov	a,#0x80
+      00027D C0 E0            [24]  724 	push	acc
+      00027F 12 06 94         [24]  725 	lcall	_printf
+      000282 E5 81            [12]  726 	mov	a,sp
+      000284 24 FB            [12]  727 	add	a,#0xfb
+      000286 F5 81            [12]  728 	mov	sp,a
+                                    729 ;	./src/main.c:56: printf("check: %d\r\n",check);
+      000288 C0 28            [24]  730 	push	_check
+      00028A C0 29            [24]  731 	push	(_check + 1)
+      00028C 74 E5            [12]  732 	mov	a,#___str_16
+      00028E C0 E0            [24]  733 	push	acc
+      000290 74 10            [12]  734 	mov	a,#(___str_16 >> 8)
+      000292 C0 E0            [24]  735 	push	acc
+      000294 74 80            [12]  736 	mov	a,#0x80
+      000296 C0 E0            [24]  737 	push	acc
+      000298 12 06 94         [24]  738 	lcall	_printf
+      00029B E5 81            [12]  739 	mov	a,sp
+      00029D 24 FB            [12]  740 	add	a,#0xfb
+      00029F F5 81            [12]  741 	mov	sp,a
+                                    742 ;	./src/main.c:57: printf("subzero: %d\r\n",subzero);
+      0002A1 C0 26            [24]  743 	push	_subzero
+      0002A3 C0 27            [24]  744 	push	(_subzero + 1)
+      0002A5 74 F1            [12]  745 	mov	a,#___str_17
+      0002A7 C0 E0            [24]  746 	push	acc
+      0002A9 74 10            [12]  747 	mov	a,#(___str_17 >> 8)
+      0002AB C0 E0            [24]  748 	push	acc
+      0002AD 74 80            [12]  749 	mov	a,#0x80
+      0002AF C0 E0            [24]  750 	push	acc
+      0002B1 12 06 94         [24]  751 	lcall	_printf
+      0002B4 E5 81            [12]  752 	mov	a,sp
+      0002B6 24 FB            [12]  753 	add	a,#0xfb
+      0002B8 F5 81            [12]  754 	mov	sp,a
+                                    755 ;	./src/main.c:58: }
+      0002BA 22               [24]  756 	ret
+                                    757 ;------------------------------------------------------------
+                                    758 ;Allocation info for local variables in function 'main'
+                                    759 ;------------------------------------------------------------
+                                    760 ;	./src/main.c:59: void main ()
+                                    761 ;	-----------------------------------------
+                                    762 ;	 function main
+                                    763 ;	-----------------------------------------
+      0002BB                        764 _main:
+                                    765 ;	./src/main.c:61: Wdt_Init();
+      0002BB 12 05 E0         [24]  766 	lcall	_Wdt_Init
+                                    767 ;	./src/main.c:62: Int_Init();     	//初始化系统中断
+      0002BE 12 03 1C         [24]  768 	lcall	_Int_Init
+                                    769 ;	./src/main.c:63: Time0_Init();		//初始化定时器0
+      0002C1 12 03 27         [24]  770 	lcall	_Time0_Init
+                                    771 ;	./src/main.c:64: Time1_Init();		//初始化定时器1
+      0002C4 12 05 A5         [24]  772 	lcall	_Time1_Init
+                                    773 ;	./src/main.c:65: Serial_Init();		//串口初始化
+      0002C7 12 05 B1         [24]  774 	lcall	_Serial_Init
+                                    775 ;	./src/main.c:66: Time2_Init();		//初始化定时器2
+      0002CA 12 03 2B         [24]  776 	lcall	_Time2_Init
+                                    777 ;	./src/main.c:67: Lcd1602_Init();		//初始化lcd1602
+      0002CD 12 04 83         [24]  778 	lcall	_Lcd1602_Init
+                                    779 ;	./src/main.c:68: Lcd1602_Clean();	//清空lcd1602显存
+      0002D0 12 04 9B         [24]  780 	lcall	_Lcd1602_Clean
+                                    781 ;	./src/main.c:69: print_boot();		//显示欢迎界面(等待DHT11初始化完成)
+      0002D3 12 01 4B         [24]  782 	lcall	_print_boot
+                                    783 ;	./src/main.c:70: Boot_Test();		//开机自检
+      0002D6 12 00 BD         [24]  784 	lcall	_Boot_Test
+                                    785 ;	./src/main.c:71: while(1){
+      0002D9                        786 00102$:
+                                    787 ;	./src/main.c:72: Wdt_Clean();
+      0002D9 12 05 F2         [24]  788 	lcall	_Wdt_Clean
+                                    789 ;	./src/main.c:73: DHT11_Read();
+      0002DC 12 03 C5         [24]  790 	lcall	_DHT11_Read
+                                    791 ;	./src/main.c:74: Lcd1602_Init();
+      0002DF 12 04 83         [24]  792 	lcall	_Lcd1602_Init
+                                    793 ;	./src/main.c:75: Lcd1602_Clean();
+      0002E2 12 04 9B         [24]  794 	lcall	_Lcd1602_Clean
+                                    795 ;	./src/main.c:76: show_data();
+      0002E5 12 01 83         [24]  796 	lcall	_show_data
+                                    797 ;	./src/main.c:77: show_time();
+      0002E8 12 02 23         [24]  798 	lcall	_show_time
+                                    799 ;	./src/main.c:78: time++;
+      0002EB 05 08            [12]  800 	inc	_time
+      0002ED E4               [12]  801 	clr	a
+      0002EE B5 08 02         [24]  802 	cjne	a,_time,00110$
+      0002F1 05 09            [12]  803 	inc	(_time + 1)
+      0002F3                        804 00110$:
+                                    805 ;	./src/main.c:79: debug();
+      0002F3 12 02 24         [24]  806 	lcall	_debug
+                                    807 ;	./src/main.c:80: delayms(1500);
+      0002F6 90 05 DC         [24]  808 	mov	dptr,#0x05dc
+      0002F9 12 02 FE         [24]  809 	lcall	_delayms
+                                    810 ;	./src/main.c:82: } 
+      0002FC 80 DB            [24]  811 	sjmp	00102$
+                                    812 	.area CSEG    (CODE)
+                                    813 	.area CONST   (CODE)
+                                    814 	.area CONST   (CODE)
+      001005                        815 ___str_0:
+      001005 77 65 6C 63 6F 6D 65   816 	.ascii "welcome to use"
+             20 74 6F 20 75 73 65
+      001013 0D                     817 	.db 0x0d
+      001014 0A                     818 	.db 0x0a
+      001015 00                     819 	.db 0x00
+                                    820 	.area CSEG    (CODE)
+                                    821 	.area CONST   (CODE)
+      001016                        822 ___str_1:
+      001016 62 6F 6F 74 3A 20 53   823 	.ascii "boot: Start self test[pass]"
+             74 61 72 74 20 73 65
+             6C 66 20 74 65 73 74
+             5B 70 61 73 73 5D
+      001031 0D                     824 	.db 0x0d
+      001032 0A                     825 	.db 0x0a
+      001033 00                     826 	.db 0x00
+                                    827 	.area CSEG    (CODE)
+                                    828 	.area CONST   (CODE)
+      001034                        829 ___str_2:
+      001034 62 6F 6F 74 3A 20 53   830 	.ascii "boot: Start self test[WDT Operation sign NG ]"
+             74 61 72 74 20 73 65
+             6C 66 20 74 65 73 74
+             5B 57 44 54 20 4F 70
+             65 72 61 74 69 6F 6E
+             20 73 69 67 6E 20 4E
+             47 20 5D
+      001061 0D                     831 	.db 0x0d
+      001062 0A                     832 	.db 0x0a
+      001063 00                     833 	.db 0x00
+                                    834 	.area CSEG    (CODE)
+                                    835 	.area CONST   (CODE)
+      001064                        836 ___str_3:
+      001064 64 68 74 31 31 20 65   837 	.ascii "dht11 error ->"
+             72 72 6F 72 20 2D 3E
+      001072 00                     838 	.db 0x00
+                                    839 	.area CSEG    (CODE)
+                                    840 	.area CONST   (CODE)
+      001073                        841 ___str_4:
+      001073 23 23 23 23 23 23 23   842 	.ascii "#####################"
+             23 23 23 23 23 23 23
+             23 23 23 23 23 23 23
+      001088 0D                     843 	.db 0x0d
+      001089 0A                     844 	.db 0x0a
+      00108A 00                     845 	.db 0x00
+                                    846 	.area CSEG    (CODE)
+                                    847 	.area CONST   (CODE)
+      00108B                        848 ___str_5:
+      00108B 44 48 54 31 31 5B 6F   849 	.ascii "DHT11[ok]"
+             6B 5D
+      001094 0D                     850 	.db 0x0d
+      001095 0A                     851 	.db 0x0a
+      001096 00                     852 	.db 0x00
+                                    853 	.area CSEG    (CODE)
+                                    854 	.area CONST   (CODE)
+      001097                        855 ___str_6:
+      001097 57 65 6C 43 6F 6D 65   856 	.ascii "WelCome Pan"
+             20 50 61 6E
+      0010A2 00                     857 	.db 0x00
+                                    858 	.area CSEG    (CODE)
+                                    859 	.area CONST   (CODE)
+      0010A3                        860 ___str_7:
+      0010A3 54 65 6D 3A            861 	.ascii "Tem:"
+      0010A7 00                     862 	.db 0x00
+                                    863 	.area CSEG    (CODE)
+                                    864 	.area CONST   (CODE)
+      0010A8                        865 ___str_8:
+      0010A8 2E                     866 	.ascii "."
+      0010A9 00                     867 	.db 0x00
+                                    868 	.area CSEG    (CODE)
+                                    869 	.area CONST   (CODE)
+      0010AA                        870 ___str_9:
+      0010AA 48 52 3A               871 	.ascii "HR:"
+      0010AD 00                     872 	.db 0x00
+                                    873 	.area CSEG    (CODE)
+                                    874 	.area CONST   (CODE)
+      0010AE                        875 ___str_10:
+      0010AE 25                     876 	.ascii "%"
+      0010AF 00                     877 	.db 0x00
+                                    878 	.area CSEG    (CODE)
+                                    879 	.area CONST   (CODE)
+      0010B0                        880 ___str_11:
+      0010B0 2D                     881 	.ascii "-"
+      0010B1 00                     882 	.db 0x00
+                                    883 	.area CSEG    (CODE)
+                                    884 	.area CONST   (CODE)
+      0010B2                        885 ___str_12:
+      0010B2 72 65 61 64 20 62 61   886 	.ascii "read back time %d"
+             63 6B 20 74 69 6D 65
+             20 25 64
+      0010C3 0D                     887 	.db 0x0d
+      0010C4 0A                     888 	.db 0x0a
+      0010C5 00                     889 	.db 0x00
+                                    890 	.area CSEG    (CODE)
+                                    891 	.area CONST   (CODE)
+      0010C6                        892 ___str_13:
+      0010C6 68 75 6D 3A 20 25 64   893 	.ascii "hum: %d"
+      0010CD 0D                     894 	.db 0x0d
+      0010CE 0A                     895 	.db 0x0a
+      0010CF 00                     896 	.db 0x00
+                                    897 	.area CSEG    (CODE)
+                                    898 	.area CONST   (CODE)
+      0010D0                        899 ___str_14:
+      0010D0 74 68 65 3A 20 25 64   900 	.ascii "the: %d"
+      0010D7 0D                     901 	.db 0x0d
+      0010D8 0A                     902 	.db 0x0a
+      0010D9 00                     903 	.db 0x00
+                                    904 	.area CSEG    (CODE)
+                                    905 	.area CONST   (CODE)
+      0010DA                        906 ___str_15:
+      0010DA 74 68 65 66 3A 20 25   907 	.ascii "thef: %d"
+             64
+      0010E2 0D                     908 	.db 0x0d
+      0010E3 0A                     909 	.db 0x0a
+      0010E4 00                     910 	.db 0x00
+                                    911 	.area CSEG    (CODE)
+                                    912 	.area CONST   (CODE)
+      0010E5                        913 ___str_16:
+      0010E5 63 68 65 63 6B 3A 20   914 	.ascii "check: %d"
+             25 64
+      0010EE 0D                     915 	.db 0x0d
+      0010EF 0A                     916 	.db 0x0a
+      0010F0 00                     917 	.db 0x00
+                                    918 	.area CSEG    (CODE)
+                                    919 	.area CONST   (CODE)
+      0010F1                        920 ___str_17:
+      0010F1 73 75 62 7A 65 72 6F   921 	.ascii "subzero: %d"
+             3A 20 25 64
+      0010FC 0D                     922 	.db 0x0d
+      0010FD 0A                     923 	.db 0x0a
+      0010FE 00                     924 	.db 0x00
+                                    925 	.area CSEG    (CODE)
+                                    926 	.area XINIT   (CODE)
+                                    927 	.area CABS    (ABS,CODE)

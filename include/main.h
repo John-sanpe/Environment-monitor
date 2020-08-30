@@ -20,7 +20,7 @@
 #define dht11_threshold 50
 
 //公用变量声明
-extern uint hum,the,thef,subzero,check;
+extern int hum,the,thef,subzero,check;
 
 //control函数声明
 void delayms(unsigned int ms);
@@ -44,7 +44,7 @@ void Wdt_Clean(void);
 uchar Wdt_Runsign(void);
 
 //lcd1602函数声明
-void Lcd1602_PrintNumber(unsigned char ex,unsigned char ey,char ei);
+void Lcd1602_PrintNumber(unsigned char ex,unsigned char ey,int ei);
 void Lcd1602_Print(unsigned char ex,unsigned char ey,char *ei);
 void Lcd1602_PrintCust(unsigned char ex,unsigned char ey,char *ei);
 void Lcd1602_Clean(void);
