@@ -4,6 +4,7 @@ src	 = ./src/
 obj	 = ./obj/
 output	 = ./output/
 ihxname  = main.ihx
+binname  = main.bin
 hexname  = main.hex
 objects	 = $(obj)main.rel $(obj)control.rel $(obj)dht11.rel $(obj)e2prom.rel $(obj)lcd1602.rel $(obj)serial.rel  $(obj)wdt.rel
 
@@ -23,25 +24,26 @@ help:
 	@echo "       src=${src}"
 	@echo "       output=${output}"
 	@echo "       ihxname=${ihxname}"
+	@echo "       binname=${binname}"
 	@echo "       hexname=${hexname}"
 	@echo "       objects=${objects}"
 	@echo "       flashtool=${flashtool}"
 install:
 	yay -S sdcc stcflash-git
 	
-auto:hex
-	${flashtool} ${output}${hexname}
+auto:bin
+	${flashtool} ${output}${binname}
 	
 flash: 
-	${flashtool} ${output}${hexname}
+	${flashtool} ${output}${binname}
+	
+bin:hex
+	objcopy -I ihex -O binary $(output)${hexname} $(output)${binname}
 	
 hex:project
-	objcopy -I ihex -O binary $(output)main.hex $(output)main.bin
+	packihx $(obj)$(ihxname) > $(output)${hexname}
 	
-project:$(obj)$(ihxname)
-	packihx $(obj)$(ihxname) > $(output)main.hex
-	
-$(obj)$(ihxname):$(objects)
+project:$(objects)
 	$(cc) $(objects) -o $(obj)main.ihx
 	
 $(obj)control.rel:$(src)control.c
