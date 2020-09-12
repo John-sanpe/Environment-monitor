@@ -323,18 +323,18 @@
                                     323 ; internal ram data
                                     324 ;--------------------------------------------------------
                                     325 	.area DSEG    (DATA)
-      00002A                        326 _Lcd1602_PrintNumber_PARM_2:
-      00002A                        327 	.ds 1
-      00002B                        328 _Lcd1602_PrintNumber_PARM_3:
-      00002B                        329 	.ds 2
-      00002D                        330 _Lcd1602_PrintCust_PARM_2:
-      00002D                        331 	.ds 1
-      00002E                        332 _Lcd1602_PrintCust_PARM_3:
-      00002E                        333 	.ds 3
-      000031                        334 _Lcd1602_Print_PARM_2:
-      000031                        335 	.ds 1
-      000032                        336 _Lcd1602_Print_PARM_3:
-      000032                        337 	.ds 3
+      00002C                        326 _Lcd1602_PrintNumber_PARM_2:
+      00002C                        327 	.ds 1
+      00002D                        328 _Lcd1602_PrintNumber_PARM_3:
+      00002D                        329 	.ds 2
+      00002F                        330 _Lcd1602_PrintCust_PARM_2:
+      00002F                        331 	.ds 1
+      000030                        332 _Lcd1602_PrintCust_PARM_3:
+      000030                        333 	.ds 3
+      000033                        334 _Lcd1602_Print_PARM_2:
+      000033                        335 	.ds 1
+      000034                        336 _Lcd1602_Print_PARM_3:
+      000034                        337 	.ds 3
                                     338 ;--------------------------------------------------------
                                     339 ; overlayable items in internal ram 
                                     340 ;--------------------------------------------------------
@@ -404,7 +404,7 @@
                                     404 ;	-----------------------------------------
                                     405 ;	 function WaitBusy
                                     406 ;	-----------------------------------------
-      000454                        407 _WaitBusy:
+      000453                        407 _WaitBusy:
                            000007   408 	ar7 = 0x07
                            000006   409 	ar6 = 0x06
                            000005   410 	ar5 = 0x05
@@ -414,46 +414,46 @@
                            000001   414 	ar1 = 0x01
                            000000   415 	ar0 = 0x00
                                     416 ;	./src/lcd1602.c:4: uchar temp=1;
-      000454 7F 01            [12]  417 	mov	r7,#0x01
+      000453 7F 01            [12]  417 	mov	r7,#0x01
                                     418 ;	./src/lcd1602.c:6: Lcd1602Port=0xff;
-      000456 75 90 FF         [24]  419 	mov	_P1,#0xff
+      000455 75 90 FF         [24]  419 	mov	_P1,#0xff
                                     420 ;	./src/lcd1602.c:7: Lcd1602Rw=1;
                                     421 ;	assignBit
-      000459 D2 A6            [12]  422 	setb	_P2_6
+      000458 D2 A6            [12]  422 	setb	_P2_6
                                     423 ;	./src/lcd1602.c:8: Lcd1602Rs=0;
                                     424 ;	assignBit
-      00045B C2 A5            [12]  425 	clr	_P2_5
+      00045A C2 A5            [12]  425 	clr	_P2_5
                                     426 ;	./src/lcd1602.c:9: while(temp==1)
-      00045D 7D 00            [12]  427 	mov	r5,#0x00
-      00045F 7E 00            [12]  428 	mov	r6,#0x00
-      000461                        429 00103$:
-      000461 BF 01 19         [24]  430 	cjne	r7,#0x01,00105$
+      00045C 7D 00            [12]  427 	mov	r5,#0x00
+      00045E 7E 00            [12]  428 	mov	r6,#0x00
+      000460                        429 00103$:
+      000460 BF 01 19         [24]  430 	cjne	r7,#0x01,00105$
                                     431 ;	./src/lcd1602.c:11: Lcd1602E=1;
                                     432 ;	assignBit
-      000464 D2 A7            [12]  433 	setb	_P2_7
+      000463 D2 A7            [12]  433 	setb	_P2_7
                                     434 ;	./src/lcd1602.c:12: temp = (Lcd1602Port>>7)&0x01;
-      000466 E5 90            [12]  435 	mov	a,_P1
-      000468 23               [12]  436 	rl	a
-      000469 54 01            [12]  437 	anl	a,#0x01
-      00046B FF               [12]  438 	mov	r7,a
+      000465 E5 90            [12]  435 	mov	a,_P1
+      000467 23               [12]  436 	rl	a
+      000468 54 01            [12]  437 	anl	a,#0x01
+      00046A FF               [12]  438 	mov	r7,a
                                     439 ;	./src/lcd1602.c:13: Lcd1602E=0;
                                     440 ;	assignBit
-      00046C C2 A7            [12]  441 	clr	_P2_7
+      00046B C2 A7            [12]  441 	clr	_P2_7
                                     442 ;	./src/lcd1602.c:14: null++;
-      00046E 0D               [12]  443 	inc	r5
-      00046F BD 00 01         [24]  444 	cjne	r5,#0x00,00122$
-      000472 0E               [12]  445 	inc	r6
-      000473                        446 00122$:
+      00046D 0D               [12]  443 	inc	r5
+      00046E BD 00 01         [24]  444 	cjne	r5,#0x00,00122$
+      000471 0E               [12]  445 	inc	r6
+      000472                        446 00122$:
                                     447 ;	./src/lcd1602.c:15: if(null==0xfffe)return 1;
-      000473 BD FE EB         [24]  448 	cjne	r5,#0xfe,00103$
-      000476 BE FF E8         [24]  449 	cjne	r6,#0xff,00103$
-      000479 75 82 01         [24]  450 	mov	dpl,#0x01
-      00047C 22               [24]  451 	ret
-      00047D                        452 00105$:
+      000472 BD FE EB         [24]  448 	cjne	r5,#0xfe,00103$
+      000475 BE FF E8         [24]  449 	cjne	r6,#0xff,00103$
+      000478 75 82 01         [24]  450 	mov	dpl,#0x01
+      00047B 22               [24]  451 	ret
+      00047C                        452 00105$:
                                     453 ;	./src/lcd1602.c:17: return 0;
-      00047D 75 82 00         [24]  454 	mov	dpl,#0x00
+      00047C 75 82 00         [24]  454 	mov	dpl,#0x00
                                     455 ;	./src/lcd1602.c:18: }
-      000480 22               [24]  456 	ret
+      00047F 22               [24]  456 	ret
                                     457 ;------------------------------------------------------------
                                     458 ;Allocation info for local variables in function 'com'
                                     459 ;------------------------------------------------------------
@@ -463,28 +463,28 @@
                                     463 ;	-----------------------------------------
                                     464 ;	 function com
                                     465 ;	-----------------------------------------
-      000481                        466 _com:
-      000481 AF 82            [24]  467 	mov	r7,dpl
+      000480                        466 _com:
+      000480 AF 82            [24]  467 	mov	r7,dpl
                                     468 ;	./src/lcd1602.c:21: WaitBusy();
-      000483 C0 07            [24]  469 	push	ar7
-      000485 12 04 54         [24]  470 	lcall	_WaitBusy
-      000488 D0 07            [24]  471 	pop	ar7
+      000482 C0 07            [24]  469 	push	ar7
+      000484 12 04 53         [24]  470 	lcall	_WaitBusy
+      000487 D0 07            [24]  471 	pop	ar7
                                     472 ;	./src/lcd1602.c:22: Lcd1602Rw=0;
                                     473 ;	assignBit
-      00048A C2 A6            [12]  474 	clr	_P2_6
+      000489 C2 A6            [12]  474 	clr	_P2_6
                                     475 ;	./src/lcd1602.c:23: Lcd1602Rs=0;
                                     476 ;	assignBit
-      00048C C2 A5            [12]  477 	clr	_P2_5
+      00048B C2 A5            [12]  477 	clr	_P2_5
                                     478 ;	./src/lcd1602.c:24: Lcd1602E=1;
                                     479 ;	assignBit
-      00048E D2 A7            [12]  480 	setb	_P2_7
+      00048D D2 A7            [12]  480 	setb	_P2_7
                                     481 ;	./src/lcd1602.c:25: Lcd1602Port=com;
-      000490 8F 90            [24]  482 	mov	_P1,r7
+      00048F 8F 90            [24]  482 	mov	_P1,r7
                                     483 ;	./src/lcd1602.c:26: Lcd1602E=0;
                                     484 ;	assignBit
-      000492 C2 A7            [12]  485 	clr	_P2_7
+      000491 C2 A7            [12]  485 	clr	_P2_7
                                     486 ;	./src/lcd1602.c:27: }
-      000494 22               [24]  487 	ret
+      000493 22               [24]  487 	ret
                                     488 ;------------------------------------------------------------
                                     489 ;Allocation info for local variables in function 'datax'
                                     490 ;------------------------------------------------------------
@@ -494,28 +494,28 @@
                                     494 ;	-----------------------------------------
                                     495 ;	 function datax
                                     496 ;	-----------------------------------------
-      000495                        497 _datax:
-      000495 AF 82            [24]  498 	mov	r7,dpl
+      000494                        497 _datax:
+      000494 AF 82            [24]  498 	mov	r7,dpl
                                     499 ;	./src/lcd1602.c:30: WaitBusy();
-      000497 C0 07            [24]  500 	push	ar7
-      000499 12 04 54         [24]  501 	lcall	_WaitBusy
-      00049C D0 07            [24]  502 	pop	ar7
+      000496 C0 07            [24]  500 	push	ar7
+      000498 12 04 53         [24]  501 	lcall	_WaitBusy
+      00049B D0 07            [24]  502 	pop	ar7
                                     503 ;	./src/lcd1602.c:31: Lcd1602Rw=0;
                                     504 ;	assignBit
-      00049E C2 A6            [12]  505 	clr	_P2_6
+      00049D C2 A6            [12]  505 	clr	_P2_6
                                     506 ;	./src/lcd1602.c:32: Lcd1602Rs=1;
                                     507 ;	assignBit
-      0004A0 D2 A5            [12]  508 	setb	_P2_5
+      00049F D2 A5            [12]  508 	setb	_P2_5
                                     509 ;	./src/lcd1602.c:33: Lcd1602E=1;
                                     510 ;	assignBit
-      0004A2 D2 A7            [12]  511 	setb	_P2_7
+      0004A1 D2 A7            [12]  511 	setb	_P2_7
                                     512 ;	./src/lcd1602.c:34: Lcd1602Port=datx;
-      0004A4 8F 90            [24]  513 	mov	_P1,r7
+      0004A3 8F 90            [24]  513 	mov	_P1,r7
                                     514 ;	./src/lcd1602.c:35: Lcd1602E=0;
                                     515 ;	assignBit
-      0004A6 C2 A7            [12]  516 	clr	_P2_7
+      0004A5 C2 A7            [12]  516 	clr	_P2_7
                                     517 ;	./src/lcd1602.c:36: }
-      0004A8 22               [24]  518 	ret
+      0004A7 22               [24]  518 	ret
                                     519 ;------------------------------------------------------------
                                     520 ;Allocation info for local variables in function 'Lcd1602_Init'
                                     521 ;------------------------------------------------------------
@@ -523,20 +523,20 @@
                                     523 ;	-----------------------------------------
                                     524 ;	 function Lcd1602_Init
                                     525 ;	-----------------------------------------
-      0004A9                        526 _Lcd1602_Init:
+      0004A8                        526 _Lcd1602_Init:
                                     527 ;	./src/lcd1602.c:40: com(0x38);
-      0004A9 75 82 38         [24]  528 	mov	dpl,#0x38
-      0004AC 12 04 81         [24]  529 	lcall	_com
+      0004A8 75 82 38         [24]  528 	mov	dpl,#0x38
+      0004AB 12 04 80         [24]  529 	lcall	_com
                                     530 ;	./src/lcd1602.c:41: com(0x0c);
-      0004AF 75 82 0C         [24]  531 	mov	dpl,#0x0c
-      0004B2 12 04 81         [24]  532 	lcall	_com
+      0004AE 75 82 0C         [24]  531 	mov	dpl,#0x0c
+      0004B1 12 04 80         [24]  532 	lcall	_com
                                     533 ;	./src/lcd1602.c:42: com(0x01);
-      0004B5 75 82 01         [24]  534 	mov	dpl,#0x01
-      0004B8 12 04 81         [24]  535 	lcall	_com
+      0004B4 75 82 01         [24]  534 	mov	dpl,#0x01
+      0004B7 12 04 80         [24]  535 	lcall	_com
                                     536 ;	./src/lcd1602.c:43: com(0x06);
-      0004BB 75 82 06         [24]  537 	mov	dpl,#0x06
+      0004BA 75 82 06         [24]  537 	mov	dpl,#0x06
                                     538 ;	./src/lcd1602.c:44: }
-      0004BE 02 04 81         [24]  539 	ljmp	_com
+      0004BD 02 04 80         [24]  539 	ljmp	_com
                                     540 ;------------------------------------------------------------
                                     541 ;Allocation info for local variables in function 'Lcd1602_Clean'
                                     542 ;------------------------------------------------------------
@@ -544,11 +544,11 @@
                                     544 ;	-----------------------------------------
                                     545 ;	 function Lcd1602_Clean
                                     546 ;	-----------------------------------------
-      0004C1                        547 _Lcd1602_Clean:
+      0004C0                        547 _Lcd1602_Clean:
                                     548 ;	./src/lcd1602.c:48: com(0x01);
-      0004C1 75 82 01         [24]  549 	mov	dpl,#0x01
+      0004C0 75 82 01         [24]  549 	mov	dpl,#0x01
                                     550 ;	./src/lcd1602.c:49: }
-      0004C4 02 04 81         [24]  551 	ljmp	_com
+      0004C3 02 04 80         [24]  551 	ljmp	_com
                                     552 ;------------------------------------------------------------
                                     553 ;Allocation info for local variables in function 'Lcd1602_PrintNumber'
                                     554 ;------------------------------------------------------------
@@ -561,79 +561,79 @@
                                     561 ;	-----------------------------------------
                                     562 ;	 function Lcd1602_PrintNumber
                                     563 ;	-----------------------------------------
-      0004C7                        564 _Lcd1602_PrintNumber:
-      0004C7 AF 82            [24]  565 	mov	r7,dpl
+      0004C6                        564 _Lcd1602_PrintNumber:
+      0004C6 AF 82            [24]  565 	mov	r7,dpl
                                     566 ;	./src/lcd1602.c:53: uchar point=0x80;
-      0004C9 7E 80            [12]  567 	mov	r6,#0x80
+      0004C8 7E 80            [12]  567 	mov	r6,#0x80
                                     568 ;	./src/lcd1602.c:54: if(ey==1)point|=1<<6;
-      0004CB 74 01            [12]  569 	mov	a,#0x01
-      0004CD B5 2A 02         [24]  570 	cjne	a,_Lcd1602_PrintNumber_PARM_2,00102$
-      0004D0 7E C0            [12]  571 	mov	r6,#0xc0
-      0004D2                        572 00102$:
+      0004CA 74 01            [12]  569 	mov	a,#0x01
+      0004CC B5 2C 02         [24]  570 	cjne	a,_Lcd1602_PrintNumber_PARM_2,00102$
+      0004CF 7E C0            [12]  571 	mov	r6,#0xc0
+      0004D1                        572 00102$:
                                     573 ;	./src/lcd1602.c:55: if(ei>=10)ex--;
-      0004D2 C3               [12]  574 	clr	c
-      0004D3 E5 2B            [12]  575 	mov	a,_Lcd1602_PrintNumber_PARM_3
-      0004D5 94 0A            [12]  576 	subb	a,#0x0a
-      0004D7 E5 2C            [12]  577 	mov	a,(_Lcd1602_PrintNumber_PARM_3 + 1)
-      0004D9 64 80            [12]  578 	xrl	a,#0x80
-      0004DB 94 80            [12]  579 	subb	a,#0x80
-      0004DD E4               [12]  580 	clr	a
-      0004DE 33               [12]  581 	rlc	a
-      0004DF FD               [12]  582 	mov	r5,a
-      0004E0 70 01            [24]  583 	jnz	00104$
-      0004E2 1F               [12]  584 	dec	r7
-      0004E3                        585 00104$:
+      0004D1 C3               [12]  574 	clr	c
+      0004D2 E5 2D            [12]  575 	mov	a,_Lcd1602_PrintNumber_PARM_3
+      0004D4 94 0A            [12]  576 	subb	a,#0x0a
+      0004D6 E5 2E            [12]  577 	mov	a,(_Lcd1602_PrintNumber_PARM_3 + 1)
+      0004D8 64 80            [12]  578 	xrl	a,#0x80
+      0004DA 94 80            [12]  579 	subb	a,#0x80
+      0004DC E4               [12]  580 	clr	a
+      0004DD 33               [12]  581 	rlc	a
+      0004DE FD               [12]  582 	mov	r5,a
+      0004DF 70 01            [24]  583 	jnz	00104$
+      0004E1 1F               [12]  584 	dec	r7
+      0004E2                        585 00104$:
                                     586 ;	./src/lcd1602.c:56: com(point+ex);
-      0004E3 EF               [12]  587 	mov	a,r7
-      0004E4 2E               [12]  588 	add	a,r6
-      0004E5 F5 82            [12]  589 	mov	dpl,a
-      0004E7 C0 05            [24]  590 	push	ar5
-      0004E9 12 04 81         [24]  591 	lcall	_com
-      0004EC D0 05            [24]  592 	pop	ar5
+      0004E2 EF               [12]  587 	mov	a,r7
+      0004E3 2E               [12]  588 	add	a,r6
+      0004E4 F5 82            [12]  589 	mov	dpl,a
+      0004E6 C0 05            [24]  590 	push	ar5
+      0004E8 12 04 80         [24]  591 	lcall	_com
+      0004EB D0 05            [24]  592 	pop	ar5
                                     593 ;	./src/lcd1602.c:58: if(ei>=100)return;
-      0004EE C3               [12]  594 	clr	c
-      0004EF E5 2B            [12]  595 	mov	a,_Lcd1602_PrintNumber_PARM_3
-      0004F1 94 64            [12]  596 	subb	a,#0x64
-      0004F3 E5 2C            [12]  597 	mov	a,(_Lcd1602_PrintNumber_PARM_3 + 1)
-      0004F5 64 80            [12]  598 	xrl	a,#0x80
-      0004F7 94 80            [12]  599 	subb	a,#0x80
-      0004F9 40 01            [24]  600 	jc	00106$
-      0004FB 22               [24]  601 	ret
-      0004FC                        602 00106$:
+      0004ED C3               [12]  594 	clr	c
+      0004EE E5 2D            [12]  595 	mov	a,_Lcd1602_PrintNumber_PARM_3
+      0004F0 94 64            [12]  596 	subb	a,#0x64
+      0004F2 E5 2E            [12]  597 	mov	a,(_Lcd1602_PrintNumber_PARM_3 + 1)
+      0004F4 64 80            [12]  598 	xrl	a,#0x80
+      0004F6 94 80            [12]  599 	subb	a,#0x80
+      0004F8 40 01            [24]  600 	jc	00106$
+      0004FA 22               [24]  601 	ret
+      0004FB                        602 00106$:
                                     603 ;	./src/lcd1602.c:59: if(ei>=10)
-      0004FC ED               [12]  604 	mov	a,r5
+      0004FB ED               [12]  604 	mov	a,r5
                                     605 ;	./src/lcd1602.c:61: datax(0x30+ei/10);
-      0004FD 70 31            [24]  606 	jnz	00108$
-      0004FF 75 64 0A         [24]  607 	mov	__divsint_PARM_2,#0x0a
-      000502 F5 65            [12]  608 	mov	(__divsint_PARM_2 + 1),a
-      000504 85 2B 82         [24]  609 	mov	dpl,_Lcd1602_PrintNumber_PARM_3
-      000507 85 2C 83         [24]  610 	mov	dph,(_Lcd1602_PrintNumber_PARM_3 + 1)
-      00050A 12 0F EF         [24]  611 	lcall	__divsint
-      00050D AE 82            [24]  612 	mov	r6,dpl
-      00050F 74 30            [12]  613 	mov	a,#0x30
-      000511 2E               [12]  614 	add	a,r6
-      000512 F5 82            [12]  615 	mov	dpl,a
-      000514 12 04 95         [24]  616 	lcall	_datax
+      0004FC 70 31            [24]  606 	jnz	00108$
+      0004FE 75 66 0A         [24]  607 	mov	__divsint_PARM_2,#0x0a
+      000501 F5 67            [12]  608 	mov	(__divsint_PARM_2 + 1),a
+      000503 85 2D 82         [24]  609 	mov	dpl,_Lcd1602_PrintNumber_PARM_3
+      000506 85 2E 83         [24]  610 	mov	dph,(_Lcd1602_PrintNumber_PARM_3 + 1)
+      000509 12 0F ED         [24]  611 	lcall	__divsint
+      00050C AE 82            [24]  612 	mov	r6,dpl
+      00050E 74 30            [12]  613 	mov	a,#0x30
+      000510 2E               [12]  614 	add	a,r6
+      000511 F5 82            [12]  615 	mov	dpl,a
+      000513 12 04 94         [24]  616 	lcall	_datax
                                     617 ;	./src/lcd1602.c:62: datax(0x30+ei%10);
-      000517 75 64 0A         [24]  618 	mov	__modsint_PARM_2,#0x0a
-      00051A 75 65 00         [24]  619 	mov	(__modsint_PARM_2 + 1),#0x00
-      00051D 85 2B 82         [24]  620 	mov	dpl,_Lcd1602_PrintNumber_PARM_3
-      000520 85 2C 83         [24]  621 	mov	dph,(_Lcd1602_PrintNumber_PARM_3 + 1)
-      000523 12 0F B9         [24]  622 	lcall	__modsint
-      000526 AE 82            [24]  623 	mov	r6,dpl
-      000528 74 30            [12]  624 	mov	a,#0x30
-      00052A 2E               [12]  625 	add	a,r6
-      00052B F5 82            [12]  626 	mov	dpl,a
+      000516 75 66 0A         [24]  618 	mov	__modsint_PARM_2,#0x0a
+      000519 75 67 00         [24]  619 	mov	(__modsint_PARM_2 + 1),#0x00
+      00051C 85 2D 82         [24]  620 	mov	dpl,_Lcd1602_PrintNumber_PARM_3
+      00051F 85 2E 83         [24]  621 	mov	dph,(_Lcd1602_PrintNumber_PARM_3 + 1)
+      000522 12 0F B7         [24]  622 	lcall	__modsint
+      000525 AE 82            [24]  623 	mov	r6,dpl
+      000527 74 30            [12]  624 	mov	a,#0x30
+      000529 2E               [12]  625 	add	a,r6
+      00052A F5 82            [12]  626 	mov	dpl,a
                                     627 ;	./src/lcd1602.c:63: return;
-      00052D 02 04 95         [24]  628 	ljmp	_datax
-      000530                        629 00108$:
+      00052C 02 04 94         [24]  628 	ljmp	_datax
+      00052F                        629 00108$:
                                     630 ;	./src/lcd1602.c:65: datax(0x30+ei);
-      000530 AF 2B            [24]  631 	mov	r7,_Lcd1602_PrintNumber_PARM_3
-      000532 74 30            [12]  632 	mov	a,#0x30
-      000534 2F               [12]  633 	add	a,r7
-      000535 F5 82            [12]  634 	mov	dpl,a
+      00052F AF 2D            [24]  631 	mov	r7,_Lcd1602_PrintNumber_PARM_3
+      000531 74 30            [12]  632 	mov	a,#0x30
+      000533 2F               [12]  633 	add	a,r7
+      000534 F5 82            [12]  634 	mov	dpl,a
                                     635 ;	./src/lcd1602.c:66: }
-      000537 02 04 95         [24]  636 	ljmp	_datax
+      000536 02 04 94         [24]  636 	ljmp	_datax
                                     637 ;------------------------------------------------------------
                                     638 ;Allocation info for local variables in function 'Lcd1602_PrintCust'
                                     639 ;------------------------------------------------------------
@@ -647,61 +647,61 @@
                                     647 ;	-----------------------------------------
                                     648 ;	 function Lcd1602_PrintCust
                                     649 ;	-----------------------------------------
-      00053A                        650 _Lcd1602_PrintCust:
-      00053A AF 82            [24]  651 	mov	r7,dpl
+      000539                        650 _Lcd1602_PrintCust:
+      000539 AF 82            [24]  651 	mov	r7,dpl
                                     652 ;	./src/lcd1602.c:70: uchar point=0x80;
-      00053C 7E 80            [12]  653 	mov	r6,#0x80
+      00053B 7E 80            [12]  653 	mov	r6,#0x80
                                     654 ;	./src/lcd1602.c:71: com(0x40);
-      00053E 75 82 40         [24]  655 	mov	dpl,#0x40
-      000541 C0 07            [24]  656 	push	ar7
-      000543 C0 06            [24]  657 	push	ar6
-      000545 12 04 81         [24]  658 	lcall	_com
-      000548 D0 06            [24]  659 	pop	ar6
-      00054A D0 07            [24]  660 	pop	ar7
+      00053D 75 82 40         [24]  655 	mov	dpl,#0x40
+      000540 C0 07            [24]  656 	push	ar7
+      000542 C0 06            [24]  657 	push	ar6
+      000544 12 04 80         [24]  658 	lcall	_com
+      000547 D0 06            [24]  659 	pop	ar6
+      000549 D0 07            [24]  660 	pop	ar7
                                     661 ;	./src/lcd1602.c:72: for(uchar temp=0;temp<8;temp++)
-      00054C 7D 00            [12]  662 	mov	r5,#0x00
-      00054E                        663 00105$:
-      00054E BD 08 00         [24]  664 	cjne	r5,#0x08,00122$
-      000551                        665 00122$:
-      000551 50 27            [24]  666 	jnc	00101$
+      00054B 7D 00            [12]  662 	mov	r5,#0x00
+      00054D                        663 00105$:
+      00054D BD 08 00         [24]  664 	cjne	r5,#0x08,00122$
+      000550                        665 00122$:
+      000550 50 27            [24]  666 	jnc	00101$
                                     667 ;	./src/lcd1602.c:74: datax(*(ei+temp));
-      000553 ED               [12]  668 	mov	a,r5
-      000554 25 2E            [12]  669 	add	a,_Lcd1602_PrintCust_PARM_3
-      000556 FA               [12]  670 	mov	r2,a
-      000557 E4               [12]  671 	clr	a
-      000558 35 2F            [12]  672 	addc	a,(_Lcd1602_PrintCust_PARM_3 + 1)
-      00055A FB               [12]  673 	mov	r3,a
-      00055B AC 30            [24]  674 	mov	r4,(_Lcd1602_PrintCust_PARM_3 + 2)
-      00055D 8A 82            [24]  675 	mov	dpl,r2
-      00055F 8B 83            [24]  676 	mov	dph,r3
-      000561 8C F0            [24]  677 	mov	b,r4
-      000563 12 0F 9D         [24]  678 	lcall	__gptrget
-      000566 F5 82            [12]  679 	mov	dpl,a
-      000568 C0 07            [24]  680 	push	ar7
-      00056A C0 06            [24]  681 	push	ar6
-      00056C C0 05            [24]  682 	push	ar5
-      00056E 12 04 95         [24]  683 	lcall	_datax
-      000571 D0 05            [24]  684 	pop	ar5
-      000573 D0 06            [24]  685 	pop	ar6
-      000575 D0 07            [24]  686 	pop	ar7
+      000552 ED               [12]  668 	mov	a,r5
+      000553 25 30            [12]  669 	add	a,_Lcd1602_PrintCust_PARM_3
+      000555 FA               [12]  670 	mov	r2,a
+      000556 E4               [12]  671 	clr	a
+      000557 35 31            [12]  672 	addc	a,(_Lcd1602_PrintCust_PARM_3 + 1)
+      000559 FB               [12]  673 	mov	r3,a
+      00055A AC 32            [24]  674 	mov	r4,(_Lcd1602_PrintCust_PARM_3 + 2)
+      00055C 8A 82            [24]  675 	mov	dpl,r2
+      00055E 8B 83            [24]  676 	mov	dph,r3
+      000560 8C F0            [24]  677 	mov	b,r4
+      000562 12 0F 9B         [24]  678 	lcall	__gptrget
+      000565 F5 82            [12]  679 	mov	dpl,a
+      000567 C0 07            [24]  680 	push	ar7
+      000569 C0 06            [24]  681 	push	ar6
+      00056B C0 05            [24]  682 	push	ar5
+      00056D 12 04 94         [24]  683 	lcall	_datax
+      000570 D0 05            [24]  684 	pop	ar5
+      000572 D0 06            [24]  685 	pop	ar6
+      000574 D0 07            [24]  686 	pop	ar7
                                     687 ;	./src/lcd1602.c:72: for(uchar temp=0;temp<8;temp++)
-      000577 0D               [12]  688 	inc	r5
-      000578 80 D4            [24]  689 	sjmp	00105$
-      00057A                        690 00101$:
+      000576 0D               [12]  688 	inc	r5
+      000577 80 D4            [24]  689 	sjmp	00105$
+      000579                        690 00101$:
                                     691 ;	./src/lcd1602.c:76: if(ey==1)point|=1<<6;
-      00057A 74 01            [12]  692 	mov	a,#0x01
-      00057C B5 2D 02         [24]  693 	cjne	a,_Lcd1602_PrintCust_PARM_2,00103$
-      00057F 7E C0            [12]  694 	mov	r6,#0xc0
-      000581                        695 00103$:
+      000579 74 01            [12]  692 	mov	a,#0x01
+      00057B B5 2F 02         [24]  693 	cjne	a,_Lcd1602_PrintCust_PARM_2,00103$
+      00057E 7E C0            [12]  694 	mov	r6,#0xc0
+      000580                        695 00103$:
                                     696 ;	./src/lcd1602.c:77: com(point+ex);
-      000581 EF               [12]  697 	mov	a,r7
-      000582 2E               [12]  698 	add	a,r6
-      000583 F5 82            [12]  699 	mov	dpl,a
-      000585 12 04 81         [24]  700 	lcall	_com
+      000580 EF               [12]  697 	mov	a,r7
+      000581 2E               [12]  698 	add	a,r6
+      000582 F5 82            [12]  699 	mov	dpl,a
+      000584 12 04 80         [24]  700 	lcall	_com
                                     701 ;	./src/lcd1602.c:78: datax(0x00);
-      000588 75 82 00         [24]  702 	mov	dpl,#0x00
+      000587 75 82 00         [24]  702 	mov	dpl,#0x00
                                     703 ;	./src/lcd1602.c:79: }
-      00058B 02 04 95         [24]  704 	ljmp	_datax
+      00058A 02 04 94         [24]  704 	ljmp	_datax
                                     705 ;------------------------------------------------------------
                                     706 ;Allocation info for local variables in function 'Lcd1602_Print'
                                     707 ;------------------------------------------------------------
@@ -714,48 +714,48 @@
                                     714 ;	-----------------------------------------
                                     715 ;	 function Lcd1602_Print
                                     716 ;	-----------------------------------------
-      00058E                        717 _Lcd1602_Print:
-      00058E AF 82            [24]  718 	mov	r7,dpl
+      00058D                        717 _Lcd1602_Print:
+      00058D AF 82            [24]  718 	mov	r7,dpl
                                     719 ;	./src/lcd1602.c:82: uchar point=0x80;
-      000590 7E 80            [12]  720 	mov	r6,#0x80
+      00058F 7E 80            [12]  720 	mov	r6,#0x80
                                     721 ;	./src/lcd1602.c:83: if(ey==1)point|=1<<6;
-      000592 74 01            [12]  722 	mov	a,#0x01
-      000594 B5 31 02         [24]  723 	cjne	a,_Lcd1602_Print_PARM_2,00102$
-      000597 7E C0            [12]  724 	mov	r6,#0xc0
-      000599                        725 00102$:
+      000591 74 01            [12]  722 	mov	a,#0x01
+      000593 B5 33 02         [24]  723 	cjne	a,_Lcd1602_Print_PARM_2,00102$
+      000596 7E C0            [12]  724 	mov	r6,#0xc0
+      000598                        725 00102$:
                                     726 ;	./src/lcd1602.c:84: com(point+ex);
-      000599 EF               [12]  727 	mov	a,r7
-      00059A 2E               [12]  728 	add	a,r6
-      00059B F5 82            [12]  729 	mov	dpl,a
-      00059D 12 04 81         [24]  730 	lcall	_com
+      000598 EF               [12]  727 	mov	a,r7
+      000599 2E               [12]  728 	add	a,r6
+      00059A F5 82            [12]  729 	mov	dpl,a
+      00059C 12 04 80         [24]  730 	lcall	_com
                                     731 ;	./src/lcd1602.c:85: while(*ei)	
-      0005A0 AD 32            [24]  732 	mov	r5,_Lcd1602_Print_PARM_3
-      0005A2 AE 33            [24]  733 	mov	r6,(_Lcd1602_Print_PARM_3 + 1)
-      0005A4 AF 34            [24]  734 	mov	r7,(_Lcd1602_Print_PARM_3 + 2)
-      0005A6                        735 00103$:
-      0005A6 8D 82            [24]  736 	mov	dpl,r5
-      0005A8 8E 83            [24]  737 	mov	dph,r6
-      0005AA 8F F0            [24]  738 	mov	b,r7
-      0005AC 12 0F 9D         [24]  739 	lcall	__gptrget
-      0005AF FC               [12]  740 	mov	r4,a
-      0005B0 60 18            [24]  741 	jz	00106$
+      00059F AD 34            [24]  732 	mov	r5,_Lcd1602_Print_PARM_3
+      0005A1 AE 35            [24]  733 	mov	r6,(_Lcd1602_Print_PARM_3 + 1)
+      0005A3 AF 36            [24]  734 	mov	r7,(_Lcd1602_Print_PARM_3 + 2)
+      0005A5                        735 00103$:
+      0005A5 8D 82            [24]  736 	mov	dpl,r5
+      0005A7 8E 83            [24]  737 	mov	dph,r6
+      0005A9 8F F0            [24]  738 	mov	b,r7
+      0005AB 12 0F 9B         [24]  739 	lcall	__gptrget
+      0005AE FC               [12]  740 	mov	r4,a
+      0005AF 60 18            [24]  741 	jz	00106$
                                     742 ;	./src/lcd1602.c:87: datax(*ei);
-      0005B2 8C 82            [24]  743 	mov	dpl,r4
-      0005B4 C0 07            [24]  744 	push	ar7
-      0005B6 C0 06            [24]  745 	push	ar6
-      0005B8 C0 05            [24]  746 	push	ar5
-      0005BA 12 04 95         [24]  747 	lcall	_datax
-      0005BD D0 05            [24]  748 	pop	ar5
-      0005BF D0 06            [24]  749 	pop	ar6
-      0005C1 D0 07            [24]  750 	pop	ar7
+      0005B1 8C 82            [24]  743 	mov	dpl,r4
+      0005B3 C0 07            [24]  744 	push	ar7
+      0005B5 C0 06            [24]  745 	push	ar6
+      0005B7 C0 05            [24]  746 	push	ar5
+      0005B9 12 04 94         [24]  747 	lcall	_datax
+      0005BC D0 05            [24]  748 	pop	ar5
+      0005BE D0 06            [24]  749 	pop	ar6
+      0005C0 D0 07            [24]  750 	pop	ar7
                                     751 ;	./src/lcd1602.c:88: ei++;
-      0005C3 0D               [12]  752 	inc	r5
-      0005C4 BD 00 DF         [24]  753 	cjne	r5,#0x00,00103$
-      0005C7 0E               [12]  754 	inc	r6
-      0005C8 80 DC            [24]  755 	sjmp	00103$
-      0005CA                        756 00106$:
+      0005C2 0D               [12]  752 	inc	r5
+      0005C3 BD 00 DF         [24]  753 	cjne	r5,#0x00,00103$
+      0005C6 0E               [12]  754 	inc	r6
+      0005C7 80 DC            [24]  755 	sjmp	00103$
+      0005C9                        756 00106$:
                                     757 ;	./src/lcd1602.c:91: }
-      0005CA 22               [24]  758 	ret
+      0005C9 22               [24]  758 	ret
                                     759 	.area CSEG    (CODE)
                                     760 	.area CONST   (CODE)
                                     761 	.area XINIT   (CODE)

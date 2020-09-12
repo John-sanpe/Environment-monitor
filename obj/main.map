@@ -69,20 +69,20 @@ CABS                                00000000    00000000 =           0. bytes (A
 C:   00000034  s_GSINIT2                       
 C:   0000003E  s_GSINIT3                       
 C:   00000060  s_GSINIT4                       
-C:   00000064  s_OSEG                          
-C:   00000067  s_ISEG                          
-C:   0000006D  s_SSEG                          
+C:   00000066  s_OSEG                          
+C:   00000069  s_ISEG                          
+C:   0000006F  s_SSEG                          
 C:   00000080  l_DSEG                          
 C:   0000008A  s_GSINIT                        
 C:   0000008A  s_GSINIT5                       
-C:   00000093  l_SSEG                          
+C:   00000091  l_SSEG                          
 C:   000000BA  s_GSFINAL                       
 C:   000000BD  s_CSEG                          
-C:   000000D5  l_CONST                         
+C:   000000DB  l_CONST                         
 C:   00000100  l_IRAM                          
-C:   00000F6E  l_CSEG                          
-C:   0000102B  s_CONST                         
-C:   00001100  s_XINIT                         
+C:   00000F6C  l_CSEG                          
+C:   00001029  s_CONST                         
+C:   00001104  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -278,45 +278,46 @@ DSEG                                00000000    00000080 =         128. bytes (R
       -----  --------------------------------   ------------------------
      00000008  _time                              main
      0000001A  _tm                                control
-     0000001C  _mixdata                           dht11
-     00000020  _hum                               dht11
-     00000022  _the                               dht11
-     00000024  _thef                              dht11
-     00000026  _subzero                           dht11
-     00000028  _check                             dht11
-     0000002A  _Lcd1602_PrintNumber_PARM_2        lcd1602
-     0000002B  _Lcd1602_PrintNumber_PARM_3        lcd1602
-     0000002D  _Lcd1602_PrintCust_PARM_2          lcd1602
-     0000002E  _Lcd1602_PrintCust_PARM_3          lcd1602
-     00000031  _Lcd1602_Print_PARM_2              lcd1602
-     00000032  _Lcd1602_Print_PARM_3              lcd1602
-     00000035  _vprintf_PARM_2                    vprintf
-     00000043  __print_format_PARM_2              printf_large
-     00000046  __print_format_PARM_3              printf_large
-     00000049  __print_format_PARM_4              printf_large
-     00000063  _bp                                _bp
-
+     0000001C  _tl2rl                             control
+     0000001D  _th2rl                             control
+     0000001E  _mixdata                           dht11
+     00000022  _hum                               dht11
+     00000024  _the                               dht11
+     00000026  _thef                              dht11
+     00000028  _subzero                           dht11
+     0000002A  _check                             dht11
+     0000002C  _Lcd1602_PrintNumber_PARM_2        lcd1602
+     0000002D  _Lcd1602_PrintNumber_PARM_3        lcd1602
+     0000002F  _Lcd1602_PrintCust_PARM_2          lcd1602
+     00000030  _Lcd1602_PrintCust_PARM_3          lcd1602
+     00000033  _Lcd1602_Print_PARM_2              lcd1602
+     00000034  _Lcd1602_Print_PARM_3              lcd1602
+     00000037  _vprintf_PARM_2                    vprintf
+     00000045  __print_format_PARM_2              printf_large
+     00000048  __print_format_PARM_3              printf_large
+     0000004B  __print_format_PARM_4              printf_large
+     00000065  _bp                                _bp
 ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-OSEG                                00000064    00000003 =           3. bytes (REL,OVR)
+OSEG                                00000066    00000003 =           3. bytes (REL,OVR)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000064  __divsint_PARM_2                   _divuint
-     00000064  __divuint_PARM_2                   _divuint
-     00000064  __modsint_PARM_2                   _moduint
-     00000064  __moduint_PARM_2                   _moduint
-     00000064  __mulint_PARM_2                    _mulint
+     00000066  __divsint_PARM_2                   _divuint
+     00000066  __divuint_PARM_2                   _divuint
+     00000066  __modsint_PARM_2                   _moduint
+     00000066  __moduint_PARM_2                   _moduint
+     00000066  __mulint_PARM_2                    _mulint
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-ISEG                                00000067    00000006 =           6. bytes (REL,CON)
+ISEG                                00000069    00000006 =           6. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -325,11 +326,11 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-SSEG                                0000006D    00000093 =         147. bytes (REL,OVR)
+SSEG                                0000006F    00000091 =         145. bytes (REL,OVR)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000006D  __start__stack                     main
+     0000006F  __start__stack                     main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
 Hexadecimal  [32-Bits]
@@ -408,7 +409,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                000000BD    00000F6E =        3950. bytes (REL,CON,CODE)
+CSEG                                000000BD    00000F6C =        3948. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -421,51 +422,50 @@ C:   00000211  _show_info                         main
 C:   00000212  _show_time                         main
 C:   00000213  _debug                             main
 C:   000002AA  _main                              main
-C:   000002EF  _delayms                           control
-C:   0000030D  _Int_Init                          control
-C:   00000314  _idle                              control
-C:   00000318  _Time0_Init                        control
-C:   0000031C  _Time2_Init                        control
-C:   00000329  _delayserver                       control
-C:   0000033D  _DHTStartDelay                     dht11
-C:   00000345  _DHT11_Start                       dht11
-C:   00000359  _DHT11_Data                        dht11
-C:   000003B9  _DHT11_Read                        dht11
-C:   00000445  _E2prom_Read                       e2prom
-C:   00000454  _WaitBusy                          lcd1602
-C:   00000481  _com                               lcd1602
-C:   00000495  _datax                             lcd1602
-C:   000004A9  _Lcd1602_Init                      lcd1602
-C:   000004C1  _Lcd1602_Clean                     lcd1602
-C:   000004C7  _Lcd1602_PrintNumber               lcd1602
-C:   0000053A  _Lcd1602_PrintCust                 lcd1602
-C:   0000058E  _Lcd1602_Print                     lcd1602
-C:   000005CB  _Time1_Init                        serial
-C:   000005D7  _Serial_Init                       serial
-C:   000005E1  _putchar                           serial
-C:   000005F7  _Serial_Handel                     serial
-C:   00000606  _Wdt_Init                          wdt
-C:   0000060D  _Wdt_Runsign                       wdt
-C:   00000618  _Wdt_Clean                         wdt
-C:   0000061C  __moduint                          _moduint
-C:   00000669  __divuint                          _divuint
-C:   000006A1  _vprintf                           vprintf
-C:   000006BA  _printf                            vprintf
-C:   00000780  __print_format                     printf_large
-C:   00000F68  _strlen                            _strlen
-C:   00000F80  __mulint                           _mulint
-C:   00000F80  __mulint_dummy                     _mulint
-C:   00000F9D  __gptrget                          _gptrget
-C:   00000FB9  __modsint                          _modsint
-C:   00000FEF  __divsint                          _divsint
-C:   00001027  __sdcc_external_startup            _startup
+C:   000002CB  _delayms                           control
+C:   000002EF  _Int_Init                          control
+C:   000002F6  _idle                              control
+C:   000002FA  _Time0_Init                        control
+C:   000002FE  _Time2_Init                        control
+C:   00000328  _delayserver                       control
+C:   0000033C  _DHTStartDelay                     dht11
+C:   00000344  _DHT11_Start                       dht11
+C:   00000358  _DHT11_Data                        dht11
+C:   000003B8  _DHT11_Read                        dht11
+C:   00000444  _E2prom_Read                       e2prom
+C:   00000453  _WaitBusy                          lcd1602
+C:   00000480  _com                               lcd1602
+C:   00000494  _datax                             lcd1602
+C:   000004A8  _Lcd1602_Init                      lcd1602
+C:   000004C0  _Lcd1602_Clean                     lcd1602
+C:   000004C6  _Lcd1602_PrintNumber               lcd1602
+C:   00000539  _Lcd1602_PrintCust                 lcd1602
+C:   0000058D  _Lcd1602_Print                     lcd1602
+C:   000005CA  _Serial_Init                       serial
+C:   000005DF  _putchar                           serial
+C:   000005F5  _Serial_Handel                     serial
+C:   00000604  _Wdt_Init                          wdt
+C:   0000060B  _Wdt_Runsign                       wdt
+C:   00000616  _Wdt_Clean                         wdt
+C:   0000061A  __moduint                          _moduint
+C:   00000667  __divuint                          _divuint
+C:   0000069F  _vprintf                           vprintf
+C:   000006B8  _printf                            vprintf
+C:   0000077E  __print_format                     printf_large
+C:   00000F66  _strlen                            _strlen
+C:   00000F7E  __mulint                           _mulint
+C:   00000F7E  __mulint_dummy                     _mulint
+C:   00000F9B  __gptrget                          _gptrget
+C:   00000FB7  __modsint                          _modsint
+C:   00000FED  __divsint                          _divsint
+C:   00001025  __sdcc_external_startup            _startup
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               0000102B    000000D5 =         213. bytes (REL,CON,CODE)
+CONST                               00001029    000000DB =         219. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------

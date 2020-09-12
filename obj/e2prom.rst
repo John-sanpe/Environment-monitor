@@ -378,7 +378,7 @@
                                     378 ;	-----------------------------------------
                                     379 ;	 function E2prom_Read
                                     380 ;	-----------------------------------------
-      000445                        381 _E2prom_Read:
+      000444                        381 _E2prom_Read:
                            000007   382 	ar7 = 0x07
                            000006   383 	ar6 = 0x06
                            000005   384 	ar5 = 0x05
@@ -387,18 +387,18 @@
                            000002   387 	ar2 = 0x02
                            000001   388 	ar1 = 0x01
                            000000   389 	ar0 = 0x00
-      000445 AE 82            [24]  390 	mov	r6,dpl
-      000447 AF 83            [24]  391 	mov	r7,dph
+      000444 AE 82            [24]  390 	mov	r6,dpl
+      000446 AF 83            [24]  391 	mov	r7,dph
                                     392 ;	./src/e2prom.c:9: ISP_CMD=Cmd_Read;
-      000449 75 E5 01         [24]  393 	mov	_ISP_CMD,#0x01
+      000448 75 E5 01         [24]  393 	mov	_ISP_CMD,#0x01
                                     394 ;	./src/e2prom.c:10: ISP_ADDRH=(add>>8)&0xff;
-      00044C 8F E3            [24]  395 	mov	_ISP_ADDRH,r7
+      00044B 8F E3            [24]  395 	mov	_ISP_ADDRH,r7
                                     396 ;	./src/e2prom.c:11: ISP_ADDRL=(add>>0)&0xff;
-      00044E 8E E4            [24]  397 	mov	_ISP_ADDRL,r6
+      00044D 8E E4            [24]  397 	mov	_ISP_ADDRL,r6
                                     398 ;	./src/e2prom.c:12: return 0;
-      000450 75 82 00         [24]  399 	mov	dpl,#0x00
+      00044F 75 82 00         [24]  399 	mov	dpl,#0x00
                                     400 ;	./src/e2prom.c:13: }
-      000453 22               [24]  401 	ret
+      000452 22               [24]  401 	ret
                                     402 	.area CSEG    (CODE)
                                     403 	.area CONST   (CODE)
                                     404 	.area XINIT   (CODE)

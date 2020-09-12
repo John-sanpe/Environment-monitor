@@ -25,7 +25,6 @@
 	.globl _Wdt_Runsign
 	.globl _Wdt_Clean
 	.globl _Wdt_Init
-	.globl _Time1_Init
 	.globl _Serial_Init
 	.globl _DHT11_Read
 	.globl _Time2_Init
@@ -790,48 +789,27 @@ _main:
 	lcall	_Int_Init
 ;	./src/main.c:69: Time0_Init();		//初始化定时器0
 	lcall	_Time0_Init
-;	./src/main.c:70: Time1_Init();		//初始化定时器1
-	lcall	_Time1_Init
-;	./src/main.c:71: Serial_Init();		//串口初始化
+;	./src/main.c:70: Serial_Init();		//串口初始化
 	lcall	_Serial_Init
-;	./src/main.c:72: Time2_Init();		//初始化定时器2
+;	./src/main.c:71: Time2_Init();		//初始化定时器2
 	lcall	_Time2_Init
-;	./src/main.c:73: Lcd1602_Init();		//初始化lcd1602
-	lcall	_Lcd1602_Init
-;	./src/main.c:74: Lcd1602_Clean();	//清空lcd1602显存
-	lcall	_Lcd1602_Clean
-;	./src/main.c:75: print_boot();		//显示欢迎界面(等待DHT11初始化完成)
-	lcall	_print_boot
-;	./src/main.c:76: Boot_Test();		//开机自检
-	lcall	_Boot_Test
-;	./src/main.c:77: while(1){
-00104$:
-;	./src/main.c:78: Wdt_Clean();
-	lcall	_Wdt_Clean
-;	./src/main.c:79: if(0==DHT11_Read())
-	lcall	_DHT11_Read
-	mov	a,dpl
-	jnz	00102$
-;	./src/main.c:81: Lcd1602_Init();
-	lcall	_Lcd1602_Init
-;	./src/main.c:82: Lcd1602_Clean();	
-	lcall	_Lcd1602_Clean
-;	./src/main.c:83: show_base();
-	lcall	_show_base
-;	./src/main.c:84: show_data();
-	lcall	_show_data
-;	./src/main.c:85: show_info();
-	lcall	_show_info
+;	./src/main.c:72: while(1){
 00102$:
-;	./src/main.c:87: show_time();
-	lcall	_show_time
-;	./src/main.c:88: debug();
-	lcall	_debug
-;	./src/main.c:89: delayms(1500);
-	mov	dptr,#0x05dc
+;	./src/main.c:73: P0_0=0;
+;	assignBit
+	clr	_P0_0
+;	./src/main.c:74: delayms(500);
+	mov	dptr,#0x01f4
 	lcall	_delayms
-;	./src/main.c:91: } 
-	sjmp	00104$
+;	./src/main.c:75: P0_0=1;
+;	assignBit
+	setb	_P0_0
+;	./src/main.c:76: delayms(500);
+	mov	dptr,#0x01f4
+	lcall	_delayms
+;	./src/main.c:95: delayms(1500);
+;	./src/main.c:97: } 
+	sjmp	00102$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area CONST   (CODE)

@@ -150,7 +150,6 @@
 	.globl _DPL
 	.globl _SP
 	.globl _P0
-	.globl _Time1_Init
 	.globl _Serial_Init
 	.globl _putchar
 	.globl _Serial_Handel
@@ -373,13 +372,13 @@ _PX3	=	0x00c7
 ;--------------------------------------------------------
 	.area CSEG    (CODE)
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'Time1_Init'
+;Allocation info for local variables in function 'Serial_Init'
 ;------------------------------------------------------------
-;	./src/serial.c:2: void Time1_Init()
+;	./src/serial.c:2: void Serial_Init()
 ;	-----------------------------------------
-;	 function Time1_Init
+;	 function Serial_Init
 ;	-----------------------------------------
-_Time1_Init:
+_Serial_Init:
 	ar7 = 0x07
 	ar6 = 0x06
 	ar5 = 0x05
@@ -397,83 +396,73 @@ _Time1_Init:
 ;	./src/serial.c:7: TR1 = 1;		//启动定时器1
 ;	assignBit
 	setb	_TR1
-;	./src/serial.c:8: }
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'Serial_Init'
-;------------------------------------------------------------
-;	./src/serial.c:9: void Serial_Init()
-;	-----------------------------------------
-;	 function Serial_Init
-;	-----------------------------------------
-_Serial_Init:
-;	./src/serial.c:11: SM0=0;
+;	./src/serial.c:9: SM0=0;
 ;	assignBit
 	clr	_SM0
-;	./src/serial.c:12: SM1=1;
+;	./src/serial.c:10: SM1=1;
 ;	assignBit
 	setb	_SM1
-;	./src/serial.c:13: REN=1;
+;	./src/serial.c:11: REN=1;
 ;	assignBit
 	setb	_REN
-;	./src/serial.c:14: PCON|=1<<7;
+;	./src/serial.c:12: PCON|=1<<7;
 	orl	_PCON,#0x80
-;	./src/serial.c:15: }
+;	./src/serial.c:13: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'putchar'
 ;------------------------------------------------------------
 ;string                    Allocated to registers r6 r7 
 ;------------------------------------------------------------
-;	./src/serial.c:16: int putchar(int string)
+;	./src/serial.c:14: int putchar(int string)
 ;	-----------------------------------------
 ;	 function putchar
 ;	-----------------------------------------
 _putchar:
 	mov	r6,dpl
 	mov	r7,dph
-;	./src/serial.c:18: SBUF=string;
+;	./src/serial.c:16: SBUF=string;
 	mov	_SBUF,r6
-;	./src/serial.c:19: idle();
+;	./src/serial.c:17: idle();
 	push	ar7
 	push	ar6
 	lcall	_idle
 	pop	ar6
 	pop	ar7
-;	./src/serial.c:20: return string;
+;	./src/serial.c:18: return string;
 	mov	dpl,r6
 	mov	dph,r7
-;	./src/serial.c:21: }
+;	./src/serial.c:19: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Serial_Handel'
 ;------------------------------------------------------------
-;	./src/serial.c:23: void Serial_Handel() __interrupt 4
+;	./src/serial.c:21: void Serial_Handel() __interrupt 4
 ;	-----------------------------------------
 ;	 function Serial_Handel
 ;	-----------------------------------------
 _Serial_Handel:
-;	./src/serial.c:25: EA=0;
+;	./src/serial.c:23: EA=0;
 ;	assignBit
 	clr	_EA
-;	./src/serial.c:26: if(TI==1)
-;	./src/serial.c:28: TI=0;
+;	./src/serial.c:24: if(TI==1)
+;	./src/serial.c:26: TI=0;
 ;	assignBit
 	jbc	_TI,00115$
 	sjmp	00102$
 00115$:
 00102$:
-;	./src/serial.c:30: if(RI==1)
-;	./src/serial.c:32: RI=0;
+;	./src/serial.c:28: if(RI==1)
+;	./src/serial.c:30: RI=0;
 ;	assignBit
 	jbc	_RI,00116$
 	sjmp	00104$
 00116$:
 00104$:
-;	./src/serial.c:34: EA=1;
+;	./src/serial.c:32: EA=1;
 ;	assignBit
 	setb	_EA
-;	./src/serial.c:35: }
+;	./src/serial.c:33: }
 	reti
 ;	eliminated unneeded mov psw,# (no regs used in bank)
 ;	eliminated unneeded push/pop psw

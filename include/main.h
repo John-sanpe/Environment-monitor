@@ -1,10 +1,10 @@
 #ifndef 	_MAIN_H_
 #define		_MAIN_H_
 
-#include "stdio.h"
-
 #include "stc89.h"
-
+#include <stdio.h>
+#include <stdarg.h>
+#include <string.h> 
 #define uchar       unsigned char
 #define uint        unsigned int
 #define ulong       unsigned long
@@ -19,8 +19,14 @@
 #define   humcompensate 0
 #define   thecompensate 0
 
+//soc主频设置
+#define   stcfrequency  24000000
+#define   stcboostmode  0
+
+#define   uartfrequency 9600
+
 //阈值设置
-#define dht11_threshold 60
+#define   dht11_threshold 60
 
 //公用变量声明
 extern int hum,the,thef,subzero,check;
@@ -52,6 +58,8 @@ void Lcd1602_Print(unsigned char ex,unsigned char ey,char *ei);
 void Lcd1602_PrintCust(unsigned char ex,unsigned char ey,char *ei);
 void Lcd1602_Clean(void);
 void Lcd1602_Init(void);
+//vsprintf函数声明
+int vsprintf(char* buf,const char* fmt,va_list args);
 //中断声明
 void Serial_Handel() __interrupt 4;
 void delayserver() __interrupt 5;

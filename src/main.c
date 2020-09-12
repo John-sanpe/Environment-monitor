@@ -67,9 +67,15 @@ void main ()
 	Wdt_Init();
 	Int_Init();     	//初始化系统中断
 	Time0_Init();		//初始化定时器0
-	Time1_Init();		//初始化定时器1
 	Serial_Init();		//串口初始化
 	Time2_Init();		//初始化定时器2
+    while(1){
+        P0_0=0;
+        delayms(500);
+        P0_0=1;
+        delayms(500);
+        
+    }
   	Lcd1602_Init();		//初始化lcd1602
 	Lcd1602_Clean();	//清空lcd1602显存
 	print_boot();		//显示欢迎界面(等待DHT11初始化完成)

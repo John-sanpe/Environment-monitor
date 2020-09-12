@@ -1,13 +1,11 @@
 #include "../include/main.h"
-void Time1_Init()
+void Serial_Init()
 {
 	TMOD |= 0x20;	//设定定时器1为8位自动重装方式
 	TL1 = 243;		//设定定时初值
 	TH1 = 243;		//设定定时器重装值
 	TR1 = 1;		//启动定时器1
-}
-void Serial_Init()
-{
+	
 	SM0=0;
 	SM1=1;
 	REN=1;

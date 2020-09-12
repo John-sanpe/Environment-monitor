@@ -320,18 +320,18 @@
                                     320 ; internal ram data
                                     321 ;--------------------------------------------------------
                                     322 	.area DSEG    (DATA)
-      00001C                        323 _mixdata::
-      00001C                        324 	.ds 4
-      000020                        325 _hum::
-      000020                        326 	.ds 2
-      000022                        327 _the::
-      000022                        328 	.ds 2
-      000024                        329 _thef::
-      000024                        330 	.ds 2
-      000026                        331 _subzero::
-      000026                        332 	.ds 2
-      000028                        333 _check::
-      000028                        334 	.ds 2
+      00001E                        323 _mixdata::
+      00001E                        324 	.ds 4
+      000022                        325 _hum::
+      000022                        326 	.ds 2
+      000024                        327 _the::
+      000024                        328 	.ds 2
+      000026                        329 _thef::
+      000026                        330 	.ds 2
+      000028                        331 _subzero::
+      000028                        332 	.ds 2
+      00002A                        333 _check::
+      00002A                        334 	.ds 2
                                     335 ;--------------------------------------------------------
                                     336 ; overlayable items in internal ram 
                                     337 ;--------------------------------------------------------
@@ -401,7 +401,7 @@
                                     401 ;	-----------------------------------------
                                     402 ;	 function DHTStartDelay
                                     403 ;	-----------------------------------------
-      00033D                        404 _DHTStartDelay:
+      00033C                        404 _DHTStartDelay:
                            000007   405 	ar7 = 0x07
                            000006   406 	ar6 = 0x06
                            000005   407 	ar5 = 0x05
@@ -411,15 +411,15 @@
                            000001   411 	ar1 = 0x01
                            000000   412 	ar0 = 0x00
                                     413 ;	./src/dht11.c:9: i = 15;
-      00033D 7F 0F            [12]  414 	mov	r7,#0x0f
+      00033C 7F 0F            [12]  414 	mov	r7,#0x0f
                                     415 ;	./src/dht11.c:10: while (--i);
-      00033F                        416 00101$:
-      00033F EF               [12]  417 	mov	a,r7
-      000340 14               [12]  418 	dec	a
-      000341 FF               [12]  419 	mov	r7,a
-      000342 70 FB            [24]  420 	jnz	00101$
+      00033E                        416 00101$:
+      00033E EF               [12]  417 	mov	a,r7
+      00033F 14               [12]  418 	dec	a
+      000340 FF               [12]  419 	mov	r7,a
+      000341 70 FB            [24]  420 	jnz	00101$
                                     421 ;	./src/dht11.c:11: }
-      000344 22               [24]  422 	ret
+      000343 22               [24]  422 	ret
                                     423 ;------------------------------------------------------------
                                     424 ;Allocation info for local variables in function 'DHT11_Start'
                                     425 ;------------------------------------------------------------
@@ -427,26 +427,26 @@
                                     427 ;	-----------------------------------------
                                     428 ;	 function DHT11_Start
                                     429 ;	-----------------------------------------
-      000345                        430 _DHT11_Start:
+      000344                        430 _DHT11_Start:
                                     431 ;	./src/dht11.c:14: DHT11=0;
                                     432 ;	assignBit
-      000345 C2 A4            [12]  433 	clr	_P2_4
+      000344 C2 A4            [12]  433 	clr	_P2_4
                                     434 ;	./src/dht11.c:15: delayms(20);
-      000347 90 00 14         [24]  435 	mov	dptr,#0x0014
-      00034A 12 02 EF         [24]  436 	lcall	_delayms
+      000346 90 00 14         [24]  435 	mov	dptr,#0x0014
+      000349 12 02 CB         [24]  436 	lcall	_delayms
                                     437 ;	./src/dht11.c:16: DHT11=1;
                                     438 ;	assignBit
-      00034D D2 A4            [12]  439 	setb	_P2_4
+      00034C D2 A4            [12]  439 	setb	_P2_4
                                     440 ;	./src/dht11.c:17: DHTStartDelay();
-      00034F 12 03 3D         [24]  441 	lcall	_DHTStartDelay
+      00034E 12 03 3C         [24]  441 	lcall	_DHTStartDelay
                                     442 ;	./src/dht11.c:18: while(!DHT11);
-      000352                        443 00101$:
-      000352 30 A4 FD         [24]  444 	jnb	_P2_4,00101$
+      000351                        443 00101$:
+      000351 30 A4 FD         [24]  444 	jnb	_P2_4,00101$
                                     445 ;	./src/dht11.c:19: while(DHT11);
-      000355                        446 00104$:
-      000355 20 A4 FD         [24]  447 	jb	_P2_4,00104$
+      000354                        446 00104$:
+      000354 20 A4 FD         [24]  447 	jb	_P2_4,00104$
                                     448 ;	./src/dht11.c:20: }
-      000358 22               [24]  449 	ret
+      000357 22               [24]  449 	ret
                                     450 ;------------------------------------------------------------
                                     451 ;Allocation info for local variables in function 'DHT11_Data'
                                     452 ;------------------------------------------------------------
@@ -456,88 +456,88 @@
                                     456 ;	-----------------------------------------
                                     457 ;	 function DHT11_Data
                                     458 ;	-----------------------------------------
-      000359                        459 _DHT11_Data:
+      000358                        459 _DHT11_Data:
                                     460 ;	./src/dht11.c:24: for(temp=0;temp<32;temp++)
-      000359 7F 00            [12]  461 	mov	r7,#0x00
-      00035B                        462 00122$:
+      000358 7F 00            [12]  461 	mov	r7,#0x00
+      00035A                        462 00122$:
                                     463 ;	./src/dht11.c:26: TL0=0;
-      00035B 75 8A 00         [24]  464 	mov	_TL0,#0x00
+      00035A 75 8A 00         [24]  464 	mov	_TL0,#0x00
                                     465 ;	./src/dht11.c:27: while(!DHT11);
-      00035E                        466 00101$:
-      00035E 30 A4 FD         [24]  467 	jnb	_P2_4,00101$
+      00035D                        466 00101$:
+      00035D 30 A4 FD         [24]  467 	jnb	_P2_4,00101$
                                     468 ;	./src/dht11.c:28: TR0=1;
                                     469 ;	assignBit
-      000361 D2 8C            [12]  470 	setb	_TR0
+      000360 D2 8C            [12]  470 	setb	_TR0
                                     471 ;	./src/dht11.c:29: while(DHT11);
-      000363                        472 00104$:
-      000363 20 A4 FD         [24]  473 	jb	_P2_4,00104$
+      000362                        472 00104$:
+      000362 20 A4 FD         [24]  473 	jb	_P2_4,00104$
                                     474 ;	./src/dht11.c:30: TR0=0;
                                     475 ;	assignBit
-      000366 C2 8C            [12]  476 	clr	_TR0
+      000365 C2 8C            [12]  476 	clr	_TR0
                                     477 ;	./src/dht11.c:31: mixdata<<=1;
-      000368 E5 1C            [12]  478 	mov	a,_mixdata
-      00036A 25 1C            [12]  479 	add	a,_mixdata
-      00036C F5 1C            [12]  480 	mov	_mixdata,a
-      00036E E5 1D            [12]  481 	mov	a,(_mixdata + 1)
-      000370 33               [12]  482 	rlc	a
-      000371 F5 1D            [12]  483 	mov	(_mixdata + 1),a
-      000373 E5 1E            [12]  484 	mov	a,(_mixdata + 2)
-      000375 33               [12]  485 	rlc	a
-      000376 F5 1E            [12]  486 	mov	(_mixdata + 2),a
-      000378 E5 1F            [12]  487 	mov	a,(_mixdata + 3)
-      00037A 33               [12]  488 	rlc	a
-      00037B F5 1F            [12]  489 	mov	(_mixdata + 3),a
+      000367 E5 1E            [12]  478 	mov	a,_mixdata
+      000369 25 1E            [12]  479 	add	a,_mixdata
+      00036B F5 1E            [12]  480 	mov	_mixdata,a
+      00036D E5 1F            [12]  481 	mov	a,(_mixdata + 1)
+      00036F 33               [12]  482 	rlc	a
+      000370 F5 1F            [12]  483 	mov	(_mixdata + 1),a
+      000372 E5 20            [12]  484 	mov	a,(_mixdata + 2)
+      000374 33               [12]  485 	rlc	a
+      000375 F5 20            [12]  486 	mov	(_mixdata + 2),a
+      000377 E5 21            [12]  487 	mov	a,(_mixdata + 3)
+      000379 33               [12]  488 	rlc	a
+      00037A F5 21            [12]  489 	mov	(_mixdata + 3),a
                                     490 ;	./src/dht11.c:32: if(TL0>dht11_threshold)mixdata|=1;
-      00037D E5 8A            [12]  491 	mov	a,_TL0
-      00037F 24 C3            [12]  492 	add	a,#0xff - 0x3c
-      000381 50 03            [24]  493 	jnc	00123$
-      000383 43 1C 01         [24]  494 	orl	_mixdata,#0x01
-      000386                        495 00123$:
+      00037C E5 8A            [12]  491 	mov	a,_TL0
+      00037E 24 C3            [12]  492 	add	a,#0xff - 0x3c
+      000380 50 03            [24]  493 	jnc	00123$
+      000382 43 1E 01         [24]  494 	orl	_mixdata,#0x01
+      000385                        495 00123$:
                                     496 ;	./src/dht11.c:24: for(temp=0;temp<32;temp++)
-      000386 0F               [12]  497 	inc	r7
-      000387 BF 20 00         [24]  498 	cjne	r7,#0x20,00189$
-      00038A                        499 00189$:
-      00038A 40 CF            [24]  500 	jc	00122$
+      000385 0F               [12]  497 	inc	r7
+      000386 BF 20 00         [24]  498 	cjne	r7,#0x20,00189$
+      000389                        499 00189$:
+      000389 40 CF            [24]  500 	jc	00122$
                                     501 ;	./src/dht11.c:34: for(temp=0;temp<8;temp++)
-      00038C 7F 00            [12]  502 	mov	r7,#0x00
-      00038E                        503 00124$:
+      00038B 7F 00            [12]  502 	mov	r7,#0x00
+      00038D                        503 00124$:
                                     504 ;	./src/dht11.c:36: TL0=0;
-      00038E 75 8A 00         [24]  505 	mov	_TL0,#0x00
+      00038D 75 8A 00         [24]  505 	mov	_TL0,#0x00
                                     506 ;	./src/dht11.c:37: while(!DHT11);
-      000391                        507 00110$:
-      000391 30 A4 FD         [24]  508 	jnb	_P2_4,00110$
+      000390                        507 00110$:
+      000390 30 A4 FD         [24]  508 	jnb	_P2_4,00110$
                                     509 ;	./src/dht11.c:38: TR0=1;
                                     510 ;	assignBit
-      000394 D2 8C            [12]  511 	setb	_TR0
+      000393 D2 8C            [12]  511 	setb	_TR0
                                     512 ;	./src/dht11.c:39: while(DHT11);
-      000396                        513 00113$:
-      000396 20 A4 FD         [24]  514 	jb	_P2_4,00113$
+      000395                        513 00113$:
+      000395 20 A4 FD         [24]  514 	jb	_P2_4,00113$
                                     515 ;	./src/dht11.c:40: TR0=0;
                                     516 ;	assignBit
-      000399 C2 8C            [12]  517 	clr	_TR0
+      000398 C2 8C            [12]  517 	clr	_TR0
                                     518 ;	./src/dht11.c:41: check<<=1;
-      00039B E5 28            [12]  519 	mov	a,_check
-      00039D 25 28            [12]  520 	add	a,_check
-      00039F F5 28            [12]  521 	mov	_check,a
-      0003A1 E5 29            [12]  522 	mov	a,(_check + 1)
-      0003A3 33               [12]  523 	rlc	a
-      0003A4 F5 29            [12]  524 	mov	(_check + 1),a
+      00039A E5 2A            [12]  519 	mov	a,_check
+      00039C 25 2A            [12]  520 	add	a,_check
+      00039E F5 2A            [12]  521 	mov	_check,a
+      0003A0 E5 2B            [12]  522 	mov	a,(_check + 1)
+      0003A2 33               [12]  523 	rlc	a
+      0003A3 F5 2B            [12]  524 	mov	(_check + 1),a
                                     525 ;	./src/dht11.c:42: if(TL0>dht11_threshold)check|=1;
-      0003A6 E5 8A            [12]  526 	mov	a,_TL0
-      0003A8 24 C3            [12]  527 	add	a,#0xff - 0x3c
-      0003AA 50 03            [24]  528 	jnc	00125$
-      0003AC 43 28 01         [24]  529 	orl	_check,#0x01
-      0003AF                        530 00125$:
+      0003A5 E5 8A            [12]  526 	mov	a,_TL0
+      0003A7 24 C3            [12]  527 	add	a,#0xff - 0x3c
+      0003A9 50 03            [24]  528 	jnc	00125$
+      0003AB 43 2A 01         [24]  529 	orl	_check,#0x01
+      0003AE                        530 00125$:
                                     531 ;	./src/dht11.c:34: for(temp=0;temp<8;temp++)
-      0003AF 0F               [12]  532 	inc	r7
-      0003B0 BF 08 00         [24]  533 	cjne	r7,#0x08,00194$
-      0003B3                        534 00194$:
-      0003B3 40 D9            [24]  535 	jc	00124$
+      0003AE 0F               [12]  532 	inc	r7
+      0003AF BF 08 00         [24]  533 	cjne	r7,#0x08,00194$
+      0003B2                        534 00194$:
+      0003B2 40 D9            [24]  535 	jc	00124$
                                     536 ;	./src/dht11.c:44: while(DHT11);
-      0003B5                        537 00119$:
-      0003B5 20 A4 FD         [24]  538 	jb	_P2_4,00119$
+      0003B4                        537 00119$:
+      0003B4 20 A4 FD         [24]  538 	jb	_P2_4,00119$
                                     539 ;	./src/dht11.c:45: }
-      0003B8 22               [24]  540 	ret
+      0003B7 22               [24]  540 	ret
                                     541 ;------------------------------------------------------------
                                     542 ;Allocation info for local variables in function 'DHT11_Read'
                                     543 ;------------------------------------------------------------
@@ -545,112 +545,112 @@
                                     545 ;	-----------------------------------------
                                     546 ;	 function DHT11_Read
                                     547 ;	-----------------------------------------
-      0003B9                        548 _DHT11_Read:
+      0003B8                        548 _DHT11_Read:
                                     549 ;	./src/dht11.c:50: mixdata=0;
-      0003B9 E4               [12]  550 	clr	a
-      0003BA F5 1C            [12]  551 	mov	_mixdata,a
-      0003BC F5 1D            [12]  552 	mov	(_mixdata + 1),a
-      0003BE F5 1E            [12]  553 	mov	(_mixdata + 2),a
-      0003C0 F5 1F            [12]  554 	mov	(_mixdata + 3),a
+      0003B8 E4               [12]  550 	clr	a
+      0003B9 F5 1E            [12]  551 	mov	_mixdata,a
+      0003BB F5 1F            [12]  552 	mov	(_mixdata + 1),a
+      0003BD F5 20            [12]  553 	mov	(_mixdata + 2),a
+      0003BF F5 21            [12]  554 	mov	(_mixdata + 3),a
                                     555 ;	./src/dht11.c:51: check=0;
-      0003C2 F5 28            [12]  556 	mov	_check,a
-      0003C4 F5 29            [12]  557 	mov	(_check + 1),a
+      0003C1 F5 2A            [12]  556 	mov	_check,a
+      0003C3 F5 2B            [12]  557 	mov	(_check + 1),a
                                     558 ;	./src/dht11.c:53: DHT11_Start();
-      0003C6 12 03 45         [24]  559 	lcall	_DHT11_Start
+      0003C5 12 03 44         [24]  559 	lcall	_DHT11_Start
                                     560 ;	./src/dht11.c:54: DHT11_Data();
-      0003C9 12 03 59         [24]  561 	lcall	_DHT11_Data
+      0003C8 12 03 58         [24]  561 	lcall	_DHT11_Data
                                     562 ;	./src/dht11.c:56: hum=(mixdata>>24)&0xff;
-      0003CC AF 1F            [24]  563 	mov	r7,(_mixdata + 3)
-      0003CE 7E 00            [12]  564 	mov	r6,#0x00
-      0003D0 8F 20            [24]  565 	mov	_hum,r7
-      0003D2 8E 21            [24]  566 	mov	(_hum + 1),r6
+      0003CB AF 21            [24]  563 	mov	r7,(_mixdata + 3)
+      0003CD 7E 00            [12]  564 	mov	r6,#0x00
+      0003CF 8F 22            [24]  565 	mov	_hum,r7
+      0003D1 8E 23            [24]  566 	mov	(_hum + 1),r6
                                     567 ;	./src/dht11.c:57: the=(mixdata>>8)&0xff;
-      0003D4 AC 1D            [24]  568 	mov	r4,(_mixdata + 1)
-      0003D6 8C 22            [24]  569 	mov	_the,r4
+      0003D3 AC 1F            [24]  568 	mov	r4,(_mixdata + 1)
+      0003D5 8C 24            [24]  569 	mov	_the,r4
                                     570 ;	1-genFromRTrack replaced	mov	(_the + 1),#0x00
-      0003D8 8E 23            [24]  571 	mov	(_the + 1),r6
+      0003D7 8E 25            [24]  571 	mov	(_the + 1),r6
                                     572 ;	./src/dht11.c:58: thef=(mixdata>>0)&0xf;
-      0003DA AC 1C            [24]  573 	mov	r4,_mixdata
-      0003DC 74 0F            [12]  574 	mov	a,#0x0f
-      0003DE 5C               [12]  575 	anl	a,r4
-      0003DF F5 24            [12]  576 	mov	_thef,a
+      0003D9 AC 1E            [24]  573 	mov	r4,_mixdata
+      0003DB 74 0F            [12]  574 	mov	a,#0x0f
+      0003DD 5C               [12]  575 	anl	a,r4
+      0003DE F5 26            [12]  576 	mov	_thef,a
                                     577 ;	1-genFromRTrack replaced	mov	(_thef + 1),#0x00
-      0003E1 8E 25            [24]  578 	mov	(_thef + 1),r6
+      0003E0 8E 27            [24]  578 	mov	(_thef + 1),r6
                                     579 ;	./src/dht11.c:60: subzero=(mixdata>>7)&0x1;
-      0003E3 E5 1C            [12]  580 	mov	a,_mixdata
-      0003E5 23               [12]  581 	rl	a
-      0003E6 54 01            [12]  582 	anl	a,#0x01
-      0003E8 FD               [12]  583 	mov	r5,a
-      0003E9 8D 26            [24]  584 	mov	_subzero,r5
+      0003E2 E5 1E            [12]  580 	mov	a,_mixdata
+      0003E4 23               [12]  581 	rl	a
+      0003E5 54 01            [12]  582 	anl	a,#0x01
+      0003E7 FD               [12]  583 	mov	r5,a
+      0003E8 8D 28            [24]  584 	mov	_subzero,r5
                                     585 ;	1-genFromRTrack replaced	mov	(_subzero + 1),#0x00
-      0003EB 8E 27            [24]  586 	mov	(_subzero + 1),r6
+      0003EA 8E 29            [24]  586 	mov	(_subzero + 1),r6
                                     587 ;	./src/dht11.c:62: hum+=humcompensate;
                                     588 ;	./src/dht11.c:63: the+=thecompensate;
                                     589 ;	./src/dht11.c:65: if(check!=((mixdata>>24)&0xff)+((mixdata>>16)&0xff)+((mixdata>>8)&0xff)+((mixdata>>0)&0xf))return -1;
-      0003ED AD 1E            [24]  590 	mov	r5,(_mixdata + 2)
-      0003EF 7C 00            [12]  591 	mov	r4,#0x00
-      0003F1 ED               [12]  592 	mov	a,r5
-      0003F2 2F               [12]  593 	add	a,r7
-      0003F3 FF               [12]  594 	mov	r7,a
-      0003F4 EC               [12]  595 	mov	a,r4
-      0003F5 3E               [12]  596 	addc	a,r6
-      0003F6 FE               [12]  597 	mov	r6,a
-      0003F7 AD 1D            [24]  598 	mov	r5,(_mixdata + 1)
-      0003F9 7C 00            [12]  599 	mov	r4,#0x00
-      0003FB ED               [12]  600 	mov	a,r5
-      0003FC 2F               [12]  601 	add	a,r7
-      0003FD FF               [12]  602 	mov	r7,a
-      0003FE EC               [12]  603 	mov	a,r4
-      0003FF 3E               [12]  604 	addc	a,r6
-      000400 FE               [12]  605 	mov	r6,a
-      000401 AA 1C            [24]  606 	mov	r2,_mixdata
-      000403 53 02 0F         [24]  607 	anl	ar2,#0x0f
-      000406 7B 00            [12]  608 	mov	r3,#0x00
-      000408 7C 00            [12]  609 	mov	r4,#0x00
-      00040A 7D 00            [12]  610 	mov	r5,#0x00
-      00040C 8F 00            [24]  611 	mov	ar0,r7
-      00040E EE               [12]  612 	mov	a,r6
-      00040F F9               [12]  613 	mov	r1,a
-      000410 33               [12]  614 	rlc	a
-      000411 95 E0            [12]  615 	subb	a,acc
-      000413 FE               [12]  616 	mov	r6,a
-      000414 FF               [12]  617 	mov	r7,a
-      000415 EA               [12]  618 	mov	a,r2
-      000416 28               [12]  619 	add	a,r0
-      000417 FA               [12]  620 	mov	r2,a
-      000418 EB               [12]  621 	mov	a,r3
-      000419 39               [12]  622 	addc	a,r1
-      00041A FB               [12]  623 	mov	r3,a
-      00041B EC               [12]  624 	mov	a,r4
-      00041C 3E               [12]  625 	addc	a,r6
-      00041D FC               [12]  626 	mov	r4,a
-      00041E ED               [12]  627 	mov	a,r5
-      00041F 3F               [12]  628 	addc	a,r7
-      000420 FD               [12]  629 	mov	r5,a
-      000421 A8 28            [24]  630 	mov	r0,_check
-      000423 E5 29            [12]  631 	mov	a,(_check + 1)
-      000425 F9               [12]  632 	mov	r1,a
-      000426 33               [12]  633 	rlc	a
-      000427 95 E0            [12]  634 	subb	a,acc
-      000429 FE               [12]  635 	mov	r6,a
-      00042A FF               [12]  636 	mov	r7,a
-      00042B E8               [12]  637 	mov	a,r0
-      00042C B5 02 0E         [24]  638 	cjne	a,ar2,00109$
-      00042F E9               [12]  639 	mov	a,r1
-      000430 B5 03 0A         [24]  640 	cjne	a,ar3,00109$
-      000433 EE               [12]  641 	mov	a,r6
-      000434 B5 04 06         [24]  642 	cjne	a,ar4,00109$
-      000437 EF               [12]  643 	mov	a,r7
-      000438 B5 05 02         [24]  644 	cjne	a,ar5,00109$
-      00043B 80 04            [24]  645 	sjmp	00102$
-      00043D                        646 00109$:
-      00043D 75 82 FF         [24]  647 	mov	dpl,#0xff
-      000440 22               [24]  648 	ret
-      000441                        649 00102$:
+      0003EC AD 20            [24]  590 	mov	r5,(_mixdata + 2)
+      0003EE 7C 00            [12]  591 	mov	r4,#0x00
+      0003F0 ED               [12]  592 	mov	a,r5
+      0003F1 2F               [12]  593 	add	a,r7
+      0003F2 FF               [12]  594 	mov	r7,a
+      0003F3 EC               [12]  595 	mov	a,r4
+      0003F4 3E               [12]  596 	addc	a,r6
+      0003F5 FE               [12]  597 	mov	r6,a
+      0003F6 AD 1F            [24]  598 	mov	r5,(_mixdata + 1)
+      0003F8 7C 00            [12]  599 	mov	r4,#0x00
+      0003FA ED               [12]  600 	mov	a,r5
+      0003FB 2F               [12]  601 	add	a,r7
+      0003FC FF               [12]  602 	mov	r7,a
+      0003FD EC               [12]  603 	mov	a,r4
+      0003FE 3E               [12]  604 	addc	a,r6
+      0003FF FE               [12]  605 	mov	r6,a
+      000400 AA 1E            [24]  606 	mov	r2,_mixdata
+      000402 53 02 0F         [24]  607 	anl	ar2,#0x0f
+      000405 7B 00            [12]  608 	mov	r3,#0x00
+      000407 7C 00            [12]  609 	mov	r4,#0x00
+      000409 7D 00            [12]  610 	mov	r5,#0x00
+      00040B 8F 00            [24]  611 	mov	ar0,r7
+      00040D EE               [12]  612 	mov	a,r6
+      00040E F9               [12]  613 	mov	r1,a
+      00040F 33               [12]  614 	rlc	a
+      000410 95 E0            [12]  615 	subb	a,acc
+      000412 FE               [12]  616 	mov	r6,a
+      000413 FF               [12]  617 	mov	r7,a
+      000414 EA               [12]  618 	mov	a,r2
+      000415 28               [12]  619 	add	a,r0
+      000416 FA               [12]  620 	mov	r2,a
+      000417 EB               [12]  621 	mov	a,r3
+      000418 39               [12]  622 	addc	a,r1
+      000419 FB               [12]  623 	mov	r3,a
+      00041A EC               [12]  624 	mov	a,r4
+      00041B 3E               [12]  625 	addc	a,r6
+      00041C FC               [12]  626 	mov	r4,a
+      00041D ED               [12]  627 	mov	a,r5
+      00041E 3F               [12]  628 	addc	a,r7
+      00041F FD               [12]  629 	mov	r5,a
+      000420 A8 2A            [24]  630 	mov	r0,_check
+      000422 E5 2B            [12]  631 	mov	a,(_check + 1)
+      000424 F9               [12]  632 	mov	r1,a
+      000425 33               [12]  633 	rlc	a
+      000426 95 E0            [12]  634 	subb	a,acc
+      000428 FE               [12]  635 	mov	r6,a
+      000429 FF               [12]  636 	mov	r7,a
+      00042A E8               [12]  637 	mov	a,r0
+      00042B B5 02 0E         [24]  638 	cjne	a,ar2,00109$
+      00042E E9               [12]  639 	mov	a,r1
+      00042F B5 03 0A         [24]  640 	cjne	a,ar3,00109$
+      000432 EE               [12]  641 	mov	a,r6
+      000433 B5 04 06         [24]  642 	cjne	a,ar4,00109$
+      000436 EF               [12]  643 	mov	a,r7
+      000437 B5 05 02         [24]  644 	cjne	a,ar5,00109$
+      00043A 80 04            [24]  645 	sjmp	00102$
+      00043C                        646 00109$:
+      00043C 75 82 FF         [24]  647 	mov	dpl,#0xff
+      00043F 22               [24]  648 	ret
+      000440                        649 00102$:
                                     650 ;	./src/dht11.c:66: return 0;
-      000441 75 82 00         [24]  651 	mov	dpl,#0x00
+      000440 75 82 00         [24]  651 	mov	dpl,#0x00
                                     652 ;	./src/dht11.c:67: }
-      000444 22               [24]  653 	ret
+      000443 22               [24]  653 	ret
                                     654 	.area CSEG    (CODE)
                                     655 	.area CONST   (CODE)
                                     656 	.area XINIT   (CODE)

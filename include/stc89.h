@@ -1,18 +1,13 @@
 /*****************************************************************************/
 /** 
  * \file        stc89.h
- * \author      Jiabin Hsu  | zsiothsu@zhishan-iot.tk
- * \author      Weilun Fong | wlf@zhishan-iot.tk
- * \brief       register define header file for STC89 series MCU
- * \note        
- * \version     
- * \ingroup     generic
+ * \author      sanpe-qf
 ******************************************************************************/
 
-#ifndef ___HML_STC89_H___
-#define ___HML_STC89_H___
+#ifndef _STC89_H_
+#define _STC89_H_
 
-#include <8051.h>
+#include "8051.h"
 
 /*  BYTE Register  */
 __sfr __at (0x8E) AUXR      ;

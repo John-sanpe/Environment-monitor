@@ -8,6 +8,7 @@
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
+	.globl _printf
 	.globl _PX3
 	.globl _EX3
 	.globl _IE3
@@ -149,6 +150,8 @@
 	.globl _DPL
 	.globl _SP
 	.globl _P0
+	.globl _th2rl
+	.globl _tl2rl
 	.globl _tm
 	.globl _delayms
 	.globl _Int_Init
@@ -318,6 +321,10 @@ _PX3	=	0x00c7
 	.area DSEG    (DATA)
 _tm::
 	.ds 2
+_tl2rl::
+	.ds 1
+_th2rl::
+	.ds 1
 ;--------------------------------------------------------
 ; overlayable items in internal ram 
 ;--------------------------------------------------------
@@ -381,7 +388,7 @@ _tm::
 ;------------------------------------------------------------
 ;ms                        Allocated to registers r6 r7 
 ;------------------------------------------------------------
-;	./src/control.c:4: void delayms(unsigned int ms)
+;	./src/control.c:6: void delayms(unsigned int ms)
 ;	-----------------------------------------
 ;	 function delayms
 ;	-----------------------------------------
@@ -396,17 +403,21 @@ _delayms:
 	ar0 = 0x00
 	mov	r6,dpl
 	mov	r7,dph
-;	./src/control.c:6: TL2 = 0x30;		
-	mov	_TL2,#0x30
-;	./src/control.c:7: TH2 = 0xF8;
-	mov	_TH2,#0xf8
-;	./src/control.c:8: tm=ms;
+;	./src/control.c:8: RCAP2L = tl2rl;
+	mov	_RCAP2L,_tl2rl
+;	./src/control.c:9: RCAP2H = th2rl;
+	mov	_RCAP2H,_th2rl
+;	./src/control.c:10: TL2    = tl2rl;		
+	mov	_TL2,_tl2rl
+;	./src/control.c:11: TH2    = th2rl;
+	mov	_TH2,_th2rl
+;	./src/control.c:12: tm=ms;
 	mov	_tm,r6
 	mov	(_tm + 1),r7
-;	./src/control.c:9: TR2=1;
+;	./src/control.c:13: TR2=1;
 ;	assignBit
 	setb	_TR2
-;	./src/control.c:10: while(!(tm==0))idle();
+;	./src/control.c:14: while(!(tm==0))idle();
 00101$:
 	mov	a,_tm
 	orl	a,(_tm + 1)
@@ -414,92 +425,109 @@ _delayms:
 	lcall	_idle
 	sjmp	00101$
 00103$:
-;	./src/control.c:11: TR2=0;
+;	./src/control.c:15: TR2=0;
 ;	assignBit
 	clr	_TR2
-;	./src/control.c:13: }
+;	./src/control.c:17: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Int_Init'
 ;------------------------------------------------------------
-;	./src/control.c:15: void Int_Init()
+;	./src/control.c:19: void Int_Init()
 ;	-----------------------------------------
 ;	 function Int_Init
 ;	-----------------------------------------
 _Int_Init:
-;	./src/control.c:17: EA=1;
+;	./src/control.c:21: EA=1;
 ;	assignBit
 	setb	_EA
-;	./src/control.c:18: ET2=1;
-;	assignBit
-	setb	_ET2
-;	./src/control.c:19: ES=1;
+;	./src/control.c:22: ES=1;
 ;	assignBit
 	setb	_ES
-;	./src/control.c:20: }
+;	./src/control.c:23: ET2=1;
+;	assignBit
+	setb	_ET2
+;	./src/control.c:24: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'idle'
 ;------------------------------------------------------------
-;	./src/control.c:22: void idle()
+;	./src/control.c:26: void idle()
 ;	-----------------------------------------
 ;	 function idle
 ;	-----------------------------------------
 _idle:
-;	./src/control.c:24: PCON|=1<<0;
+;	./src/control.c:28: PCON|=1<<0;   //cpu sleep
 	orl	_PCON,#0x01
-;	./src/control.c:25: }
+;	./src/control.c:29: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Time0_Init'
 ;------------------------------------------------------------
-;	./src/control.c:27: void Time0_Init()
+;	./src/control.c:31: void Time0_Init()
 ;	-----------------------------------------
 ;	 function Time0_Init
 ;	-----------------------------------------
 _Time0_Init:
-;	./src/control.c:29: TMOD|= 0x02;
+;	./src/control.c:33: TMOD|= 0x02;
 	orl	_TMOD,#0x02
-;	./src/control.c:30: }
+;	./src/control.c:34: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'Time2_Init'
 ;------------------------------------------------------------
-;	./src/control.c:31: void Time2_Init()
+;load                      Allocated to registers 
+;------------------------------------------------------------
+;	./src/control.c:36: void Time2_Init()
 ;	-----------------------------------------
 ;	 function Time2_Init
 ;	-----------------------------------------
 _Time2_Init:
-;	./src/control.c:33: RCAP2L = 0x30;
-	mov	_RCAP2L,#0x30
-;	./src/control.c:34: RCAP2H = 0xF8;
-	mov	_RCAP2H,#0xf8
-;	./src/control.c:35: TL2 = 0x30;		
-	mov	_TL2,#0x30
-;	./src/control.c:36: TH2 = 0xF8;
-	mov	_TH2,#0xf8
-;	./src/control.c:37: }
+;	./src/control.c:39: th2rl = load/255;
+	mov	_th2rl,#0xf9
+;	./src/control.c:40: tl2rl = load%255;
+	mov	_tl2rl,#0x29
+;	./src/control.c:41: printf("%d%d\n",tl2rl,th2rl);
+	mov	a,#0xf9
+	push	acc
+	clr	a
+	push	acc
+	mov	a,#0x29
+	push	acc
+	clr	a
+	push	acc
+	mov	a,#___str_0
+	push	acc
+	mov	a,#(___str_0 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xf9
+	mov	sp,a
+;	./src/control.c:42: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'delayserver'
 ;------------------------------------------------------------
-;	./src/control.c:39: void delayserver() __interrupt 5
+;	./src/control.c:44: void delayserver() __interrupt 5
 ;	-----------------------------------------
 ;	 function delayserver
 ;	-----------------------------------------
 _delayserver:
 	push	acc
 	push	psw
-;	./src/control.c:41: tm--;
+;	./src/control.c:46: tm--;
 	dec	_tm
 	mov	a,#0xff
 	cjne	a,_tm,00103$
 	dec	(_tm + 1)
 00103$:
-;	./src/control.c:42: TF2=0;
+;	./src/control.c:47: TF2=0;
 ;	assignBit
 	clr	_TF2
-;	./src/control.c:43: }
+;	./src/control.c:48: }
 	pop	psw
 	pop	acc
 	reti
@@ -509,5 +537,11 @@ _delayserver:
 ;	eliminated unneeded push/pop b
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
+	.area CONST   (CODE)
+___str_0:
+	.ascii "%d%d"
+	.db 0x0a
+	.db 0x00
+	.area CSEG    (CODE)
 	.area XINIT   (CODE)
 	.area CABS    (ABS,CODE)
