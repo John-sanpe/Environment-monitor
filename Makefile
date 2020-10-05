@@ -50,31 +50,19 @@ hex:project
 	packihx $(obj)$(ihxname) > $(output)${hexname}
 	
 PHONY += project
-project:$(objects)
+project:objects
 	$(cc) $(objects) -o $(obj)main.ihx
 	
-$(obj)control.rel:$(src)control.c
+objects:create
 	$(cc) -c $(src)control.c -o $(obj)
-	
-$(obj)dht11.rel:$(src)dht11.c
 	$(cc) -c $(src)dht11.c -o $(obj)
-	
-$(obj)e2prom.rel:$(src)e2prom.c
 	$(cc) -c $(src)e2prom.c -o $(obj)
-	
-$(obj)lcd1602.rel:$(src)lcd1602.c
 	$(cc) -c $(src)lcd1602.c -o $(obj)
-	
-$(obj)main.rel:$(src)main.c
 	$(cc) -c $(src)main.c -o $(obj)
-	
-$(obj)serial.rel:$(src)serial.c
 	$(cc) -c $(src)serial.c -o $(obj)
-	
-	
-$(obj)wdt.rel:$(src)wdt.c
 	$(cc) -c $(src)wdt.c -o $(obj)
-	
+create:
+	mkdir obj output
 PHONY += clean
 clean:
 	rm $(obj)*
