@@ -12,6 +12,7 @@ help:
 	@echo "Usage: make                same as make help"
 	@echo "       make help           same as make"
 	@echo "       make auto           auto make and flash"
+	@echo "       make bin            create bin"
 	@echo "       make hex            create hex"
 	@echo "       make project        create ihx"
 	@echo "       make clean          remove redundant data"
@@ -28,21 +29,27 @@ help:
 	@echo "       hexname=${hexname}"
 	@echo "       objects=${objects}"
 	@echo "       flashtool=${flashtool}"
+PHONY += install
 install:
 	yay -S sdcc stcflash-git
 	
+PHONY += auto
 auto:bin
 	${flashtool} ${output}${binname}
 	
+PHONY += flash
 flash: 
 	${flashtool} ${output}${binname}
 	
+PHONY += bin
 bin:hex
 	objcopy -I ihex -O binary $(output)${hexname} $(output)${binname}
 	
+PHONY += hex
 hex:project
 	packihx $(obj)$(ihxname) > $(output)${hexname}
 	
+PHONY += project
 project:$(objects)
 	$(cc) $(objects) -o $(obj)main.ihx
 	
@@ -68,10 +75,13 @@ $(obj)serial.rel:$(src)serial.c
 $(obj)wdt.rel:$(src)wdt.c
 	$(cc) -c $(src)wdt.c -o $(obj)
 	
-.PHONY:clean
+PHONY += clean
 clean:
 	rm $(obj)*
 
+PHONY += distclean
 distclean:
 	rm $(output)*
 	rm $(obj)*
+
+.PHONY:$(PHONY)
