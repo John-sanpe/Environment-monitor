@@ -62,14 +62,14 @@ objects:create
 	$(cc) -c $(src)serial.c -o $(obj)
 	$(cc) -c $(src)wdt.c -o $(obj)
 create:
-	mkdir obj output
+	-mkdir obj output
 PHONY += clean
 clean:
-	rm $(obj)*
+	-rm $(obj)*
 
 PHONY += distclean
 distclean:
-	rm $(output)*
-	rm $(obj)*
+	-rm $(output)*
+	-rm $(obj)*
 
 .PHONY:$(PHONY)
